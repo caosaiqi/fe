@@ -1,0 +1,17 @@
+{
+  "status": 0,
+  "message": "获取待结算供货商信息成功",
+  "sys_msg": null,
+  "mapi_query": 0,
+  "data": {
+      "page_num": 1,
+      "page_size": 10,
+      "total_page": 2,
+      "data_count": 16,
+      "data": [
+        {
+          "name": "test"
+        }
+      ]
+  }
+}

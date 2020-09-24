@@ -1,0 +1,14 @@
+{
+  "code": 1,
+  "message": "ok ",
+  "data": {
+    "0": {
+      "id": "6",
+      "if_show": "1",
+      "text": "账号管理",
+      "uri": "/",
+      "operation": "<a href=\"/admin_user?edit=6\">修改</a> <a href=\"/admin_user?del=6\">删除</a>",
+      "checked": false
+    }
+  }
+}

@@ -51,15 +51,16 @@ module.exports = [
         code: 200,
         message: undefined,
         data: {
+          code: 200,
+          message: undefined,
           list: pageList,
           // 当前多少页
-          page,
-          // 当前页显示多少条
-          limit,
-          // 一共多少页
-          pages: 233,
-          // 共计多少条数据
-          total: mockList.length
+          pagination: {
+            page,
+            pageSize: limit,
+            pages: 222,
+            total: 222
+          }
         }
       }
     }

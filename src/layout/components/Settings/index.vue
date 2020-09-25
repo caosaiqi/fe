@@ -5,7 +5,7 @@
 
       <div class="drawer-item">
         <span>Theme Color</span>
-        <theme-picker style="float: right;height: 26px;margin: -3px 8px 0 0;" @change="themeChange" />
+        <!-- <theme-picker style="float: right;height: 26px;margin: -3px 8px 0 0;" @change="themeChange" /> -->
       </div>
 
       <div class="drawer-item">
@@ -28,10 +28,10 @@
 </template>
 
 <script>
-import ThemePicker from '@/components/ThemePicker'
+// import ThemePicker from '@/components/ThemePicker'
 
 export default {
-  components: { ThemePicker },
+  // components: { ThemePicker },
   data() {
     return {}
   },

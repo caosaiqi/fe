@@ -83,16 +83,18 @@ export default {
         const { onSearch } = this.seachFormConfig
         if (_.isFunction(onSearch)) {
           const values = onSearch(_formModel)
+
           // 返回false 不刷新列表
           if (values === false) {
             return
           }
+
           if (typeof values === 'object' && values !== null) {
             _formModel = values
           }
         }
       }
-      this.tableConfig['queryParams'] = _formModel
+      this.tableConfig.queryParams = _formModel
     }
   }
 }

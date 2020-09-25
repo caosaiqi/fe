@@ -1,6 +1,5 @@
 <template>
   <div style="padding:20px">
-    {{ queryParams }}
     <el-table
       v-loading="loading"
       :data="tableData"
@@ -12,13 +11,18 @@
         v-bind="col"
         :row="tableData[index]"
       />
+      <table-action
+        v-if="actions && actions.length > 0"
+        :actions="actions"
+      />
     </el-table>
   </div>
 </template>
 <script>
 import controller from './controller'
 import TableColumn from './components/TableColumn'
-
+import TableAction from './components/TableAction'
+import { TABLE_ID } from './constants'
 const tableDefaultAttributes = {
   'border': true,
   'highlight-current-row': true
@@ -28,10 +32,11 @@ export default {
   name: 'PageTable',
 
   // 组件固定唯一ID
-  componentName: 'PageTable',
+  componentName: TABLE_ID,
 
   components: {
-    TableColumn
+    TableColumn,
+    TableAction
   },
   mixins: [controller],
   props: {
@@ -39,8 +44,8 @@ export default {
       required: true,
       type: String
     },
-    // eslint-disable-next-line vue/require-default-prop
     queryParams: {
+      required: true,
       type: [Function, Object]
     },
     // 列配置

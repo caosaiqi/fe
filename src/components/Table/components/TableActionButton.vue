@@ -1,0 +1,45 @@
+<template>
+  <el-button v-bind="btnAttrs" @click="handleClick">
+    {{ label }}
+  </el-button>
+</template>
+
+<script>
+import mixin from '../mixin.js'
+import { ACTION_BUTTON_DEFAULT_ATTRS, ACTION_BUTTON_DEFAULT_LABEL } from '../constants'
+
+export default {
+  name: 'TableActionButton',
+  mixins: [mixin],
+  props: {
+    label: {
+      type: String,
+      default: ACTION_BUTTON_DEFAULT_LABEL
+    },
+    action: {
+      type: Function,
+      default: () => {}
+    },
+    scope: {
+      required: true,
+      type: Object
+    }
+  },
+  computed: {
+    btnAttrs() {
+      return Object.assign({}, ACTION_BUTTON_DEFAULT_ATTRS, this.$attrs)
+    }
+  },
+  methods: {
+    handleClick() {
+      const pageTable = this.getTable()
+      const { row = {}} = this.scope
+      this.action.call(pageTable, row, this.scope)
+    }
+  }
+}
+</script>
+
+<style>
+
+</style>

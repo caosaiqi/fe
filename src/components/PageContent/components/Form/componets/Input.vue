@@ -13,8 +13,8 @@ export default {
       required: true,
       type: [String, Number]
     },
-    // eslint-disable-next-line vue/require-default-prop
     id: {
+      required: true,
       type: [String, Number]
     }
   },

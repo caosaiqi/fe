@@ -1,7 +1,9 @@
 
 <script>
+import mixin from '../mixin.js'
 export default {
   name: 'PageTableColumn',
+  mixins: [mixin],
   props: {
     prop: {
       required: true,
@@ -18,22 +20,6 @@ export default {
     render: {
       type: Function,
       default: undefined
-    }
-  },
-  methods: {
-    getComponent(componentName) {
-      let parent = this.$parent
-      let name = parent.$options.componentName
-      while (parent && (!name || name !== componentName)) {
-        parent = parent.$parent
-        if (parent) {
-          name = parent.$options.componentName
-        }
-      }
-      if (name !== componentName) {
-        return this
-      }
-      return parent
     }
   },
   render(h) {

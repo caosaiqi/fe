@@ -1,5 +1,7 @@
 <template>
-  <el-input v-model="data" v-bind="$attrs" placeholder="请输入内容" @input="handleInput" />
+  <div>
+    <el-input v-model="data" v-bind="$attrs" placeholder="请输入内容" @input="handleInput" />
+  </div>
 </template>
 
 <script>
@@ -20,7 +22,15 @@ export default {
   },
   data() {
     return {
-      data: this.value
+      data: undefined
+    }
+  },
+  watch: {
+    value: {
+      handler(v) {
+        this.data = v
+      },
+      immediate: true
     }
   },
   methods: {

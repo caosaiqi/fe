@@ -1,10 +1,6 @@
-<template>
-  <div>
-    asdas
-  </div>
-</template>
-
 <script>
+import _ from 'lodash'
+
 export default {
   name: 'PageFormItemLabel',
   props: {
@@ -15,10 +11,18 @@ export default {
   },
   created() {
     console.log(this)
+  },
+  render(h) {
+    let content = this.label
+    if (_.isFunction(this.label)) {
+      content = this.label(h)
+    }
+    return (
+      <div>
+        { content }
+      </div>
+    )
   }
 }
 </script>
 
-<style>
-
-</style>

@@ -38,7 +38,10 @@ export default {
               label: '名称'
             },
             {
-              label: '城市',
+              // label
+              label() {
+                return <button>可以自定义label</button>
+              },
               items: [
                 {
                   id: 'city'

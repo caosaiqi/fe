@@ -1,12 +1,12 @@
 <template>
   <el-form style="padding:20px" v-bind="attributes" :model="model">
     <el-form-item v-for="(item, index) in formItems" :key="`${item.name}-${index}`">
-      <Label slot="label" :lable="item.label" />
+      <Label slot="label" :label="item.label" />
       <Main v-bind="item" :model="model" />
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="handleSeach">搜索</el-button>
-      <el-button>全部</el-button>
+      <el-button @click="handleClear">全部</el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -20,6 +20,11 @@ import emitter from '@/mixins/emitter'
 const formDefaultAttributes = {
   inline: true,
   size: 'small'
+}
+
+const defaultTypeValues = {
+  input: '',
+  select: undefined
 }
 
 export default {
@@ -52,45 +57,34 @@ export default {
     }
   },
   created() {
-    this.formatModel(this.formItems)
-    this.$on('onSetModel', (object) => {
-      if (_ && _.isObject(object)) {
-        Object.assign(this.model, object)
-      }
-    })
+    this.initModel(this.formItems)
+    this.$on('onSetModel', this.handleSetModel)
   },
   methods: {
-    setDefaultValue(type, value) {
-      const defaultValues = {
-        input: '',
-        select: undefined
-        // 后续再加
-      }
-      return defaultValues[type]
-    },
-    formatModel(formItems) {
-      const setDefaultValue = (type, value) => {
-        const defaultValues = {
-          input: '',
-          select: undefined
-        }
-        return defaultValues[type]
-      }
+    initModel(formItems) {
       for (let i = 0; i < formItems.length; i++) {
         const { id, type = 'input', items, value } = formItems[i]
         if (items && items.length > 0) {
-          return this.formatModel(items.map(item => {
+          return this.initModel(items.map(item => {
             return {
               ...item,
               id: id ? `${id}__${item.id}` : item.id
             }
           }))
         }
-        this.$set(this.model, id, value || setDefaultValue(type))
-        // this.model[id] = value || setDefaultValue(type)
+        this.$set(this.model, id, (value || defaultTypeValues[type]))
+      }
+    },
+    handleSetModel(data) {
+      if (data && _.isObject(data)) {
+        Object.assign(this.model, data)
       }
     },
     handleSeach() {
+      this.dispatch('PageContent', 'onFetchList', this.model)
+    },
+    handleClear() {
+      this.initModel(this.formItems)
       this.dispatch('PageContent', 'onFetchList', this.model)
     }
   }

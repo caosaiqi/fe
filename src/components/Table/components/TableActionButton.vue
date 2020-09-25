@@ -1,7 +1,7 @@
 <template>
-  <el-button v-bind="btnAttrs" @click="handleClick">
+  <a class="table-action-button" v-bind="btnAttrs" @click="handleClick">
     {{ label }}
-  </el-button>
+  </a>
 </template>
 
 <script>
@@ -40,6 +40,11 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+ .table-action-button {
+    display: inline-block;
+    padding: 0 8px;
+    line-height: 1;
+    color: #1890ff
+ }
 </style>

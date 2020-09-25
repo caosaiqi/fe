@@ -1,8 +1,7 @@
 <template>
   <el-popover v-bind="popoverAttrs">
     <table-action-button slot="reference" :scope="scope" />
-
-    <div class="">
+    <div class="table-action-popover-content">
       <span v-for="(btnItem, index) in subActions" :key="index">
         <table-action-button v-bind="btnItem" :scope="scope" />
       </span>
@@ -40,6 +39,9 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+ .table-action-popover-content{
+   text-align: center;
+ }
 </style>
+

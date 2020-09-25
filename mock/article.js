@@ -49,7 +49,6 @@ module.exports = [
 
       return {
         code: 200,
-        message: undefined,
         data: {
           code: 200,
           message: undefined,

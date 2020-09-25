@@ -6,8 +6,6 @@ export default class Manager {
   }
 
   list({ params } = {}) {
-    // eslint-disable-next-line no-proto
-    console.log(request.get)
     return request.get(`${this.resource}`, params)
   }
 

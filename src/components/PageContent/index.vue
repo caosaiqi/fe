@@ -1,7 +1,7 @@
 <template>
   <el-container class="page" direction="vertical">
     <page-header v-if="headerConfig" v-bind="headerConfig" />
-    <page-form v-if="seachFormConfig" v-bind="seachFormConfig" />
+    <page-search v-if="seachConfig" v-bind="seachConfig" />
     <page-table v-if="tableConfig" v-bind="tableConfig" />
   </el-container>
 </template>
@@ -9,7 +9,7 @@
 <script>
 import _ from 'lodash'
 import PageHeader from './components/Header'
-import PageForm from './components/Form'
+import PageSearch from './components/Search'
 import PageTable from '@@/Table'
 
 export default {
@@ -20,55 +20,56 @@ export default {
 
   components: {
     PageHeader,
-    PageForm,
+    PageSearch,
     PageTable
   },
   props: {
-    header: {
+    headerContent: {
       type: [String, Object],
       default: undefined
     },
-    seachForm: {
+    searchContent: {
       type: Object,
       default: undefined
     },
-    table: {
+    tableContent: {
       type: Object,
       default: undefined
     }
   },
   computed: {
     headerConfig() {
-      if (_.isEmpty(this.header)) {
+      if (_.isEmpty(this.headerContent)) {
         return false
       }
-      if (_.isString(this.header)) {
+      if (_.isString(this.headerContent)) {
         return {
-          title: this.header
+          title: this.headerContent
         }
       }
-      return this.header
+      return this.headerContent
     },
-    seachFormConfig() {
-      if (_.isEmpty(this.seachForm) || _.isEmpty(this.seachForm.formItems)) {
+    seachConfig() {
+      console.log(this.searchContent)
+      if (_.isEmpty(this.searchContent) || _.isEmpty(this.searchContent.formItems)) {
         return false
       }
-      return this.seachForm
+      return this.searchContent
     },
     tableConfig() {
-      if (_.isEmpty(this.table) || _.isEmpty(this.table.resources)) {
+      if (_.isEmpty(this.tableContent) || _.isEmpty(this.tableContent.resources)) {
         return false
       }
 
-      const { queryParams } = this.table
+      const { queryParams } = this.tableContent
       if (queryParams === undefined) {
-        this.$set(this.table, 'queryParams', {})
+        this.$set(this.tableContent, 'queryParams', {})
       }
       if (_.isFunction(queryParams)) {
-        this.$set(this.table, 'queryParams', queryParams())
+        this.$set(this.tableContent, 'queryParams', queryParams())
       }
 
-      return this.table
+      return this.tableContent
     }
   },
   created() {

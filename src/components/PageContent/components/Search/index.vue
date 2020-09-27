@@ -1,5 +1,5 @@
 <template>
-  <el-form style="padding:20px" v-bind="attributes" :model="model">
+  <el-form style="padding:20px" v-bind="formAttributes" :model="model">
     <el-form-item v-for="(item, index) in formItems" :key="`${item.name}-${index}`">
       <Label slot="label" :label="item.label" />
       <Main v-bind="item" :model="model" />
@@ -49,7 +49,7 @@ export default {
     }
   },
   computed: {
-    attributes() {
+    formAttributes() {
       if (this.$attrs) {
         return Object.assign(formDefaultAttributes, this.$attrs)
       }

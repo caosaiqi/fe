@@ -4,15 +4,18 @@ import _ from 'lodash'
 
 export default function(config) {
   const {
-    header,
-    seachForm,
-    table
+    headerContent,
+    searchContent,
+    tableContent
   } = config
   const name = _.uniqueId('page-content-template')
   return Vue.extend({
     name,
     render() {
-      return <PageContent header={header} seachForm={seachForm} table={table} />
+      return <PageContent
+        headerContent={headerContent}
+        searchContent={searchContent}
+        tableContent={tableContent} />
     }
   })
 }

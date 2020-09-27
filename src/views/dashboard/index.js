@@ -1,7 +1,7 @@
-import pageContentTenplate from '@@/PageContent/template.js'
+import pageContentTemplate from '@@/PageContent/template.js'
 
 // 头部内容
-const header = {
+const headerContent = {
   title: '电商管理-POP店管理-店铺管理',
   actions: [{
     title: '修改'
@@ -9,7 +9,7 @@ const header = {
 }
 
 // 筛选
-const seachForm = {
+const searchContent = {
   onSearch(values) {
     /*
      * return false表示不再刷新列表
@@ -20,7 +20,8 @@ const seachForm = {
   formItems: [
     {
       id: 'name',
-      label: '名称'
+      label: '名称',
+      placeholder: '12312312312'
     },
     {
       label() {
@@ -39,14 +40,14 @@ const seachForm = {
 }
 
 // 列表
-const table = {
+const tableContent = {
   resources: 'orders',
   /**
    * table 默认查询参数
    * queryParams: {
-     *  name: '1'
-     * },
-     **/
+   *  name: '1'
+   * },
+   **/
   columns: [
     {
       prop: 'name',
@@ -90,8 +91,8 @@ const table = {
   ]
 }
 
-export default pageContentTenplate({
-  header,
-  seachForm,
-  table
+export default pageContentTemplate({
+  headerContent,
+  searchContent,
+  tableContent
 })

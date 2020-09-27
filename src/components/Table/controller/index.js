@@ -36,6 +36,7 @@ export default {
       }
     },
     async fetchList(params) {
+      console.log('asdasd', params)
       try {
         this.loading = true
         const { data } = await this.manager.list(params)
@@ -53,7 +54,6 @@ export default {
     refresh(id) {},
 
     fetchCreate() {
-      
     },
 
     fetchRemove() {},

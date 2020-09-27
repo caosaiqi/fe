@@ -1,5 +1,8 @@
 <template>
   <div style="padding:20px">
+    <h2>
+      {{ queryParams }}
+    </h2>
     <el-table
       v-loading="loading"
       v-bind="tableConfig"

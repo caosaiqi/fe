@@ -2,12 +2,11 @@
   <div style="padding:20px">
     <el-table
       v-loading="loading"
-      :data="tableData"
-      v-bind="attributes"
+      v-bind="tableConfig"
     >
       <table-column
         v-for="(col, index) in columns"
-        :key="`${index}-${col.prop}`"
+        :key="`${index}-${col.prop || ''}`"
         v-bind="col"
         :row="tableData[index]"
       />
@@ -23,6 +22,7 @@ import controller from './controller'
 import TableColumn from './components/TableColumn'
 import TableAction from './components/TableAction'
 import { TABLE_ID } from './constants'
+
 const tableDefaultAttributes = {
   'border': true,
   'highlight-current-row': true
@@ -40,13 +40,15 @@ export default {
   },
   mixins: [controller],
   props: {
+    // 列表资源
     resources: {
       required: true,
       type: String
     },
+    // 列表查询参数
     queryParams: {
       required: true,
-      type: [Function, Object]
+      type: Object
     },
     // 列配置
     columns: {
@@ -59,31 +61,17 @@ export default {
       default: undefined
     }
   },
-  data() {
-    return {
-      tableData: [{
-        date: '2016-05-02',
-        name: '王小虎1',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-04',
-        name: '王小虎2',
-        address: '上海市普陀区金沙江路 1517 弄'
-      }, {
-        date: '2016-05-01',
-        name: '王小虎3',
-        address: '上海市普陀区金沙江路 1519 弄'
-      }, {
-        date: '2016-05-03',
-        name: '王小虎4',
-        address: '上海市普陀区金沙江路 1516 弄'
-      }]
-    }
-  },
   computed: {
-    attributes() {
+    tableData() {
+      // mixins data
+      const { list = [] } = this.pageList
+      return list
+    },
+    tableConfig() {
       if (this.$attrs) {
-        return Object.assign(tableDefaultAttributes, this.$attrs)
+        return Object.assign(tableDefaultAttributes, this.$attrs, {
+          data: this.tableData
+        })
       }
       return tableDefaultAttributes
     }

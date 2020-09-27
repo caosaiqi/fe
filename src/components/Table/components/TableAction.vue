@@ -9,9 +9,9 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import TableActionButton from './TableActionButton'
 import TableActionPopoverButtons from './TableActionPopoverButtons'
-import _ from 'lodash'
 
 export default {
   name: 'PageTableActions',

@@ -9,9 +9,6 @@ export default {
       default: undefined
     }
   },
-  created() {
-    console.log(this)
-  },
   render(h) {
     let content = this.label
     if (_.isFunction(this.label)) {

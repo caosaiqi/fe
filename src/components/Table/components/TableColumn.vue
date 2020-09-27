@@ -14,8 +14,9 @@ export default {
       type: String
     },
     row: {
-      required: true,
-      type: Object
+      // required: true,
+      type: Object,
+      default: () => ({})
     },
     render: {
       type: Function,

@@ -18,21 +18,21 @@ export default {
   },
   created() {
     this.manager = new Manager(this.resources)
+    this.fetchList(this.queryParams)
   },
   methods: {
     formatPageListSuccess(pageList) {
       const { code, list = [], pagination = {}} = pageList
       // 成功状态
-      if (code === 200 && _.isArray(list) && _.isEmpty(list)) {
+      if (code === 200 && _.isArray(list) && !_.isEmpty(list)) {
         return {
           list,
           pagination
         }
-      } else {
-        return {
-          list: [],
-          pagination: null
-        }
+      }
+      return {
+        list: [],
+        pagination: null
       }
     },
     async fetchList(params) {

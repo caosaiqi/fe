@@ -35,6 +35,10 @@ export default {
     items: {
       type: Array,
       default: undefined
+    },
+    label: {
+      type: [String, Function],
+      default: undefined
     }
   },
   computed: {
@@ -49,31 +53,36 @@ export default {
         input: '请输入',
         select: '请选择'
       }
+      const _items = []
       if (this.items && this.items.length > 0) {
-        return this.items.map((item) => {
+        this.items.forEach((item) => {
           const type = item.type || 'Input'
           const id = this.id ? `${this.id}__${item.id}` : item.id
           const value = this.model[id]
-          return {
+          _items.push({
             type,
             id,
             value,
             // 同步model的id
             placeholder: placeholderType[type],
             ...inputDefaultAttributes,
-            ...item
-          }
+            ...item,
+            ...this.$attrs
+          })
+        })
+      } else {
+        const id = this.id
+        const value = this.model[id]
+        _items.push({
+          id,
+          value,
+          type: this.type,
+          placeholder: placeholderType[this.type],
+          ...inputDefaultAttributes,
+          ...this.$attrs
         })
       }
-      const id = this.id
-      const value = this.model[id]
-      return [{
-        type: this.type,
-        id,
-        value,
-        placeholder: placeholderType[this.type],
-        ...inputDefaultAttributes
-      }]
+      return _items
     }
   },
   methods: {

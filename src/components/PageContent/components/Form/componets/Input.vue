@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-input v-model="data" v-bind="$attrs" placeholder="请输入内容" @input="handleInput" />
+    <el-input v-model="data" v-bind="$attrs" :placeholder="placeholder" @input="handleInput" />
   </div>
 </template>
 
@@ -11,13 +11,17 @@ export default {
   name: 'PageFormItemInput',
   mixins: [emitter],
   props: {
+    id: {
+      required: true,
+      type: [String, Number]
+    },
     value: {
       required: true,
       type: [String, Number]
     },
-    id: {
-      required: true,
-      type: [String, Number]
+    placeholder: {
+      type: String,
+      default: '请输入内容'
     }
   },
   data() {

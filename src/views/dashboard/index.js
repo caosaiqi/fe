@@ -66,19 +66,20 @@ const tableContent = {
       label: '删除',
       action(row) {
         console.log(this, row)
+        // this.remoev(id)
       }
     },
     {
       label: '更多',
       /**
-         * 使用弹框（el-popover）形式展示更多按钮
-         **/
+       * 使用弹框（el-popover）形式展示更多按钮
+       **/
       subActions: [
         {
           label: '下单',
           /**
-             * action方法内部this指定当前table，您可以调用table下面所用方法，比如fetchList
-             **/
+           * action方法内部this指定当前table，您可以调用table下面所用方法，比如fetchList
+           **/
           action(row) {
             console.log(row)
           }

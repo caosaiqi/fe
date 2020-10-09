@@ -21,7 +21,7 @@ const searchContent = {
     {
       id: 'name',
       label: '名称',
-      placeholder: '12312312312'
+      value: '12312312312'
     },
     {
       label() {
@@ -51,7 +51,10 @@ const tableContent = {
   columns: [
     {
       prop: 'name',
-      label: '名称'
+      label: '名称',
+      render() {
+        return '12312'
+      }
     },
     {
       prop: 'status',

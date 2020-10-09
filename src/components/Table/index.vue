@@ -1,8 +1,5 @@
 <template>
   <div style="padding:20px">
-    <h2>
-      {{ queryParams }}
-    </h2>
     <el-table
       v-loading="loading"
       v-bind="tableConfig"
@@ -21,9 +18,9 @@
   </div>
 </template>
 <script>
-import controller from './controller'
-import TableColumn from './components/TableColumn'
-import TableAction from './components/TableAction'
+import tableController from './mixins/tableController'
+import TableColumn from './components/Column'
+import TableAction from './components/Action'
 import { TABLE_ID } from './constants'
 
 const tableDefaultAttributes = {
@@ -41,7 +38,7 @@ export default {
     TableColumn,
     TableAction
   },
-  mixins: [controller],
+  mixins: [tableController],
   props: {
     // 列表资源
     resources: {

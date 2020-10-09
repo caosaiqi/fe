@@ -1,9 +1,10 @@
 {
-  "name": "vue-element-admin",
+  "name": "acp",
   "version": "4.4.0",
   "description": "A magical vue admin. An out-of-box UI solution for enterprise applications. Newest development stack of vue. Lots of awesome features",
   "author": "Pan <panfree23@gmail.com>",
   "scripts": {
+    "start": "vue-cli-service serve",
     "dev": "vue-cli-service serve",
     "lint": "eslint --ext .js,.vue src",
     "build:prod": "vue-cli-service build",

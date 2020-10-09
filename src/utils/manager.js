@@ -5,15 +5,29 @@ export default class Manager {
     this.resource = resource
   }
 
-  list({ params } = {}) {
+  /**
+   * @params {object} body
+   * @returns {object} promise
+  */
+  list(params) {
     return request.get(`${this.resource}`, params)
   }
 
-  create({ params } = {}) {
-    return request.post(`${this.resource}`, params)
+  /**
+   * @path {string} url
+   * @params {object} body
+   * @returns {object} promise
+  */
+  post(path, params) {
+    return request.post(`${this.resource}/${path}`, params)
   }
 
-  get({ id, params } = {}) {
-    return request.get(`${this.resource}/${id}`, { params })
+  /**
+   * @path {string} url
+   * @params {object} body
+   * @returns {object} promise
+  */
+  get(path, params) {
+    return request.get(`${this.resource}/${path}`, { params })
   }
 }

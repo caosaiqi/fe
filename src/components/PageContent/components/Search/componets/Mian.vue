@@ -1,7 +1,11 @@
 <template>
   <el-row :gutter="5">
     <el-col v-for="(inputItem, index) in inputItems" :key="index" :span="span">
-      <component :is="getComponent(inputItem)" v-bind="inputItem" />
+      <component
+        :is="getComponent(inputItem)"
+        :value.sync="inputItem.value"
+        v-bind="inputItem"
+      />
     </el-col>
   </el-row>
 </template>

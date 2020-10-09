@@ -10,8 +10,8 @@
 
 <script>
 import _ from 'lodash'
-import TableActionButton from './TableActionButton'
-import TableActionPopoverButtons from './TableActionPopoverButtons'
+import TableActionButton from './ActionButton'
+import TableActionPopoverButtons from './ActionPopoverButtons'
 
 export default {
   name: 'PageTableActions',

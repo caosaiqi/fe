@@ -49,14 +49,9 @@ export default {
         }, 200)
       }
     },
-
-    refresh(id) {},
-
     fetchCreate() {
     },
-
     fetchRemove() {},
-
     fetchUpdate() {}
   }
 }

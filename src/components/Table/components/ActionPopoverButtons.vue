@@ -1,9 +1,9 @@
 <template>
   <el-popover v-bind="popoverAttrs">
-    <table-action-button slot="reference" :scope="scope" />
+    <action-button slot="reference" :scope="scope" />
     <div class="table-action-popover-content">
       <span v-for="(btnItem, index) in subActions" :key="index">
-        <table-action-button v-bind="btnItem" :scope="scope" />
+        <action-button v-bind="btnItem" :scope="scope" />
       </span>
     </div>
 
@@ -11,14 +11,14 @@
 </template>
 
 <script>
-import mixin from '../mixin.js'
-import TableActionButton from './TableActionButton'
+import mixin from '../mixins/common'
+import ActionButton from './ActionButton'
 import { ACTION_POPOCER_DEFAULT_ATTRS } from '../constants'
 
 export default {
   name: 'TableActionPopoverButtons',
   components: {
-    TableActionButton
+    ActionButton
   },
   mixins: [mixin],
   props: {

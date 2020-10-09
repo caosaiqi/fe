@@ -3,19 +3,17 @@ import PageContent from './index'
 import _ from 'lodash'
 
 export default function(config) {
-  const {
-    headerContent,
-    searchContent,
-    tableContent
-  } = config
   const name = _.uniqueId('page-content-template')
   return Vue.extend({
     name,
+    data() {
+      return config
+    },
     render() {
       return <PageContent
-        headerContent={headerContent}
-        searchContent={searchContent}
-        tableContent={tableContent} />
+        headerContent={this.headerContent}
+        searchContent={this.searchContent}
+        tableContent={this.tableContent} />
     }
   })
 }

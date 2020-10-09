@@ -1,7 +1,7 @@
 <template>
-  <el-container class="page" direction="vertical">
+  <el-container class="page-content" direction="vertical">
     <page-header v-if="headerConfig" v-bind="headerConfig" />
-    <page-search v-if="seachConfig" v-bind="seachConfig" />
+    <page-search v-if="searchConfig" v-bind="searchConfig" />
     <page-table v-if="tableConfig" v-bind="tableConfig" />
   </el-container>
 </template>
@@ -25,7 +25,7 @@ export default {
   },
   props: {
     headerContent: {
-      type: [String, Object],
+      type: Object,
       default: undefined
     },
     searchContent: {
@@ -35,6 +35,11 @@ export default {
     tableContent: {
       type: Object,
       default: undefined
+    }
+  },
+  data() {
+    return {
+      tableQueryParams: {}
     }
   },
   computed: {
@@ -49,8 +54,7 @@ export default {
       }
       return this.headerContent
     },
-    seachConfig() {
-      console.log(this.searchContent)
+    searchConfig() {
       if (_.isEmpty(this.searchContent) || _.isEmpty(this.searchContent.formItems)) {
         return false
       }
@@ -60,7 +64,6 @@ export default {
       if (_.isEmpty(this.tableContent) || _.isEmpty(this.tableContent.resources)) {
         return false
       }
-
       const { queryParams } = this.tableContent
       if (queryParams === undefined) {
         this.$set(this.tableContent, 'queryParams', {})
@@ -68,7 +71,6 @@ export default {
       if (_.isFunction(queryParams)) {
         this.$set(this.tableContent, 'queryParams', queryParams())
       }
-
       return this.tableContent
     }
   },
@@ -95,14 +97,14 @@ export default {
           }
         }
       }
-      this.tableConfig.queryParams = _formModel
+      this.$set(this.tableConfig, 'queryParams', _formModel)
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-  .page {
+  .page-content {
     box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
   }
 </style>>

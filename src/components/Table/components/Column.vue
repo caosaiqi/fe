@@ -1,6 +1,6 @@
 
 <script>
-import mixin from '../mixin.js'
+import mixin from '../mixins/common'
 export default {
   name: 'PageTableColumn',
   mixins: [mixin],

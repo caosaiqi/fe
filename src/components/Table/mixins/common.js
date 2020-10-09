@@ -1,4 +1,4 @@
-import { TABLE_ID } from './constants'
+import { TABLE_ID } from '../constants'
 
 export default {
   methods: {

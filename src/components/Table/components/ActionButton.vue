@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import mixin from '../mixin.js'
+import mixin from '../mixins/common'
 import { ACTION_BUTTON_DEFAULT_ATTRS, ACTION_BUTTON_DEFAULT_LABEL } from '../constants'
 
 export default {

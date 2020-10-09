@@ -1,5 +1,5 @@
 <template>
-  <el-form style="padding:20px" v-bind="formAttributes" :model="model">
+  <el-form class="page-search-form" v-bind="formAttributes" :model="model">
     <el-form-item v-for="(item, index) in formItems" :key="`${item.name}-${index}`">
       <Label slot="label" :label="item.label" />
       <Main v-bind="item" :model="model" />
@@ -17,15 +17,10 @@ import Label from './componets/Label'
 import Main from './componets/Mian'
 import emitter from '@/mixins/emitter'
 
-const formDefaultAttributes = {
-  inline: true,
-  size: 'small'
-}
-
-const defaultTypeValues = {
-  input: '',
-  select: undefined
-}
+import {
+  FORM_DEFAULT_ATTRS,
+  INPUT_DEFAULT_VALUES
+} from '@@/PageContent/constants'
 
 export default {
   name: 'PageForm',
@@ -50,10 +45,7 @@ export default {
   },
   computed: {
     formAttributes() {
-      if (this.$attrs) {
-        return Object.assign(formDefaultAttributes, this.$attrs)
-      }
-      return formDefaultAttributes
+      return _.cloneDeep(FORM_DEFAULT_ATTRS, this.$attrs)
     }
   },
   created() {
@@ -72,7 +64,7 @@ export default {
             }
           }))
         }
-        this.$set(this.model, id, (value || defaultTypeValues[type]))
+        this.$set(this.model, id, (value || INPUT_DEFAULT_VALUES[type]))
       }
     },
     handleSetModel(data) {
@@ -91,6 +83,9 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+  .page-search-form {
+    padding: 20px
+  }
 </style>
+

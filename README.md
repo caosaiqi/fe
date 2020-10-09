@@ -1,55 +1,218 @@
-DEMO
-===========================
 
-###########环境依赖
-node v0.10.28+
-reids ~
+资源 order为例	请求方式	请求地址	接口数据格式
+order	GET	
+列表
 
-###########部署步骤
-1. 添加系统环境变量
-    export $PORTAL_VERSION="production" // production, test, dev
+[BASE_URL]/mall/order
 
+Request Query
 
-2. npm install  //安装node运行环境
+{
 
-3. gulp build   //前端编译
+page: 1, // [int] 请求页
 
-4. 启动两个配置(已forever为例)
-    eg: forever start app-service.js
-        forever start logger-service.js
+pageSize: 15 // [int] 当前页显示[15]条数据
 
+... // 更多参数
 
-###########目录结构描述
-├── Readme.md                   // help
-├── app                         // 应用
-├── config                      // 配置
-│   ├── default.json
-│   ├── dev.json                // 开发环境
-│   ├── experiment.json         // 实验
-│   ├── index.js                // 配置控制
-│   ├── local.json              // 本地
-│   ├── production.json         // 生产环境
-│   └── test.json               // 测试环境
-├── data
-├── doc                         // 文档
-├── environment
-├── gulpfile.js
-├── locales
-├── logger-service.js           // 启动日志配置
-├── node_modules
-├── package.json
-├── app-service.js              // 启动应用配置
-├── static                      // web静态资源加载
-│   └── initjson
-│       └── config.js       // 提供给前端的配置
-├── test
-├── test-service.js
-└── tools
+}
 
 
 
-###########V1.0.0 版本内容更新
-1. 新功能   aaaaaaaaa
-2. 新功能   bbbbbbbbb
-3. 新功能   ccccccccc
-4. 新功能   ddddddddd
+Response Body
+
+请求成功
+
+{
+
+status: 200, // [int]接口状态
+
+data: {
+
+list: [], // [array]当前页数据
+
+ total: 150, // [int]当前资源共[150]条数据
+
+}
+
+msg: '' [string || undefined],
+
+sys_msg: '' [string || undefined]
+
+}
+
+请求失败 (理论上code 不是200 都是失败)
+
+{
+
+status: 500, // [int]接口状态
+
+message: '服务器异常' // [string]异常原因
+
+}
+
+
+
+
+获取详情
+
+[BASE_URL]/mall/order/detail
+
+或者
+
+[BASE_URL]/mall/order/[id]
+
+Request Query
+
+{
+
+id: [id] // 查询ID
+
+}
+
+
+
+
+
+Response Body 
+
+请求成功
+
+{
+
+ status: 200,
+
+ data: {
+
+ name: 'test',
+
+ ....
+
+ },
+
+ message: ''
+
+}
+
+请求失败
+
+{
+
+ status: 500,
+
+ message: '失败原因'
+
+}
+
+
+
+POST
+
+新建
+
+[BASE_URL]/mall/order
+
+Request Body
+
+{
+
+ name: test,
+
+ ....
+
+}
+
+
+
+
+
+Response Body 
+
+请求成功
+
+{
+
+ status: 200,
+
+ data: {
+
+ name: 'test',
+
+ ....
+
+ },
+
+ message: ''
+
+}
+
+
+
+修改失败 (理论上code 不是200 都是失败)
+
+{
+
+ status: 500, // [int] 失败状态码
+
+ message: [服务器异常 ], // [string] 异常原因
+
+}
+
+
+
+
+
+修改资源信息
+
+[BASE_URL]/mall/order/[remark]
+
+
+
+Request Body
+
+{
+
+ id: [要修改的资源id],
+
+ remark: [要修改的字段]
+
+}
+
+
+
+Response Body 
+
+修改成功
+
+{
+
+ status: 200, // [int]成功状态码
+
+ data: {
+
+ remark: **, 
+
+ ...,
+
+ }
+
+ message: '', // [string || undefined] 前端界面需要显示的消息
+
+}
+
+
+
+
+
+修改失败 (理论上code 不是200 都是失败)
+
+{
+
+ status: 500], // [int] 失败状态码
+
+ message: [服务器异常 ], // [string] 异常原因
+
+}
+
+
+

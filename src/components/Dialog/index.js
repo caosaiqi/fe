@@ -67,7 +67,7 @@ export const template = {
   }
 }
 
-export default function({
+const Dialog = function({
   title,
   data,
   render,
@@ -117,3 +117,5 @@ export default function({
   })
   return vm
 }
+
+export default Dialog

@@ -9,7 +9,7 @@ export const edit = (rows) => new Dialog({
   },
   on: {
     async ok() {
-      console.log('点击了确定')
+      console.log('您选中了', rows)
       await new Promise((r, j) => {
         setTimeout(() => {
           r()
@@ -31,6 +31,34 @@ export const edit = (rows) => new Dialog({
           {this.msg}
         </el-form-item>
       </el-form>
+    )
+  }
+})
+
+export const remove = (row) => new Dialog({
+  title: '编辑',
+  data() {
+    return {
+      msg: '1231'
+    }
+  },
+  on: {
+    async ok() {
+      await new Promise((r, j) => {
+        setTimeout(() => {
+          r()
+        }, 1000)
+      })
+    },
+    close() {
+      return false
+    }
+  },
+  render() {
+    return (
+      <div>
+         确定要删除吗？
+      </div>
     )
   }
 })

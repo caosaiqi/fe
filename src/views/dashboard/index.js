@@ -1,5 +1,5 @@
 import pageContentTemplate from '@@/PageContent/template.js'
-import { edit } from './dialogs'
+import { edit, remove } from './dialogs'
 // 头部内容
 const headerContent = {
   title: '电商管理-POP店管理-店铺管理',
@@ -62,7 +62,7 @@ const tableContent = {
     {
       label: '删除',
       action(row) {
-        console.log(this, row)
+        remove(row)
         // this.remoev(id)
       }
     },

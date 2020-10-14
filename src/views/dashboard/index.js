@@ -1,5 +1,5 @@
 import pageContentTemplate from '@@/PageContent/template.js'
-
+import { edit } from './dialogs'
 // 头部内容
 const headerContent = {
   title: '电商管理-POP店管理-店铺管理',
@@ -51,10 +51,7 @@ const tableContent = {
   columns: [
     {
       prop: 'name',
-      label: '名称',
-      render() {
-        return '12312'
-      }
+      label: '名称'
     },
     {
       prop: 'status',
@@ -92,9 +89,16 @@ const tableContent = {
         }
       ]
     }
+  ],
+  batchActions: [
+    {
+      label: '编辑',
+      action(rows) {
+        edit(rows)
+      }
+    }
   ]
 }
-
 export default pageContentTemplate({
   headerContent,
   searchContent,

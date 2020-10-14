@@ -3,7 +3,9 @@
     <el-table
       v-loading="loading"
       v-bind="tableConfig"
+      @selection-change="handleSelectionChange"
     >
+      <el-table-column type="selection" width="39" />
       <table-column
         v-for="(col, index) in columns"
         :key="`${index}-${col.prop || ''}`"
@@ -61,6 +63,11 @@ export default {
       default: undefined
     }
   },
+  data() {
+    return {
+      multipleSelection: []
+    }
+  },
   computed: {
     tableData() {
       // mixins data
@@ -82,6 +89,11 @@ export default {
         this.fetchList(newQueryParams)
       },
       deep: true
+    }
+  },
+  methods: {
+    handleSelectionChange(rows) {
+      this.multipleSelection = rows
     }
   }
 }

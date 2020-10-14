@@ -1,7 +1,6 @@
 'use strict'
 const path = require('path')
 const defaultSettings = require('./src/settings.js')
-
 function resolve(dir) {
   return path.join(__dirname, dir)
 }
@@ -70,10 +69,8 @@ module.exports = {
         include: 'initial'
       }
     ])
-
     // when there are many pages, it will cause too many meaningless requests
     config.plugins.delete('prefetch')
-
     // set svg-sprite-loader
     config.module
       .rule('svg')

@@ -1,6 +1,8 @@
 
 <script>
 import mixin from '../mixins/common'
+import _ from 'lodash'
+
 export default {
   name: 'PageTableColumn',
   mixins: [mixin],
@@ -13,11 +15,11 @@ export default {
       required: true,
       type: String
     },
-    row: {
-      // required: true,
-      type: Object,
-      default: () => ({})
-    },
+    // row: {
+    //   required: true,
+    //   type: Object,
+    //   default: () => ({})
+    // },
     render: {
       type: Function,
       default: undefined
@@ -27,29 +29,38 @@ export default {
     const {
       prop,
       label,
-      row,
+      // row,
       render
     } = this
+
     // 绑定render内部的方法，方便以后调用listApi
-    const renderCallThis = this.getComponent('PageTable')
-    const defaultRender = () => {
+    const pageTable = this.getComponent('PageTable')
+
+    const defaultRender = (value) => {
       return (
         <div class='table-colunm'>
           {
-            row[prop]
+            value
           }
         </div>
       )
     }
+
+    const slots = {
+      scopedSlots: {
+        default: scope => {
+          const { row = {}} = scope
+          const value = row[prop]
+          if (render && typeof _.isFunction(render)) {
+            return render.call(pageTable, value, row)
+          }
+          return defaultRender(value, row)
+        }
+      }
+    }
+
     return (
-      <el-table-column prop={prop} label={label}>
-        { render
-          ? render.call(renderCallThis, row, {
-            prop,
-            label
-          })
-          : defaultRender() }
-      </el-table-column>
+      <el-table-column prop = {prop} label ={ label } {...slots} />
     )
   }
 }

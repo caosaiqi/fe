@@ -2,7 +2,7 @@
   <el-container class="page-content" direction="vertical">
     <page-header v-if="headerConfig" v-bind="headerConfig" />
     <page-search v-if="searchConfig" v-bind="searchConfig" />
-    <page-table v-if="tableConfig" v-bind="tableConfig" />
+    <page-table v-if="tableConfig" ref="PageTable" v-bind="tableConfig" />
   </el-container>
 </template>
 
@@ -52,7 +52,8 @@ export default {
           title: this.headerContent
         }
       }
-      return this.headerContent
+      const { batchActions } = this.tableConfig
+      return Object.assign(this.headerContent, { batchActions })
     },
     searchConfig() {
       if (_.isEmpty(this.searchContent) || _.isEmpty(this.searchContent.formItems)) {
@@ -82,6 +83,7 @@ export default {
     handleFetchList(formModel) {
       // 避免出现坑
       let _formModel = _.cloneDeep(formModel)
+
       if (this.seachFormConfig && this.seachFormConfig.onSearch) {
         const { onSearch } = this.seachFormConfig
         if (_.isFunction(onSearch)) {

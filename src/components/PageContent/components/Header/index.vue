@@ -1,21 +1,28 @@
 <template>
   <el-header class="page-header d-flex align-items-center">
     <h2 class="title flex-grow-1">{{ title }}</h2>
-    <div>
-      <el-button size="small" type="primary">主要按钮</el-button>
-    </div>
+
+    <!-- 列表按钮批量操作 -->
+    <batch-actions :batch-actions="batchActions" />
   </el-header>
 </template>
 
 <script>
+import BatchActions from './componets/BatchActions'
+
 export default {
   name: 'PageHeader',
+  components: {
+    BatchActions
+  },
   props: {
     title: {
-      type: String
+      type: String,
+      default: undefined
     },
-    actions: {
-      type: Array
+    batchActions: {
+      type: Array,
+      default: undefined
     }
   }
 }

@@ -49,8 +49,7 @@ export default {
         }, 200)
       }
     },
-    fetchCreate() {
-    },
+    fetchCreate() {},
     fetchRemove() {},
     fetchUpdate() {}
   }

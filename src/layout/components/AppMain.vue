@@ -1,5 +1,8 @@
 <template>
-  <section class="app-main">
+  <section
+    class="app-main"
+    :style="{paddingLeft: isSubMenuCollapse ? '20px' : '200px'}"
+  >
     <transition name="fade-transform" mode="out-in">
       <keep-alive :include="cachedViews">
         <router-view :key="key" />
@@ -17,6 +20,9 @@ export default {
     },
     key() {
       return this.$route.path
+    },
+    isSubMenuCollapse() {
+      return this.$store.state.app.sidebar.isSubMenuCollapse
     }
   }
 }

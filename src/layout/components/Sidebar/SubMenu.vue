@@ -59,7 +59,7 @@ export default {
         const { children, id, text } = menuItem
         if (children && children.length > 0) {
           return (
-            <el-submenu index={id}>
+            <el-submenu key={id} index={id}>
               <span slot='title'>{ text }</span>
               {
                 children.map(menuItemRender)
@@ -104,7 +104,6 @@ export default {
         style={ style }
       >
         <SwitchBtn />
-
         <el-scrollbar>
           <el-menu
             text-color='#000'
@@ -136,13 +135,16 @@ export default {
   height: calc(100vh - 60px);
   background-color:#ebeef2;
   z-index: 3;
+  .el-submenu__title {
+
+  }
   .el-menu-item {
     height: 40px;
     line-height: 40px;
     transition: none;
   }
   .el-menu-item:hover {
-     background-color:$--default-hover-color !important;;
+     background-color:$--default-hover-color !important;
   }
   .el-menu-item:focus {
     background-color: #fff !important;
@@ -180,20 +182,20 @@ export default {
   }
   .switch-btn-open {
     border-radius: 5px 0 0 5px;
-    right: 1px;
+    right: 0px;
   }
   .switch-btn-open:hover {
     border-radius: 15px 0 0 15px;
     width: 27px;
   }
   .switch-btn-hide{
-    right: -23px;
+    right: -22px;
     border-radius: 0px 5px 5px 0;
   }
   .switch-btn-hide:hover {
     border-radius: 0 15px 15px 0px;
     width: 27px;
-    right: -27px;
+    right: -26px;
   }
 }
 </style>

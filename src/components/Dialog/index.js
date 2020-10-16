@@ -101,7 +101,7 @@ const Dialog = function({
     }
   })
 
-  // 设置事件
+  // 绑定事件
   if (on && _.isObject(on) && !_.isEmpty(on)) {
     for (const name in on) {
       const fn = on[name]

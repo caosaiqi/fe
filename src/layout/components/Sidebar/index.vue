@@ -1,54 +1,86 @@
 <template>
-  <div :class="{'has-logo':showLogo}">
-    <logo v-if="showLogo" :collapse="isCollapse" />
-    <el-scrollbar wrap-class="scrollbar-wrapper">
-      <el-menu
-        :default-active="activeMenu"
-        :collapse="isCollapse"
-        :background-color="variables.menuBg"
-        :text-color="variables.menuText"
-        :unique-opened="false"
-        :active-text-color="variables.menuActiveText"
-        :collapse-transition="false"
-        mode="vertical"
-      >
-        <sidebar-item v-for="route in permission_routes" :key="route.path" :item="route" :base-path="route.path" />
-      </el-menu>
-    </el-scrollbar>
+  <div class="sidebar-container">
+    <div>
+      <!-- <Logo /> -->
+      <el-scrollbar>
+        <el-menu class="menu" :collapse="isCollapse">
+          <el-menu-item
+            v-for="menu in menus"
+            :key="menu.id"
+            :index="menu.id"
+            class="el-menu-item"
+          >
+            <i class="el-icon-menu" />
+            <span slot="title">
+              {{ menu.text }}
+            </span>
+          </el-menu-item>
+        </el-menu>
+      </el-scrollbar>
+    </div>
+
+    <sub-menu />
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import Logo from './Logo'
-import SidebarItem from './SidebarItem'
-import variables from '@/styles/variables.scss'
+import SubMenu from './SubMenu'
 
 export default {
-  components: { SidebarItem, Logo },
+  name: 'Sidbar',
+  components: {
+    // Logo,
+    SubMenu
+  },
+  data() {
+    return {
+      isCollapse: false
+    }
+  },
   computed: {
     ...mapGetters([
-      'permission_routes',
       'sidebar'
     ]),
-    activeMenu() {
-      const route = this.$route
-      const { meta, path } = route
-      // if set path, the sidebar will highlight the path you set
-      if (meta.activeMenu) {
-        return meta.activeMenu
-      }
-      return path
-    },
-    showLogo() {
-      return this.$store.state.settings.sidebarLogo
-    },
-    variables() {
-      return variables
-    },
-    isCollapse() {
-      return !this.sidebar.opened
+    menus() {
+      return this.sidebar.menus || []
     }
+  },
+  beforeCreate() {
+    // 获取menu信息
+    this.$store.dispatch({
+      type: 'app/getLeftMenus'
+    })
   }
 }
 </script>
+<style lang="scss" scoped>
+  @import "~@/styles/element-variables";
+  .sidebar-container {
+    background-color: $--menu-background-color;
+    display: flex;
+  }
+  .menu {
+    border-right: none;
+    .el-menu-item{
+      height: 50px;
+      line-height: 50px;
+        >i {
+          color: #fff;
+          font-size: 15px;
+          width: 17px;
+          margin-right: 0;
+        }
+    }
+    .el-menu-item.is-active>i {
+      color: $--color-primary;
+    }
+    .el-menu-item.is-active:focus{
+      color: #fff;
+    }
+    .el-menu-item.is-active:focus>i{
+      color: #fff;
+    }
+  }
+</style>

@@ -1,8 +1,6 @@
 <template>
   <div class="navbar">
-
     <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
-
     <div class="right-menu">
       <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
         <div class="avatar-wrapper">
@@ -16,12 +14,6 @@
           <router-link to="/">
             <el-dropdown-item>Dashboard</el-dropdown-item>
           </router-link>
-          <a target="_blank" href="https://github.com/PanJiaChen/vue-element-admin/">
-            <el-dropdown-item>Github</el-dropdown-item>
-          </a>
-          <a target="_blank" href="https://panjiachen.github.io/vue-element-admin-site/#/">
-            <el-dropdown-item>Docs</el-dropdown-item>
-          </a>
           <el-dropdown-item divided @click.native="logout">
             <span style="display:block;">Log Out</span>
           </el-dropdown-item>
@@ -59,13 +51,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+ @import "~@/styles/variables";
 .navbar {
-  height: 50px;
+  height: $pageHeaderHeight;
   overflow: hidden;
   position: relative;
   background: #fff;
   box-shadow: 0 1px 4px rgba(0,21,41,.08);
-
+  
   .hamburger-container {
     line-height: 46px;
     height: 100%;

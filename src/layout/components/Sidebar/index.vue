@@ -116,14 +116,14 @@ export default {
     .menu {
       border-right: none;
       .el-menu-item{
-        height: 45px;
-        line-height: 45px;
+        height: 43px;
+        line-height: 43px;
         padding: 0 15px !important;
         transition: none;
           i {
             color: #fff;
-            // font-size: 15px;
-            // width: 17px;
+            font-size: 15px;
+            width: 17px;
             margin-right: 0;
           }
       }

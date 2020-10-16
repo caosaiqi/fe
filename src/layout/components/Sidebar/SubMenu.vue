@@ -92,7 +92,7 @@ export default {
 
     const style = {
       // 主菜单宽度
-      left: this.isMenuCollapse ? '65px' : '170px'
+      left: this.isMenuCollapse ? '65px' : '163px'
     }
 
     return (
@@ -135,9 +135,6 @@ export default {
   height: calc(100vh - 60px);
   background-color:#ebeef2;
   z-index: 3;
-  .el-submenu__title {
-
-  }
   .el-menu-item {
     height: 40px;
     line-height: 40px;

@@ -4,12 +4,6 @@ import { mapGetters } from 'vuex'
 
 export default {
   name: 'LayoutSubMenu',
-  props: {
-    menus: {
-      type: Array,
-      required: true
-    }
-  },
   data() {
     return {}
   },
@@ -23,12 +17,18 @@ export default {
     },
     isSubMenuCollapse() {
       return this.sidebar.isSubMenuCollapse
+    },
+    actionMenu() {
+      return this.sidebar.actionMenu || {}
+    },
+    tmpMenu() {
+      return this.sidebar.tmpMenu || {}
+    },
+    menus() {
+      return this.tmpMenu.children || this.actionMenu.children
     }
   },
   methods: {
-    menuItemRender(item) {
-      console.log(item)
-    },
     async handleSwitchClick() {
       await this.$store.dispatch({
         type: 'app/setSidebar',
@@ -36,7 +36,10 @@ export default {
           isSubMenuCollapse: !this.isSubMenuCollapse
         }
       })
-      Cookies.set('isMenuCollapse', this.isSubMenuCollapse, { expires: 30 })
+      Cookies.set('isSubMenuCollapse', this.isSubMenuCollapse, { expires: 30 })
+    },
+    handleMenuClick(item) {
+      this.$emit('action', item)
     }
   },
   render() {
@@ -46,7 +49,7 @@ export default {
         <el-menu-item
           key={id}
           index={id}
-          onClick={() => this.menuItemRender(item)}
+          onClick={() => this.handleMenuClick(item)}
         >
           { text }
         </el-menu-item>
@@ -72,7 +75,7 @@ export default {
       return this.menus.map(mapFn)
     }
 
-    const SwitchBtn = () => {
+    const SwitchBtnRender = () => {
       return (
         <a
           onClick={this.handleSwitchClick}
@@ -90,11 +93,18 @@ export default {
       )
     }
 
+    const ParentMenuRender = () => !this.isSubMenuCollapse && (
+      <div class='parent-menu'>
+        <span>
+          {this.tmpMenu.text || this.actionMenu.text}
+        </span>
+      </div>
+    )
+
     const style = {
       // 主菜单宽度
-      left: this.isMenuCollapse ? '65px' : '163px'
+      left: this.isMenuCollapse ? '52px' : '172px'
     }
-
     return (
       <div
         class={{
@@ -103,7 +113,8 @@ export default {
         }}
         style={ style }
       >
-        <SwitchBtn />
+        <SwitchBtnRender />
+        <ParentMenuRender />
         <el-scrollbar>
           <el-menu
             text-color='#000'
@@ -122,7 +133,15 @@ export default {
 <style lang="scss" scoped>
 @import "~@/styles/element-variables";
 @import "~@/styles/variables";
-
+.parent-menu{
+  background-color: #e8e8e8;
+  padding:0 15px ;
+  height: 40px;
+  line-height: 40px;
+  color:rgba(0,0,0,.85);
+  font-size: 14px;
+  font-weight: 600;
+}
 .sub-menus-hide {
   width: 0 !important;
 }
@@ -168,7 +187,7 @@ export default {
     top: 35%;
     background-color: $--color-primary;
     z-index: 3;
-    padding: 8px 2px;
+    padding: 5px 2px;
     cursor: pointer;
     font-weight: 700;
     width: 23px;
@@ -182,7 +201,7 @@ export default {
     right: 0px;
   }
   .switch-btn-open:hover {
-    border-radius: 15px 0 0 15px;
+    border-radius: 13px 0 0 13px;
     width: 27px;
   }
   .switch-btn-hide{
@@ -190,7 +209,7 @@ export default {
     border-radius: 0px 5px 5px 0;
   }
   .switch-btn-hide:hover {
-    border-radius: 0 15px 15px 0px;
+    border-radius: 0 13px 13px 0px;
     width: 27px;
     right: -26px;
   }

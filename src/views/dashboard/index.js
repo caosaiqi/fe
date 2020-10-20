@@ -2,10 +2,7 @@ import pageContentTemplate from '@@/PageContent/template.js'
 import { edit, remove } from './dialogs'
 // 头部内容
 const headerContent = {
-  title: '电商管理-POP店管理-店铺管理',
-  actions: [{
-    title: '修改'
-  }]
+  title: '电商管理-POP店管理-店铺管理'
 }
 
 // 筛选

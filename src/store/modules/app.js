@@ -6,7 +6,9 @@ const state = {
     isMenuCollapse: Cookies.get('isMenuCollapse') === 'true',
     isSubMenuCollapse: Cookies.get('isSubMenuCollapse') === 'true',
     menus: [],
-    subMenus: []
+    actionMenu: {},
+    subMenus: [],
+    tmpMenu: {} // 临时菜单
   }
 }
 
@@ -27,6 +29,7 @@ const actions = {
       const cookieMenuId = Cookies.get('menuId')
       const menus = []
       let subMenus = []
+      let actionMenu = {}
 
       if (data && data !== null && typeof data === 'object') {
         for (const key in data) {
@@ -35,11 +38,12 @@ const actions = {
 
           if (!!cookieMenuId && menuItem.id === cookieMenuId) {
             subMenus = menuItem.children || []
+            actionMenu = menuItem
           }
         }
       }
 
-      commit('UPDATE_SIDEBAR', { menus, subMenus })
+      commit('UPDATE_SIDEBAR', { menus, subMenus, actionMenu })
     } catch (err) {
       throw err
     }

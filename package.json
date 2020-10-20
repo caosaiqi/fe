@@ -1,19 +1,13 @@
 {
   "name": "acp",
-  "version": "4.4.0",
-  "description": "A magical vue admin. An out-of-box UI solution for enterprise applications. Newest development stack of vue. Lots of awesome features",
-  "author": "Pan <panfree23@gmail.com>",
+  "version": "1.0.0",
+  "description": "",
+  "author": "",
   "scripts": {
     "start": "vue-cli-service serve",
     "dev": "vue-cli-service serve",
     "lint": "eslint --ext .js,.vue src",
-    "build:prod": "vue-cli-service build",
-    "build:stage": "vue-cli-service build --mode staging",
-    "preview": "node build/index.js --preview",
-    "new": "plop",
-    "svgo": "svgo -f src/icons/svg --config=src/icons/svgo.yml",
-    "test:unit": "jest --clearCache && vue-cli-service test:unit",
-    "test:ci": "npm run lint && npm run test:unit"
+    "build": "vue-cli-service build"
   },
   "dependencies": {
     "axios": "0.18.1",
@@ -78,9 +72,6 @@
     "> 1%",
     "last 2 versions"
   ],
-  "bugs": {
-    "url": "https://github.com/PanJiaChen/vue-element-admin/issues"
-  },
   "engines": {
     "node": ">=8.9",
     "npm": ">= 3.0.0"
@@ -105,9 +96,5 @@
     "hooks": {
       "pre-commit": "lint-staged"
     }
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/PanJiaChen/vue-element-admin.git"
   }
 }

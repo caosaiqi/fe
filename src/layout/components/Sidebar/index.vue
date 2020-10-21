@@ -4,6 +4,7 @@
       <a class="switch-btn" @click="handleSwitchClick">
         <i :class="switchIcon" />
       </a>
+      <Logo />
       <el-menu
         class="menu"
         :class="{
@@ -49,7 +50,7 @@ import menuConfig from './config'
 export default {
   name: 'Sidbar',
   components: {
-    // Logo,
+    Logo,
     SubMenu
   },
   computed: {

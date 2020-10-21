@@ -1,23 +1,24 @@
 <template>
   <div class="sidebar-logo">
     <a>
-      <img src="../../../assets/images/logo-txt.png" alt="">
+      <!-- <img src="../../../assets/images/logo-grey.png" alt=""> -->
+      <template v-if="sidebar.isMenuCollapse"> 摩点 </template>
+      <template v-else> 摩点后台管理 </template>
     </a>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'SidebarLogo',
   props: {
-    collapse: {
-      type: Boolean,
-      required: true
-    }
   },
-  data() {
-    return {
-    }
+  computed: {
+    ...mapGetters([
+      'sidebar'
+    ])
   }
 }
 </script>
@@ -32,6 +33,8 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 21px;
+    color: #fff;
   }
   img {
     width: 140px;

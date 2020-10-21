@@ -9,12 +9,16 @@ $--color-primary: #00cba6;
 $--color-success: #13ce66;
 $--color-warning: #ffba00;
 $--color-danger: #ff4949;
-// $--color-info: #1E1E1E;
+$--color-info: #1E1E1E;
+
+$--color-text-regular: rgba(0,0,0,.7);
+// $--color-info:  rgba(0,0,0,.8);
 
 $--button-font-weight: 400;
+$--button-small-font-size: 14px;
 
 
-$--menu-background-color: #545c64;
+$--menu-background-color: rgba(34,44,55, 1);
 $--menu-item-font-color: #fff;
 $--menu-item-hover-fill: #00cba6;
 

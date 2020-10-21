@@ -166,6 +166,12 @@ export default {
     background-color: #fff !important;
     color: $--color-primary  !important;
   }
+  .el-submenu{
+    .el-submenu__title {
+      height: 40px;
+      line-height: 40px;
+    }
+  }
   li.is-active {
     background-color: #fff !important;
   }

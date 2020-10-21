@@ -4,9 +4,7 @@
     :style="style"
   >
     <transition name="fade-transform" mode="out-in">
-      <keep-alive :include="cachedViews">
-        <router-view :key="key" />
-      </keep-alive>
+      <router-view :key="key" />
     </transition>
   </section>
 </template>
@@ -15,17 +13,17 @@
 export default {
   name: 'AppMain',
   computed: {
-    cachedViews() {
-      return this.$store.state.tagsView.cachedViews
-    },
+    // cachedViews() {
+    //   return this.$store.state.tagsView.cachedViews
+    // },
     key() {
       return this.$route.path
     },
     style() {
       const { isSubMenuCollapse } = this.$store.state.app.sidebar
-      let pl = '200px'
+      let pl = '180px'
       if (isSubMenuCollapse) {
-        pl = '20px'
+        pl = '0'
       }
       return {
         paddingLeft: pl
@@ -38,15 +36,15 @@ export default {
 <style lang="scss" scoped>
 .app-main {
   /* 50= navbar  50  */
-  min-height: calc(100vh - 50px);
+  height: calc(100vh - 60px);
   width: 100%;
   position: relative;
-  overflow: hidden;
+  overflow-y: auto;
   // padding: 20px;
 }
 
 .fixed-header+.app-main {
-  padding-top: 50px;
+  padding-top: 60px;
 }
 
 .hasTagsView {

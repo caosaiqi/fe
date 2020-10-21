@@ -85,7 +85,7 @@ export default {
 
 <style lang="scss" scoped>
   .page-search-form {
-    padding: 20px
+    padding: 25px 25px 8px 25px ;
   }
 </style>
 

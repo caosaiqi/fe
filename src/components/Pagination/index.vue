@@ -1,9 +1,8 @@
 <template>
-  <div :class="{'hidden':hidden}" class="pagination-container">
+  <div class="pagination-container">
     <el-pagination
-      :background="background"
       :current-page.sync="currentPage"
-      :page-size.sync="pageSize"
+      :page-size.sync="limit"
       :layout="layout"
       :page-sizes="pageSizes"
       :total="total"
@@ -28,7 +27,7 @@ export default {
       type: Number,
       default: 1
     },
-    limit: {
+    pageSize: {
       type: Number,
       default: 20
     },
@@ -64,24 +63,24 @@ export default {
         this.$emit('update:page', val)
       }
     },
-    pageSize: {
+    limit: {
       get() {
-        return this.limit
+        return this.pageSize
       },
       set(val) {
-        this.$emit('update:limit', val)
+        this.$emit('update:page-size', val)
       }
     }
   },
   methods: {
     handleSizeChange(val) {
-      this.$emit('pagination', { page: this.currentPage, limit: val })
+      this.$emit('change')
       if (this.autoScroll) {
         scrollTo(0, 800)
       }
     },
     handleCurrentChange(val) {
-      this.$emit('pagination', { page: val, limit: this.pageSize })
+      this.$emit('change')
       if (this.autoScroll) {
         scrollTo(0, 800)
       }
@@ -93,7 +92,8 @@ export default {
 <style scoped>
 .pagination-container {
   background: #fff;
-  padding: 32px 16px;
+  padding: 20px 0;
+  text-align: center;
 }
 .pagination-container.hidden {
   display: none;

@@ -31,6 +31,7 @@ export default {
 <style lang="scss" scoped>
   .page-header {
     border-bottom: 1px solid #ddd;
+    padding: 0 25px;
   }
  h2.title{
    margin: 0;

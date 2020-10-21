@@ -3,7 +3,7 @@ import { Message } from 'element-ui'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
 import jsCookies from 'js-cookie'
-import _ from 'lodash'
+// import _ from 'lodash'
 
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
@@ -30,7 +30,7 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   response => {
     const { data, status } = response
-    if (status === 200 && data) {
+    if ((status === 200 || status === 304) && data) {
       return Promise.resolve(data)
     }
   },

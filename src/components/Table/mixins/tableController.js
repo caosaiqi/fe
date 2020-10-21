@@ -1,19 +1,19 @@
 import _ from 'lodash'
 import Manager from '@/utils/manager'
 
+const DEFAULT_PAGINATION = {
+  page: 1,
+  pageSize: 20,
+  total: 0
+}
+
 export default {
   data() {
+    const pagination = _.cloneDeep(DEFAULT_PAGINATION)
     return {
+      pagination,
       loading: false,
-      pageList: {
-        list: [],
-        pagination: {
-          page: 1,
-          pages: 222,
-          total: 0,
-          pageSize: 15
-        }
-      }
+      pageList: []
     }
   },
   created() {
@@ -21,27 +21,34 @@ export default {
     this.fetchList(this.queryParams)
   },
   methods: {
-    formatPageListSuccess(pageList) {
-      const { code, list = [], pagination = {}} = pageList
-      // 成功状态
-      if (code === 200 && _.isArray(list) && !_.isEmpty(list)) {
-        return {
-          list,
-          pagination
-        }
+    listSuccess({ list = [], total = 0 }) {
+      // 为空处理
+      if (total <= 0) {
+        this.initList()
+        return false
       }
-      return {
-        list: [],
-        pagination: null
+
+      const { page, pageSize } = this.pagination
+      this.pagination = {
+        page,
+        pageSize,
+        total
       }
+      this.pageList = list
     },
+
+    initList() {
+      this.pageList = []
+      this.pagination = _.cloneDeep(DEFAULT_PAGINATION)
+    },
+
     async fetchList(params) {
       try {
         this.loading = true
         const { data } = await this.manager.list(params)
-        this.pageList = this.formatPageListSuccess(data)
-      // eslint-disable-next-line no-useless-catch
+        this.listSuccess(data)
       } catch (err) {
+        this.initList()
         throw err
       } finally {
         setTimeout(() => {

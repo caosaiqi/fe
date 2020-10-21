@@ -1,5 +1,5 @@
 <template>
-  <div style="padding:20px">
+  <div class="page-table">
     <el-table
       v-loading="loading"
       v-bind="tableConfig"
@@ -17,6 +17,14 @@
         :actions="actions"
       />
     </el-table>
+
+    <Pagination
+      v-if="pageList.length > 0"
+      :total="pagination.total"
+      :page.sync="pagination.page"
+      :page-size.sync="pagination.pageSize"
+      @change="handlePaginationChange"
+    />
   </div>
 </template>
 <script>
@@ -24,6 +32,7 @@ import tableController from './mixins/tableController'
 import TableColumn from './components/Column'
 import TableAction from './components/Action'
 import { TABLE_ID } from './constants'
+import Pagination from '@@/Pagination'
 
 const tableDefaultAttributes = {
   'border': true,
@@ -38,7 +47,8 @@ export default {
 
   components: {
     TableColumn,
-    TableAction
+    TableAction,
+    Pagination
   },
   mixins: [tableController],
   props: {
@@ -70,9 +80,7 @@ export default {
   },
   computed: {
     tableData() {
-      // mixins data
-      const { list = [] } = this.pageList
-      return list
+      return this.pageList || []
     },
     tableConfig() {
       if (this.$attrs) {
@@ -94,7 +102,15 @@ export default {
   methods: {
     handleSelectionChange(rows) {
       this.multipleSelection = rows
+    },
+    handlePaginationChange() {
+      this.fetchList(this.pagination)
     }
   }
 }
 </script>
+<style lang="scss" scoped>
+  .page-table {
+    padding: 5px 25px 8px 25px ;
+  }
+</style>

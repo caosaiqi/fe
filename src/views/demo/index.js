@@ -47,7 +47,7 @@ const tableContent = {
    **/
   columns: [
     {
-      prop: 'name',
+      prop: 'title',
       label: '名称'
     },
     {

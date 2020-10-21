@@ -10,13 +10,13 @@ export const constantRoutes = [
   {
     path: '/',
     component: Layout,
-    redirect: '/dashboard',
+    redirect: '/demo',
     children: [
       {
-        path: 'dashboard',
-        component: () => import('@/views/dashboard/index.js'),
-        name: 'Dashboard',
-        meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
+        path: 'demo',
+        component: () => import('@/views/demo/index.js'),
+        name: '电商管理-POP店管理-店铺管理',
+        meta: { title: '电商管理-POP店管理-店铺管理', icon: 'dashboard', affix: true }
       }
     ]
   }

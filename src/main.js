@@ -2,7 +2,7 @@ import Vue from 'vue'
 
 import Cookies from 'js-cookie'
 
-import 'normalize.css/normalize.css' // a modern alternative to CSS resets
+import 'normalize.css/normalize.css' // 初始化全集样式 https://github.com/necolas/normalize.css/blob/8.0.1/normalize.css
 
 import Element from 'element-ui'
 import './styles/element-variables.scss'

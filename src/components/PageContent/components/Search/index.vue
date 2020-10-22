@@ -1,6 +1,12 @@
 <template>
-  <el-form class="page-search-form" v-bind="formAttributes" :model="model">
-    <el-form-item v-for="(item, index) in formItems" :key="`${item.name}-${index}`">
+  <el-form
+    ref="pageSearchForm"
+    :model="model"
+    v-bind="formAttributes"
+    class="page-search-form"
+  >
+    {{ model }}
+    <el-form-item v-for="(item, index) in formItems" :key="`${item.name}_${index}`">
       <Label slot="label" :label="item.label" />
       <Main v-bind="item" :model.sync="model" />
     </el-form-item>
@@ -49,33 +55,40 @@ export default {
     }
   },
   created() {
-    this.initModel(this.formItems)
+    this.init(this.formItems)
   },
   methods: {
-    initModel(formItems) {
+    setModel(formItem) {
+      const { id, value } = formItem
+      this.$set(this.model, id, value)
+    },
+    watchModel(formItem) {
+      const { onValuesChange } = formItem
+      // model任何key发生变化的时候出发
+      if (onValuesChange && _.isFunction(onValuesChange)) {
+        this.$watch(`model`, onValuesChange, {
+          deep: true
+        })
+      }
+    },
+    init(formItems) {
       for (let i = 0; i < formItems.length; i++) {
-        const { id, items, value, options } = formItems[i]
+        const formItem = formItems[i]
+        const { items } = formItem
         if (items && items.length > 0) {
-          return this.initModel(items.map(item => {
-            return {
-              ...item,
-              id: id ? `${id}__${item.id}` : item.id
-            }
-          }))
+          return this.init(items)
         }
-        if (options && _.isFunction(options)) {
-          this.$watch('model', options, {
-            deep: true
-          })
-        }
-        this.$set(this.model, id, value)
+        this.watchModel(formItem)
+        this.setModel(formItem)
       }
     },
     handleSeach() {
       this.dispatch('PageContent', 'onFetchList', this.model)
     },
     handleClear() {
-      this.initModel(this.formItems)
+      for (const key in this.model) {
+        this.model[key] = undefined
+      }
       this.dispatch('PageContent', 'onFetchList', this.model)
     }
   }

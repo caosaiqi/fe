@@ -3,7 +3,12 @@ import _ from 'lodash'
 
 export default {
   name: 'PageFormItemSelect',
+
   props: {
+    model: {
+      type: Object,
+      required: true
+    },
     id: {
       required: true,
       type: [String, Number]
@@ -27,6 +32,10 @@ export default {
     optionRender: {
       type: Function,
       default: undefined
+    },
+    listener: {
+      type: [Boolean, String, Array],
+      default: undefined
     }
   },
   data() {
@@ -36,35 +45,49 @@ export default {
     }
   },
   created() {
-    this.getOptions()
+    this.initOptions()
   },
   methods: {
-    option(item, index) {
-      return (
+    optionsRender(options = []) {
+      return options.map((item, index) => (
         <el-option
           key={`${item.value}_${index}`}
           label={item.label}
           value={item.value}
         />
-      )
+      ))
     },
-    async getOptions() {
-      if (_.isArray(this.options) && !_.isEmpty(this.options)) {
-        this.children = this.options.map(this.option)
+    async fetchOptions() {
+      try {
+        this.loading = true
+        const list = await this.options(this.model)
+        this.children = this.optionsRender(list)
+      } catch (err) {
+        this.children = []
+        throw err
+      } finally {
+        this.loading = false
       }
-      if (_.isFunction(this.options)) {
-        try {
-          this.loading = true
-          const fetchOptions = await this.options()
-          if (_.isArray(fetchOptions)) {
-            this.children = fetchOptions.map(this.option)
-          }
-        } catch (err) {
-          this.children = []
-          throw err
-        } finally {
-          this.loading = false
-        }
+    },
+    initOptions() {
+      if (_.isArray(this.options) && !_.isEmpty(this.options)) {
+        this.children = this.optionsRender(this.options)
+      }
+      if (!_.isFunction(this.options)) return []
+
+      // 监听model
+      if (_.isString(this.listener)) {
+        this.$watch(`model.${this.listener}`, this.fetchOptions, { immediate: true })
+      }
+
+      if (_.isArray(this.listener)) {
+        this.listener.forEach((key, index) => {
+          this.$watch(`model.${key}`, this.fetchOptions, { immediate: true })
+        })
+      }
+
+      if (_.isUndefined(this.listener)) {
+        this.fetchOptions()
       }
     },
     handleChange(newValue) {

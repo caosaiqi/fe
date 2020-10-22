@@ -2,10 +2,8 @@ import request from '@/utils/request'
 
 export default request
 
-export function fetchList(query) {
-  return request({
-    url: '/orders',
-    method: 'get',
-    params: query
-  })
-}
+// 获取区域
+export const fetchGetCity = (params) => request.get('/city', params)
+
+// 获取区域
+export const fetchGetRegion = (params) => request.get('/region', params)

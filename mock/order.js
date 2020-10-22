@@ -55,6 +55,72 @@ module.exports = [
         }
       }
     }
+  },
+
+  {
+    url: 'city',
+    type: 'get',
+    response: config => {
+      return {
+        code: 0,
+        data: [
+          {
+            value: 'shanghai',
+            label: '上海'
+          },
+          {
+            value: 'beijing',
+            label: '北京'
+          }
+        ]
+      }
+    }
+  },
+
+  {
+    url: 'region',
+    type: 'get',
+    response: config => {
+      const { city } = config.query
+      console.log(config.query)
+      let data = []
+      if (city === 'shanghai') {
+        data = [
+          {
+            label: '黄浦区',
+            value: 'hangbuqu'
+          },
+          {
+            label: '徐汇区',
+            value: 'quhuiqu'
+          },
+          {
+            label: '长宁区',
+            value: 'changningqu'
+          }
+        ]
+      }
+      if (city === 'beijing') {
+        data = [
+          {
+            label: '朝阳区',
+            value: 'chaoyangqu'
+          },
+          {
+            label: '海淀区',
+            value: 'haidianqu'
+          },
+          {
+            label: '东城区',
+            value: 'dongchengqy'
+          }
+        ]
+      }
+      return {
+        code: 0,
+        data
+      }
+    }
   }
 
 ]

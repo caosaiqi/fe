@@ -1,5 +1,6 @@
 import pageContentTemplate from '@@/PageContent/template.js'
 import { edit, remove } from './dialogs'
+import { fetchGetCity, fetchGetRegion } from '@api'
 // 头部内容
 const headerContent = {
   title: '电商管理-POP店管理-店铺管理'
@@ -17,8 +18,7 @@ const searchContent = {
   formItems: [
     {
       id: 'name',
-      label: '名称',
-      value: '12312312312'
+      label: '名称'
     },
     {
       label() {
@@ -29,49 +29,20 @@ const searchContent = {
           id: 'city',
           componentName: 'Select',
           placeholder: '请选择城市',
-          optionRender: (item) => {
-          },
-          options: [
-            {
-              value: '选项1',
-              label: '黄金糕'
-            },
-            {
-              value: '选项2',
-              label: '双皮奶'
-            },
-            {
-              value: '选项3',
-              label: '蚵仔煎'
-            },
-            {
-              value: '选项4',
-              label: '龙须面'
-            },
-            {
-              value: '选项5',
-              label: '北京烤鸭'
-            }
-          ]
+          options: async() => {
+            const { data } = await fetchGetCity()
+            return data
+          }
         },
         {
           id: 'region',
           componentName: 'Select',
           placeholder: '请选中区域',
-          options: async() => {
-            // console.log(city)
-            console.log('dasda')
-            await new Promise((r) => {
-              setTimeout(() => {
-                r()
-              }, 3000)
-            })
-            return [
-              {
-                value: '选项5',
-                label: '北京烤鸭'
-              }
-            ]
+          listener: 'city',
+          options: async(values = {}) => {
+            const { city } = values
+            const { data } = await fetchGetRegion({ city })
+            return data
           }
         }
       ]

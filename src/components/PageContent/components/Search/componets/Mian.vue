@@ -4,6 +4,7 @@
       <component
         :is="getComponent(item)"
         :value.sync="model[item.id]"
+        :model="model"
         v-bind="item"
       />
     </el-col>

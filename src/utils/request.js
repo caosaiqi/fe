@@ -53,5 +53,13 @@ export default {
       method,
       params
     })
+  },
+  post: (url, params) => {
+    const method = 'post'
+    return service({
+      url,
+      method,
+      params
+    })
   }
 }

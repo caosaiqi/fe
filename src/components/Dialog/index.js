@@ -21,6 +21,18 @@ export const template = {
     width: {
       type: String,
       default: undefined
+    },
+    center: {
+      type: Boolean,
+      default: false
+    },
+    modal: {
+      type: Boolean,
+      default: true
+    },
+    showClose: {
+      type: Boolean,
+      default: true
     }
   },
   data() {
@@ -66,20 +78,31 @@ export const template = {
       }
       return (
         <div slot='footer'>
-          <el-button onClick={this.handleClose}>取 消</el-button>
+          <el-button
+            onClick={this.handleClose}
+            size={'small'}
+          >
+            取 消
+          </el-button>
           <el-button
             type='primary'
+            size={'small'}
             onClick={this.handleOk}
             loading={this.loading}
-          >确 定</el-button>
+          >
+            确 定
+          </el-button>
         </div>
       )
     }
-    console.log(this)
+
     const width = this.width || size[this.size]
+
     return (
       <el-dialog
+        modal={this.modal}
         destroy-on-close={true}
+        show-close={this.showClose}
         title={this.title}
         width={width}
         visible={this.visible}

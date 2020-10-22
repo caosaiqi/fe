@@ -8,7 +8,8 @@ export default (row) => {
 
   new Dialog({
     attrs: {
-      size: 'small'
+      size: 'small',
+      showClose: false
     },
     on: {
       async ok() {
@@ -26,8 +27,12 @@ export default (row) => {
     },
     content() {
       return (
-        <div>
-          <h2>您确定要删除吗</h2>
+        <div class='dialog-remove'>
+          <i class='el-icon-question' />
+          <div class='description'>
+            <h3> 您确定要删除吗？</h3>
+            <h4> 删除后数据将无法找回 </h4>
+          </div>
         </div>
       )
     }

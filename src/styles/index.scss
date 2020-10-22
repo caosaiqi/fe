@@ -1,13 +1,15 @@
 @import './variables.scss';
 @import './element-ui.scss';
+@import './element-variables.scss';
 
 @import '//at.alicdn.com/t/font_2141665_6inbxf8ca2o.css';
 
 body {
   height: 100%;
-  -moz-osx-font-smoothing: grayscale;
+  // -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
+  // text-rendering: optimizeLegibility;
+  font-weight: 500;
   font-family: "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", "Heiti SC", "WenQuanYi Micro Hei", sans-serif;
 }
 
@@ -81,28 +83,6 @@ div:focus {
   }
 }
 
-aside {
-  background: #eef1f6;
-  padding: 8px 24px;
-  margin-bottom: 20px;
-  border-radius: 2px;
-  display: block;
-  line-height: 32px;
-  font-size: 16px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-  color: #2c3e50;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  a {
-    color: #337ab7;
-    cursor: pointer;
-
-    &:hover {
-      color: rgb(32, 160, 255);
-    }
-  }
-}
 
 
 .d-flex{
@@ -113,4 +93,34 @@ aside {
 }
 .flex-grow-1 {
   flex:1
+}
+
+.dialog-remove{
+  position: relative;
+  > i {
+    font-size: 30px;
+    color: $--color-warning;
+    position: absolute;
+    left: 0;
+  }
+  .description{
+    margin-left:  44px;
+    h3 {
+      display: block;
+      overflow: hidden;
+      color: rgba(0,0,0,.85);
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 1.6;
+      margin: 0;
+      margin-bottom: 5px;
+    }
+    h4 {
+      margin-top: 8px;
+      color: rgba(0,0,0,.7);
+      font-size: 14px;
+      margin: 0;
+      font-weight: 500;
+    }
+  }
 }

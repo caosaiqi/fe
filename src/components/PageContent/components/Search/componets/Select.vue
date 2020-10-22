@@ -60,6 +60,7 @@ export default {
     async fetchOptions() {
       try {
         this.loading = true
+        this.handleChange()
         const list = await this.options(this.model)
         this.children = this.optionsRender(list)
       } catch (err) {
@@ -77,7 +78,9 @@ export default {
 
       // 监听model
       if (_.isString(this.listener)) {
-        this.$watch(`model.${this.listener}`, this.fetchOptions, { immediate: true })
+        // 监听的model key 不为空才默认第一次触发
+        const immediate = !!this.model[this.listener]
+        this.$watch(`model.${this.listener}`, this.fetchOptions, { immediate })
       }
 
       if (_.isArray(this.listener)) {

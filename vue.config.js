@@ -37,7 +37,8 @@ module.exports = {
     resolve: {
       alias: {
         '@': resolve('./src'),
-        '@@': resolve('./src/components'),
+        '@@': resolve('./src/components'), // 基础组件
+        '@sections': resolve('./src/sections'), // 业务组件
         '@api': resolve('./src/api')
       }
     }

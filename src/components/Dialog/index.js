@@ -1,11 +1,26 @@
 import Vue from 'vue'
 import _ from 'lodash'
 
+const size = {
+  small: '17%',
+  default: '30%',
+  large: '70%'
+}
+
 export const template = {
   name: _.uniqueId('page-content-template'),
   props: {
     title: {
-      type: String
+      type: String,
+      default: undefined
+    },
+    size: {
+      type: String,
+      default: 'default'
+    },
+    width: {
+      type: String,
+      default: undefined
     }
   },
   data() {
@@ -21,7 +36,6 @@ export const template = {
       if (ok && !_.isEmpty(ok)) {
         const [_handleOk] = ok
         this.loading = true
-        // eslint-disable-next-line no-useless-catch
         try {
           const f = await _handleOk()
           if (_.isBoolean(f)) {
@@ -31,7 +45,6 @@ export const template = {
             this.loading = false
             this.visible = false
           }
-        // eslint-disable-next-line no-useless-catch
         } catch (err) {
           throw err
         } finally {
@@ -45,21 +58,32 @@ export const template = {
     }
   },
   render(h) {
-    const { content } = this.$slots
+    const { content, footer } = this.$slots
     const Content = content
-    const Footer = () => (
-      <div slot='footer'>
-        <el-button onClick={this.handleClose}>取 消</el-button>
-        <el-button
-          type='primary'
-          onClick={this.handleOk}
-          loading={this.loading}
-        >确 定</el-button>
-      </div>
-    )
-
+    const Footer = () => {
+      if (footer !== undefined) {
+        return footer()
+      }
+      return (
+        <div slot='footer'>
+          <el-button onClick={this.handleClose}>取 消</el-button>
+          <el-button
+            type='primary'
+            onClick={this.handleOk}
+            loading={this.loading}
+          >确 定</el-button>
+        </div>
+      )
+    }
+    console.log(this)
+    const width = this.width || size[this.size]
     return (
-      <el-dialog title={this.title} visible={this.visible}>
+      <el-dialog
+        destroy-on-close={true}
+        title={this.title}
+        width={width}
+        visible={this.visible}
+      >
         <Content />
         <Footer />
       </el-dialog>
@@ -68,10 +92,11 @@ export const template = {
 }
 
 const Dialog = function({
-  title,
+  attrs,
   data,
-  render,
   on,
+  title,
+  content,
   footer
 }) {
   const Constructor = Vue.extend(template)
@@ -80,16 +105,24 @@ const Dialog = function({
   })
   const dom = document.body.appendChild(vm.$el)
 
+  // 设置标题
+  vm.$props.title = title
+
+  // 传入更多props
+  if (attrs && _.isObject(attrs) && !_.isEmpty(attrs)) {
+    for (const key in attrs) {
+      vm.$props[key] = attrs[key]
+    }
+  }
+
+  // 传入slot
   vm.$slots = {
     content: Vue.extend({
       data,
-      render
+      render: content
     }),
     footer: footer
   }
-
-  // 设置标题
-  vm.$props.title = title
 
   // 监听dialog显示隐藏
   vm.$watch('visible', (newVisible) => {
@@ -101,7 +134,7 @@ const Dialog = function({
     }
   })
 
-  // 绑定事件
+  // 绑定事件，目前dialog仅支持确认和取消操作，分别为 ok确认 close取消
   if (on && _.isObject(on) && !_.isEmpty(on)) {
     for (const name in on) {
       const fn = on[name]

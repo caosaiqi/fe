@@ -1,6 +1,8 @@
 import pageContentTemplate from '@@/PageContent/template.js'
-import { edit, remove } from './dialogs'
+import { edit } from './dialogs'
+import { removeDialog } from '@sections/Dialog'
 import { fetchGetCity, fetchGetRegion } from '@api'
+
 // 头部内容
 const headerContent = {
   title: '电商管理-POP店管理-店铺管理'
@@ -71,9 +73,14 @@ const tableContent = {
   actions: [
     {
       label: '删除',
-      action(row) {
-        remove(row)
-        // this.remoev(id)
+      async action(row) {
+        try {
+          await removeDialog(row)
+          this.$message.success('点击了确认')
+        } catch (err) {
+          this.$message.error('点击了取消')
+          throw err
+        }
       }
     },
     {

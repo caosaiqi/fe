@@ -34,31 +34,3 @@ export const edit = (rows) => new Dialog({
     )
   }
 })
-
-export const remove = (row) => new Dialog({
-  title: '编辑',
-  data() {
-    return {
-      msg: '1231'
-    }
-  },
-  on: {
-    async ok() {
-      await new Promise((r, j) => {
-        setTimeout(() => {
-          r()
-        }, 1000)
-      })
-    },
-    close() {
-      return false
-    }
-  },
-  render() {
-    return (
-      <div>
-         确定要删除吗？
-      </div>
-    )
-  }
-})

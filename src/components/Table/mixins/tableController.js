@@ -57,7 +57,18 @@ export default {
       }
     },
     fetchCreate() {},
-    fetchRemove() {},
-    fetchUpdate() {}
+    fetchUpdate() {},
+
+    async fetchRemove(row) {
+      console.log(row)
+      try {
+        await this.manager.remove({
+          params: row
+        })
+        await this.fetchList()
+      } catch (err) {
+        throw err
+      }
+    }
   }
 }

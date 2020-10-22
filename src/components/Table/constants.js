@@ -1,4 +1,3 @@
-export const TABLE_ID = 'PageTable'
 
 export const ACTION_POPOCER_DEFAULT_ATTRS = {
   placement: 'left',

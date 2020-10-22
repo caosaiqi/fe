@@ -18,7 +18,16 @@ export default class Manager {
    * @params {object} body
    * @returns {object} promise
   */
-  post(path, params) {
+  get({ path, params } = {}) {
+    return request.get(`${this.resource}/${path}`, { params })
+  }
+
+  /**
+   * @path {string} url
+   * @params {object} body
+   * @returns {object} promise
+  */
+  post({ path, params } = {}) {
     return request.post(`${this.resource}/${path}`, params)
   }
 
@@ -27,7 +36,7 @@ export default class Manager {
    * @params {object} body
    * @returns {object} promise
   */
-  get(path, params) {
-    return request.get(`${this.resource}/${path}`, { params })
+  remove({ path = 'delete', params } = {}) {
+    return request.post(`${this.resource}/${path}`, params)
   }
 }

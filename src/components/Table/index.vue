@@ -31,7 +31,6 @@
 import tableController from './mixins/tableController'
 import TableColumn from './components/Column'
 import TableAction from './components/Action'
-import { TABLE_ID } from './constants'
 import Pagination from '@@/Pagination'
 
 const tableDefaultAttributes = {
@@ -43,7 +42,7 @@ export default {
   name: 'PageTable',
 
   // 组件固定唯一ID
-  componentName: TABLE_ID,
+  componentName: 'PageTable',
 
   components: {
     TableColumn,

@@ -58,6 +58,16 @@ module.exports = [
   },
 
   {
+    url: 'orders/delete',
+    type: 'post',
+    response: config => {
+      return {
+        code: 0
+      }
+    }
+  },
+
+  {
     url: 'city',
     type: 'get',
     response: config => {

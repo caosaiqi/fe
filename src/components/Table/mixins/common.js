@@ -1,5 +1,3 @@
-import { TABLE_ID } from '../constants'
-
 export default {
   methods: {
     getComponent(componentName) {
@@ -16,7 +14,7 @@ export default {
       }
       return parent
     },
-    getTable(table = TABLE_ID) {
+    getTable(table = 'PageTable') {
       return this.getComponent(table)
     }
   }

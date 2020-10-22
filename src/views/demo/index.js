@@ -74,13 +74,8 @@ const tableContent = {
     {
       label: '删除',
       async action(row) {
-        try {
-          await removeDialog(row)
-          this.$message.success('点击了确认')
-        } catch (err) {
-          this.$message.error('点击了取消')
-          throw err
-        }
+        const ret = await removeDialog(row, this)
+        console.log(ret)
       }
     },
     {

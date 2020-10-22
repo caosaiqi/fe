@@ -1,11 +1,11 @@
 import Dialog from '@@/Dialog'
 
-export default (row) => {
-  let _resolve
+export default (row, vnodeTable) => {
+  let _resolve, _reject
   const promise = new Promise((resolve, reject) => {
     _resolve = resolve
+    _reject = reject
   })
-
   new Dialog({
     attrs: {
       size: 'small',
@@ -13,16 +13,17 @@ export default (row) => {
     },
     on: {
       async ok() {
-        await new Promise((r, j) => {
-          setTimeout(() => {
-            r()
-          }, 1000)
-        })
-        _resolve(true)
+        if (!vnodeTable || (vnodeTable.$options && vnodeTable.$options.componentName !== 'PageTable')) return false
+        try {
+          await vnodeTable.fetchRemove(row)
+          _resolve()
+        } catch (err) {
+          _reject()
+          throw err
+        }
       },
       close() {
-        _resolve(false)
-        return false
+        _resolve()
       }
     },
     content() {

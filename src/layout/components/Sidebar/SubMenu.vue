@@ -211,7 +211,7 @@ export default {
     width: 27px;
   }
   .switch-btn-hide{
-    right: -22px;
+    right: -24px;
     border-radius: 0px 5px 5px 0;
   }
   .switch-btn-hide:hover {

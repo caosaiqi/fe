@@ -1,10 +1,10 @@
 <template>
   <el-row :gutter="5">
-    <el-col v-for="(inputItem, index) in inputItems" :key="index" :span="span">
+    <el-col v-for="(item, index) in inputItems" :key="index" :span="span">
       <component
-        :is="getComponent(inputItem)"
-        :value.sync="inputItem.value"
-        v-bind="inputItem"
+        :is="getComponent(item)"
+        :value.sync="model[item.id]"
+        v-bind="item"
       />
     </el-col>
   </el-row>
@@ -12,23 +12,21 @@
 
 <script>
 import Input from './Input'
-
-const inputDefaultAttributes = {
-  width: 210
-}
-const ownComponentTypes = ['Input']
+import Select from './Select'
+const ownComponentNames = ['Input', 'Select']
 
 export default {
   name: 'PageFormMain',
   components: {
-    Input
+    Input,
+    Select
   },
   props: {
     id: {
       type: [String, Number],
       default: undefined
     },
-    type: {
+    componentName: {
       type: String,
       default: 'Input'
     },
@@ -53,49 +51,26 @@ export default {
       return 24
     },
     inputItems() {
-      const placeholderType = {
-        input: '请输入',
-        select: '请选择'
-      }
-      const _items = []
+      const items = []
       if (this.items && this.items.length > 0) {
-        this.items.forEach((item) => {
-          const type = item.type || 'Input'
-          const id = this.id ? `${this.id}__${item.id}` : item.id
-          const value = this.model[id]
-          _items.push({
-            type,
-            id,
-            value,
-            // 同步model的id
-            placeholder: placeholderType[type],
-            ...inputDefaultAttributes,
-            ...item,
-            ...this.$attrs
-          })
+        this.items.forEach(item => {
+          items.push(item)
         })
       } else {
-        const id = this.id
-        const value = this.model[id]
-        _items.push({
-          id,
-          value,
-          type: this.type,
-          placeholder: placeholderType[this.type],
-          ...inputDefaultAttributes,
-          ...this.$attrs
+        items.push({
+          id: this.id,
+          componentName: this.componentName
         })
       }
-      return _items
+      return items
     }
   },
   methods: {
-    getComponent({ type }) {
+    getComponent({ componentName }) {
       // 优先使用二次封装过的组件
-      if (ownComponentTypes.includes(type)) {
-        return type
+      if (ownComponentNames.includes(componentName)) {
+        return componentName
       }
-      return `el-${type}`
     }
   }
 }

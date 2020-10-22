@@ -26,17 +26,59 @@ const searchContent = {
       },
       items: [
         {
-          id: 'city'
+          id: 'city',
+          componentName: 'Select',
+          placeholder: '请选择城市',
+          optionRender: (item) => {
+          },
+          options: [
+            {
+              value: '选项1',
+              label: '黄金糕'
+            },
+            {
+              value: '选项2',
+              label: '双皮奶'
+            },
+            {
+              value: '选项3',
+              label: '蚵仔煎'
+            },
+            {
+              value: '选项4',
+              label: '龙须面'
+            },
+            {
+              value: '选项5',
+              label: '北京烤鸭'
+            }
+          ]
         },
         {
-          id: 'region'
+          id: 'region',
+          componentName: 'Select',
+          placeholder: '请选中区域',
+          options: async() => {
+            // console.log(city)
+            console.log('dasda')
+            await new Promise((r) => {
+              setTimeout(() => {
+                r()
+              }, 3000)
+            })
+            return [
+              {
+                value: '选项5',
+                label: '北京烤鸭'
+              }
+            ]
+          }
         }
       ]
     }
   ]
 }
 
-// 列表
 const tableContent = {
   resources: 'orders',
   /**

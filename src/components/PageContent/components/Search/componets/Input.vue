@@ -1,7 +1,11 @@
 <template>
-  <div>
-    <el-input v-model="data" v-bind="$attrs" :placeholder="placeholder" @input="handleInput" />
-  </div>
+  <el-input
+    v-model="data"
+    v-bind="$attrs"
+    :placeholder="placeholder"
+    :width="width"
+    @input="handleInput"
+  />
 </template>
 
 <script>
@@ -22,6 +26,10 @@ export default {
     placeholder: {
       type: String,
       default: '请输入内容'
+    },
+    width: {
+      type: [String, Number],
+      default: () => 210
     }
   },
   data() {
@@ -39,10 +47,10 @@ export default {
   },
   methods: {
     handleInput(newValue) {
-      this.dispatch('PageForm', 'onSetModel', {
-        [this.id]: newValue
-      })
-      this.$emit('input', newValue)
+      // this.dispatch('PageForm', 'onSetModel', {
+      //   [this.id]: newValue
+      // })
+      this.$emit('update:value', newValue)
     }
   }
 }

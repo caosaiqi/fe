@@ -2,7 +2,7 @@
   <el-form class="page-search-form" v-bind="formAttributes" :model="model">
     <el-form-item v-for="(item, index) in formItems" :key="`${item.name}-${index}`">
       <Label slot="label" :label="item.label" />
-      <Main v-bind="item" :model="model" />
+      <Main v-bind="item" :model.sync="model" />
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="handleSeach">搜索</el-button>
@@ -18,8 +18,8 @@ import Main from './componets/Mian'
 import emitter from '@/mixins/emitter'
 
 import {
-  FORM_DEFAULT_ATTRS,
-  INPUT_DEFAULT_VALUES
+  FORM_DEFAULT_ATTRS
+  // INPUT_DEFAULT_VALUES
 } from '@@/PageContent/constants'
 
 export default {
@@ -50,12 +50,11 @@ export default {
   },
   created() {
     this.initModel(this.formItems)
-    this.$on('onSetModel', this.handleSetModel)
   },
   methods: {
     initModel(formItems) {
       for (let i = 0; i < formItems.length; i++) {
-        const { id, type = 'input', items, value } = formItems[i]
+        const { id, items, value, options } = formItems[i]
         if (items && items.length > 0) {
           return this.initModel(items.map(item => {
             return {
@@ -64,12 +63,12 @@ export default {
             }
           }))
         }
-        this.$set(this.model, id, (value || INPUT_DEFAULT_VALUES[type]))
-      }
-    },
-    handleSetModel(data) {
-      if (data && _.isObject(data)) {
-        Object.assign(this.model, data)
+        if (options && _.isFunction(options)) {
+          this.$watch('model', options, {
+            deep: true
+          })
+        }
+        this.$set(this.model, id, value)
       }
     },
     handleSeach() {

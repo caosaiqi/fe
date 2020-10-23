@@ -43,7 +43,8 @@ export default {
 <style lang="scss" scoped>
  .table-action-button {
     display: inline-block;
-    padding: 0 8px;
+    padding: 0 3px;
+    margin: 0px 5px;
     line-height: 1;
     color: #1890ff
  }

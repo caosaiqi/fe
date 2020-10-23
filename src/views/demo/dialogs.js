@@ -1,7 +1,7 @@
 import Dialog from '@@/Dialog'
 
 export const edit = (rows) => new Dialog({
-  title: '编辑',
+  title: '批量编辑',
   data() {
     return {
       msg: '1231'
@@ -21,7 +21,7 @@ export const edit = (rows) => new Dialog({
       return false
     }
   },
-  render() {
+  content() {
     return (
       <el-form ref='numberValidateForm' label-width='100px' class='demo-ruleForm'>
         <el-form-item label='年龄' prop='age'>

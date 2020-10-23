@@ -5,7 +5,7 @@
       v-bind="tableConfig"
       @selection-change="handleSelectionChange"
     >
-      <el-table-column type="selection" width="39" />
+      <el-table-column type="selection" width="45" />
       <table-column
         v-for="(col, index) in columns"
         :key="`${index}-${col.prop || ''}`"
@@ -92,8 +92,11 @@ export default {
   },
   watch: {
     queryParams: {
-      handler(newQueryParams) {
-        this.fetchList(newQueryParams)
+      handler() {
+        this.initPagination({
+          page: 1
+        })
+        this.fetchList()
       },
       deep: true
     }
@@ -103,7 +106,7 @@ export default {
       this.multipleSelection = rows
     },
     handlePaginationChange() {
-      this.fetchList(this.pagination)
+      this.fetchList()
     }
   }
 }

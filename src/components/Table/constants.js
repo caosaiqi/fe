@@ -1,6 +1,6 @@
 
 export const ACTION_POPOCER_DEFAULT_ATTRS = {
-  placement: 'left',
+  placement: 'bottom-end',
   width: 200,
   trigger: 'hover',
   'close-delay': 100

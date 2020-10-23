@@ -2,6 +2,7 @@
   <el-table-column v-bind="config">
     <div slot-scope="scope">
       <span v-for="(btnItem, index) in actions" :key="index">
+        <el-divider v-if="index" direction="vertical" />
         <components :is="formatBtnName(btnItem)" v-bind="btnItem" :scope="scope" />
       </span>
     </div>

@@ -5,7 +5,6 @@
     v-bind="formAttributes"
     class="page-search-form"
   >
-    {{ model }}
     <el-form-item v-for="(item, index) in formItems" :key="`${item.name}_${index}`">
       <Label slot="label" :label="item.label" />
       <Main v-bind="item" :model.sync="model" />

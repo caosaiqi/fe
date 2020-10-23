@@ -33,6 +33,10 @@ export const template = {
     showClose: {
       type: Boolean,
       default: true
+    },
+    customClass: {
+      type: String,
+      default: undefined
     }
   },
   data() {
@@ -62,6 +66,8 @@ export const template = {
         } finally {
           this.loading = false
         }
+      } else {
+        this.visible = false
       }
     },
     handleClose() {
@@ -100,6 +106,7 @@ export const template = {
 
     return (
       <el-dialog
+        custom-class={this.customClass}
         modal={this.modal}
         destroy-on-close={true}
         show-close={this.showClose}
@@ -167,7 +174,7 @@ const Dialog = function({
     }
   }
 
-  // 调用默认打开
+  // 默认打开
   Vue.nextTick(() => {
     vm.visible = true
   })

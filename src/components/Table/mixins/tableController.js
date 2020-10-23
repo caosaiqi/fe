@@ -18,37 +18,52 @@ export default {
   },
   created() {
     this.manager = new Manager(this.resources)
-    this.fetchList(this.queryParams)
+    this.fetchList()
   },
   methods: {
     listSuccess({ list = [], total = 0 }) {
       // 为空处理
       if (total <= 0) {
-        this.initList()
+        this.initPagination({
+          total: 0
+        })
+        this.pageList = []
         return false
       }
 
-      const { page, pageSize } = this.pagination
-      this.pagination = {
-        page,
-        pageSize,
-        total
-      }
+      this.pagination.total = total
       this.pageList = list
     },
 
-    initList() {
-      this.pageList = []
-      this.pagination = _.cloneDeep(DEFAULT_PAGINATION)
+    initPagination(newPagination = {}) {
+      this.pagination = Object.assign({}, this.pagination, newPagination)
+
+      if (!this.pagination.total) {
+        this.pagination.page = 1
+        this.pageList = []
+      }
     },
 
-    async fetchList(params) {
+    async fetchList(params = {}) {
       try {
         this.loading = true
-        const { data } = await this.manager.list(params)
+
+        const { page, pageSize } = this.pagination
+        const fetchParams = Object.assign(
+          {},
+          {
+            page,
+            pageSize
+          },
+          this.queryParams,
+          params
+        )
+        const { data } = await this.manager.list(fetchParams)
         this.listSuccess(data)
       } catch (err) {
-        this.initList()
+        this.initPagination({
+          total: 0
+        })
         throw err
       } finally {
         setTimeout(() => {
@@ -56,16 +71,18 @@ export default {
         }, 200)
       }
     },
+
     fetchCreate() {},
     fetchUpdate() {},
 
     async fetchRemove(row) {
-      console.log(row)
       try {
         await this.manager.remove({
           params: row
         })
-        await this.fetchList()
+        const params = Object.assign({}, this.pagination, this.queryParams)
+        await this.fetchList(params)
+        return true
       } catch (err) {
         throw err
       }

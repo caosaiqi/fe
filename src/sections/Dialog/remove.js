@@ -9,7 +9,8 @@ export default (row, vnodeTable) => {
   new Dialog({
     attrs: {
       size: 'small',
-      showClose: false
+      showClose: false,
+      customClass: 'dialog-remove'
     },
     on: {
       async ok() {
@@ -28,7 +29,7 @@ export default (row, vnodeTable) => {
     },
     content() {
       return (
-        <div class='dialog-remove'>
+        <div class='dialog-remove-content'>
           <i class='el-icon-question' />
           <div class='description'>
             <h3> 您确定要删除吗？</h3>

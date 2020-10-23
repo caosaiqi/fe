@@ -3,10 +3,10 @@
     <action-button slot="reference" :scope="scope" />
     <div class="table-action-popover-content">
       <span v-for="(btnItem, index) in subActions" :key="index">
+        <el-divider v-if="index" direction="vertical" />
         <action-button v-bind="btnItem" :scope="scope" />
       </span>
     </div>
-
   </el-popover>
 </template>
 

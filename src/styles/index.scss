@@ -95,32 +95,39 @@ div:focus {
   flex:1
 }
 
-.dialog-remove{
-  position: relative;
-  > i {
-    font-size: 30px;
-    color: $--color-warning;
-    position: absolute;
-    left: 0;
+
+.dialog-remove {
+  .el-dialog__header{
+    display: none;
   }
-  .description{
-    margin-left:  44px;
-    h3 {
-      display: block;
-      overflow: hidden;
-      color: rgba(0,0,0,.85);
-      font-weight: 500;
-      font-size: 20px;
-      line-height: 1.6;
-      margin: 0;
-      margin-bottom: 5px;
+  .dialog-remove-content {
+    position: relative;
+    > i {
+      font-size: 30px;
+      color: $--color-warning;
+      position: absolute;
+      left: 0;
     }
-    h4 {
-      margin-top: 8px;
-      color: rgba(0,0,0,.7);
-      font-size: 14px;
-      margin: 0;
-      font-weight: 500;
+    .description{
+      margin-left:  44px;
+      h3 {
+        display: block;
+        overflow: hidden;
+        color: rgba(0,0,0,.85);
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 1.6;
+        margin: 0;
+        margin-bottom: 5px;
+      }
+      h4 {
+        margin-top: 8px;
+        color: rgba(0,0,0,.7);
+        font-size: 14px;
+        margin: 0;
+        font-weight: 500;
+      }
     }
   }
+  
 }

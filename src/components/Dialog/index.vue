@@ -116,7 +116,6 @@ export default {
     }
 
     const width = this.width || size[this.size]
-    
     const config = {
       on: {
         'update:visible': (v) => {

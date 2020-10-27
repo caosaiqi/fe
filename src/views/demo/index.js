@@ -16,7 +16,7 @@ const searchContent = {
      * return false表示不再刷新列表
      * return new Object(), 使用新对象刷新列表
      * return undefined，使用默认参数刷新列表
-     **/
+     */
   },
   formItems: [
     {
@@ -60,7 +60,7 @@ const tableContent = {
    * queryParams: {
    *  name: '1'
    * },
-   **/
+   */
   columns: [
     {
       prop: 'title',
@@ -90,13 +90,13 @@ const tableContent = {
       label: '更多',
       /**
        * 使用弹框（el-popover）形式展示更多按钮
-       **/
+       */
       subActions: [
         {
           label: '下单',
           /**
            * action方法内部this指定当前table，您可以调用table下面所用方法，比如fetchList
-           **/
+           */
           action(row) {
             console.log(row)
           }

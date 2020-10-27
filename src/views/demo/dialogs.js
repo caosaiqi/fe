@@ -1,4 +1,4 @@
-import Dialog from '@@/Dialog'
+import Dialog from '@@/Dialog/index.js'
 
 export const edit = (rows) => new Dialog({
   title: '批量编辑',
@@ -21,6 +21,7 @@ export const edit = (rows) => new Dialog({
       return false
     }
   },
+  // footer: () => {},
   content() {
     return (
       <el-form ref='numberValidateForm' label-width='100px' class='demo-ruleForm'>

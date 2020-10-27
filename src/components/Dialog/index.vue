@@ -9,11 +9,14 @@ const size = {
 }
 
 export default {
-  name: 'MdDrawer',
+  name: 'MdDialog',
   props: {
-    customClass: {
+    visible: {
+      type: Boolean
+    },
+    title: {
       type: String,
-      default: ''
+      default: undefined
     },
     size: {
       type: String,
@@ -23,25 +26,34 @@ export default {
       type: String,
       default: undefined
     },
-    title: {
-      type: String,
-      default: ''
-    },
-    visible: {
+    center: {
       type: Boolean,
       default: false
+    },
+    modal: {
+      type: Boolean,
+      default: true
+    },
+    showClose: {
+      type: Boolean,
+      default: true
+    },
+    customClass: {
+      type: String,
+      default: undefined
+    },
+    appendToBody: {
+      type: Boolean,
+      default: true
+    },
+    destroyOnClose: {
+      type: Boolean,
+      default: true
     }
   },
   data() {
     return {
       loading: false
-    }
-  },
-  watch: {
-    visible(val) {
-      if (val) {
-        document.body.appendChild(this.$el)
-      }
     }
   },
   methods: {
@@ -62,7 +74,7 @@ export default {
           this.loading = false
         }
       } else {
-        this.handleClose()
+        this.handleClose
       }
     },
     handleClose() {
@@ -80,23 +92,9 @@ export default {
     }
   },
   render(h) {
-    const RenderHeader = () => (
-      <header class='el-drawer__header d-flex '>
-        <span class='flex-grow-1'>
-          { this.title }
-        </span>
-        <a
-          class='el-drawer__close-btn'
-          onClick={this.handleClose}
-        >
-          <i class='el-dialog__close el-icon el-icon-close' />
-        </a>
-      </header>
-    )
-
     const RenderContent = () => {
       return (
-        <section class='el-drawer__body'>
+        <section class='dialog-content'>
           { this.getSlot('content') }
         </section>
       )
@@ -107,7 +105,7 @@ export default {
       if (footer === undefined) {
         return (
           <FooterConfirm
-            custom-class='body-drawer-footer'
+            slot='footer'
             loading={this.loading}
             onOk={this.handleOk}
             onClose={this.handleClose}
@@ -117,25 +115,27 @@ export default {
       return footer
     }
 
-    const Drawer = () => {
-      if (!this.visible) return null
-      const width = this.width || size[this.size]
-      return (
-        <div
-          class='el-drawer md-drawer'
-          style={{ width }}
-        >
-          <RenderHeader />
-          <RenderContent />
-          <FooterRender />
-        </div>
-      )
+    const width = this.width || size[this.size]
+    
+    const config = {
+      on: {
+        'update:visible': (v) => {
+          this.handleClose()
+        }
+      },
+      props: {
+        ...this.$props,
+        width
+      }
     }
     return (
-      <transition name='drawer'>
-        <Drawer />
-      </transition>
+      <el-dialog {...config}>
+        <RenderContent />
+        <FooterRender />
+      </el-dialog>
     )
   }
 }
+
 </script>
+

@@ -25,7 +25,7 @@ export default {
   },
   props: {
     headerContent: {
-      type: Object,
+      type: [Object, String],
       default: undefined
     },
     searchContent: {
@@ -44,15 +44,16 @@ export default {
   },
   computed: {
     headerConfig() {
+      const { batchActions } = this.tableConfig
       if (_.isEmpty(this.headerContent)) {
         return false
       }
       if (_.isString(this.headerContent)) {
         return {
-          title: this.headerContent
+          title: this.headerContent,
+          batchActions
         }
       }
-      const { batchActions } = this.tableConfig
       return Object.assign(this.headerContent, { batchActions })
     },
     searchConfig() {

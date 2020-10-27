@@ -1,5 +1,6 @@
 import pageContentTemplate from '@@/PageContent/template.js'
 import { edit } from './dialogs'
+import { drawerCreate } from './drawer'
 import { removeDialog } from '@sections/Dialog'
 import { fetchGetCity, fetchGetRegion } from '@api'
 
@@ -74,8 +75,15 @@ const tableContent = {
     {
       label: '删除',
       async action(row) {
+        console.log(this, row)
         const ret = await removeDialog(row, this)
         console.log(ret)
+      }
+    },
+    {
+      label: '更新',
+      async action(row) {
+        edit(row)
       }
     },
     {
@@ -104,9 +112,9 @@ const tableContent = {
   ],
   batchActions: [
     {
-      label: '编辑',
-      action(rows) {
-        edit(rows)
+      label: '新建',
+      action: ({ rows, pageTable }) => {
+        drawerCreate(pageTable)
       }
     }
   ]

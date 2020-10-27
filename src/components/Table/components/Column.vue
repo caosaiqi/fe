@@ -52,9 +52,13 @@ export default {
           const { row = {}} = scope
           const value = row[prop]
           if (render && typeof _.isFunction(render)) {
-            return render.call(pageTable, value, row)
+            return render({
+              value,
+              row,
+              pageTable
+            })
           }
-          return defaultRender(value, row)
+          return defaultRender(value, row, pageTable)
         }
       }
     }

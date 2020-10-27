@@ -51,11 +51,14 @@ export default {
         },
         on: {
           click: () => {
+            if (!action || !_.isFunction(action)) return false
             const { multipleSelection = [] } = pageTable
             const ids = multipleSelection.map(row => row.id)
-            action.call(pageTable, {
+
+            action({
               ids,
-              rows: multipleSelection
+              rows: multipleSelection,
+              pageTable
             })
           }
         }

@@ -1,6 +1,7 @@
 @import './variables.scss';
 @import './element-ui.scss';
 @import './element-variables.scss';
+@import '~animate.css/animate.min.css';
 
 @import '//at.alicdn.com/t/font_2141665_6inbxf8ca2o.css';
 
@@ -130,4 +131,35 @@ div:focus {
     }
   }
   
+}
+
+.md-drawer{
+  z-index: 11;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  .el-drawer__header{
+    padding-bottom: 20px;
+    border-bottom: 1px solid $--border-color-lighter;
+    margin-bottom: 0;
+  }
+  .body-drawer-footer{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 20px;
+    border-top: 1px solid $--border-color-lighter;
+    text-align: left;
+  }
+  .el-drawer__body{
+    padding: 20px;
+    padding-bottom: 90px;
+  }
+}
+.drawer-enter-active {
+  animation: slideInRight .22s;
+}
+.drawer-leave-active {
+  animation: slideInRight .22s reverse;
 }

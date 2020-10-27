@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import mixin from '../mixins/common'
 import { ACTION_BUTTON_DEFAULT_ATTRS, ACTION_BUTTON_DEFAULT_LABEL } from '../constants'
 
@@ -34,7 +35,13 @@ export default {
     handleClick() {
       const pageTable = this.getTable()
       const { row = {}} = this.scope
-      this.action.call(pageTable, row, this.scope)
+      if (_.isFunction(this.action)) {
+        this.action({
+          row,
+          pageTable,
+          scope: this.scope
+        })
+      }
     }
   }
 }

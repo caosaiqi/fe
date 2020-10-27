@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import Demo from '@/views/demo/index.js'
+import Demo2 from '@/views/demo2/index'
 
 Vue.use(Router)
 
@@ -14,9 +16,13 @@ export const constantRoutes = [
     children: [
       {
         path: 'demo',
-        component: () => import('@/views/demo/index.js'),
+        component: Demo,
         name: '电商管理-POP店管理-店铺管理',
         meta: { title: '电商管理-POP店管理-店铺管理', icon: 'dashboard', affix: true }
+      },
+      {
+        path: 'demo2',
+        component: Demo2
       }
     ]
   }

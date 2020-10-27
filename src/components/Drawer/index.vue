@@ -46,20 +46,22 @@ export default {
   },
   methods: {
     async handleOk() {
-      const { ok } = this._events
-      if (ok && !_.isEmpty(ok)) {
-        const [_handleOk] = ok
-        this.loading = true
-        try {
-          const f = await _handleOk()
-          if (_.isBoolean(f) && !f) {
-            return
+      const refContent = this.$refs.content
+      if (refContent && !_.isEmpty(refContent)) {
+        const { ok } = refContent
+        if (ok && _.isFunction(ok)) {
+          this.loading = true
+          try {
+            const f = await ok()
+            if (_.isBoolean(f) && !f) {
+              return
+            }
+            this.handleClose()
+          } catch (err) {
+            throw err
+          } finally {
+            this.loading = false
           }
-          this.handleClose()
-        } catch (err) {
-          throw err
-        } finally {
-          this.loading = false
         }
       } else {
         this.handleClose()
@@ -74,7 +76,7 @@ export default {
       if (slot === undefined) return undefined
       if (_.isFunction(slot)) {
         const Component = slot
-        return <Component />
+        return <Component ref={ name } />
       }
       return slot
     }

@@ -72,16 +72,25 @@ export default {
       }
     },
 
-    fetchCreate() {},
-    fetchUpdate() {},
+    async fetchCreate(params) {
+      try {
+        await this.manager.create({ params })
+
+        const params = Object.assign({}, this.pagination, this.queryParams)
+        await this.fetchList(params)
+        return true
+      } catch (err) {
+        throw err
+      }
+    },
 
     async fetchRemove(row) {
       try {
         await this.manager.remove({
           params: row
         })
-        const params = Object.assign({}, this.pagination, this.queryParams)
-        await this.fetchList(params)
+
+        await this.fetchList()
         return true
       } catch (err) {
         throw err

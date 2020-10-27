@@ -68,6 +68,16 @@ module.exports = [
   },
 
   {
+    url: 'orders/create',
+    type: 'post',
+    response: config => {
+      return {
+        code: 0
+      }
+    }
+  },
+
+  {
     url: 'city',
     type: 'get',
     response: config => {

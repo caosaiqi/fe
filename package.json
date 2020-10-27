@@ -4,9 +4,9 @@
   "description": "",
   "author": "",
   "scripts": {
-    "start": "vue-cli-service serve",
+    "build": "vue-cli-service build",
     "lint": "eslint --ext .js,.vue src",
-    "build": "vue-cli-service build"
+    "start": "vue-cli-service serve"
   },
   "dependencies": {
     "animate.css": "^4.1.1",
@@ -31,10 +31,10 @@
     "xlsx": "0.14.1"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "4.4.4",
-    "@vue/cli-plugin-eslint": "4.4.4",
-    "@vue/cli-plugin-unit-jest": "4.4.4",
-    "@vue/cli-service": "4.4.4",
+    "@vue/cli-plugin-babel": "~4.5.8",
+    "@vue/cli-plugin-eslint": "~4.5.8",
+    "@vue/cli-plugin-unit-jest": "~4.5.8",
+    "@vue/cli-service": "~4.5.8",
     "@vue/test-utils": "1.0.0-beta.29",
     "autoprefixer": "9.5.1",
     "babel-eslint": "10.1.0",
@@ -68,6 +68,11 @@
     "node": ">=8.9",
     "npm": ">= 3.0.0"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "keywords": [
     "vue",
     "admin",
@@ -83,10 +88,5 @@
       "eslint --fix",
       "git add"
     ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   }
 }

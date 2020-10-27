@@ -1,13 +1,23 @@
 'use strict'
 const path = require('path')
+const fs = require('fs')
 const defaultSettings = require('./src/settings.js')
 function resolve(dir) {
   return path.join(__dirname, dir)
 }
 
+function fsExistsSync(path) {
+  try {
+    fs.accessSync(path, fs.F_OK)
+  } catch (e) {
+    return false
+  }
+  return true
+}
+
 const name = defaultSettings.title || 'acp' // page title
 
-const port = process.env.port || process.env.npm_config_port || 8083 // dev port
+const devServerCoustomConfig = fsExistsSync(resolve('./dev.server.config.js')) ? require('./dev.server.config.js') : {}
 
 module.exports = {
   publicPath: '/',
@@ -15,23 +25,7 @@ module.exports = {
   assetsDir: 'static',
   lintOnSave: process.env.NODE_ENV === 'development',
   productionSourceMap: false,
-  devServer: {
-    port: port,
-    disableHostCheck: true,
-    open: true,
-    before: require('./mock/mock-server.js'),
-    proxy: {
-    //   '/mall_freight_template/': {
-    //     target: 'http://testacp.modianinc.com'
-    //   },
-      '/acp_api/': {
-        target: 'http://testacp.modianinc.com'
-      }
-    //   '/mall/': {
-    //     target: 'http://testacp.modianinc.com'
-    //   }
-    }
-  },
+  devServer: devServerCoustomConfig,
   configureWebpack: {
     name: name,
     resolve: {

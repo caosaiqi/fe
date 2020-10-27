@@ -39,4 +39,13 @@ export default class Manager {
   remove({ path = 'delete', params } = {}) {
     return request.post(`${this.resource}/${path}`, params)
   }
+
+  /**
+   * @path {string} url
+   * @params {object} body
+   * @returns {object} promise
+  */
+  create({ path = 'create', params } = {}) {
+    return request.post(`${this.resource}/${path}`, params)
+  }
 }

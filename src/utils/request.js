@@ -1,7 +1,6 @@
 import axios from 'axios'
 import { Message } from 'element-ui'
 import store from '@/store'
-import { getToken } from '@/utils/auth'
 import jsCookies from 'js-cookie'
 // import _ from 'lodash'
 
@@ -14,7 +13,7 @@ const service = axios.create({
 service.interceptors.request.use(
   config => {
     if (store.getters.token) {
-      config.headers['X-Token'] = getToken()
+     //  config.headers['X-Token'] = getToken()
     }
     console.log(jsCookies.get('MDACPUSERINFO'))
     // config.headers['Content-Type'] = 'application/x-www-form-urlencoded'

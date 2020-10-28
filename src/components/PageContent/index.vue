@@ -10,7 +10,7 @@
 import _ from 'lodash'
 import PageHeader from './components/Header'
 import PageSearch from './components/Search'
-import PageTable from '@@/Table'
+import PageTable from '@@/PageTable'
 
 export default {
   name: 'PageContent',

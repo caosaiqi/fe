@@ -1,3 +1,6 @@
+csq.fe.acp.modian.com
+├─.DS_Store
+├─.editorconfig
 ├─.env.development
 ├─.env.production
 ├─.env.staging
@@ -5,6 +8,7 @@
 ├─.eslintrc.js
 ├─.gitignore
 ├─.travis.yml
+├─LICENSE
 ├─README.md
 ├─babel.config.js
 ├─dev.server.config.js
@@ -13,7 +17,9 @@
 ├─package.json
 ├─plopfile.js
 ├─postcss.config.js
+├─result.txt
 ├─vue.config.js
+├─yarn.lock
 ├─src
 |  ├─App.vue
 |  ├─main.js
@@ -46,10 +52,37 @@
 |  |   ├─index.js
 |  |   ├─modules
 |  |   |    ├─app.js
+|  |   |    ├─errorLog.js
+|  |   |    ├─permission.js
+|  |   |    └settings.js
 |  ├─sections
+|  |    ├─Select
+|  |    ├─Dialog
+|  |    |   ├─index.js
+|  |    |   └remove.js
 |  ├─router
+|  |   └index.js
 |  ├─mixins
+|  |   └emitter.js
 |  ├─layout
+|  |   ├─index.vue
+|  |   ├─mixin
+|  |   |   └ResizeHandler.js
+|  |   ├─components
+|  |   |     ├─AppMain.vue
+|  |   |     ├─Navbar.vue
+|  |   |     ├─SearchMenu.vue
+|  |   |     ├─index.js
+|  |   |     ├─TagsView
+|  |   |     |    ├─ScrollPane.vue
+|  |   |     |    └index.vue
+|  |   |     ├─Sidebar
+|  |   |     |    ├─Logo.vue
+|  |   |     |    ├─SubMenu.vue
+|  |   |     |    ├─config.js
+|  |   |     |    └index.vue
+|  |   |     ├─Settings
+|  |   |     |    └index.vue
 |  ├─icons
 |  ├─filters
 |  ├─components
@@ -59,6 +92,9 @@
 |   ├─favicon.ico
 |   └index.html
 ├─mock
+|  ├─index.js
+|  ├─mock-server.js
 |  ├─order.js
+|  └utils.js
 ├─build
 |   └index.js

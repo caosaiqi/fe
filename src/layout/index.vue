@@ -1,8 +1,8 @@
 <template>
   <div :class="classObj" class="app-wrapper">
     <sidebar />
-    <div :class="{hasTagsView:needTagsView}" class="main-container">
-      <div :class="{'fixed-header':fixedHeader}">
+    <div class="main-container">
+      <div>
         <navbar />
       </div>
       <app-main />
@@ -26,10 +26,7 @@ export default {
   computed: {
     ...mapState({
       sidebar: state => state.app.sidebar,
-      device: state => state.app.device,
-      showSettings: state => state.settings.showSettings,
-      needTagsView: state => state.settings.tagsView,
-      fixedHeader: state => state.settings.fixedHeader
+      device: state => state.app.device
     }),
     classObj() {
       return {

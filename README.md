@@ -224,7 +224,7 @@ yarn build
 	 }
    </script>
    ````
-**PageTable Attribute ** 继续支持[el-table](https://element.eleme.cn/#/zh-CN/component/table#table-attributes)Attribute 
+*PageTable Attribute* 继续支持[el-table](https://element.eleme.cn/#/zh-CN/component/table#table-attributes)Attribute 
 
 |  参数 |说明   |  类型 | 可选值  | 默认值   |
 | ------------ | ------------ | ------------ | ------------ | ------------ |

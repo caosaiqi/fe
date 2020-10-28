@@ -43,7 +43,7 @@ yarn build
 
 ### 功能模块
 
-###### 基础配置
+###### 项目配置
 -   环境分离
     - 生产环境配置文件💼.env.development
     - 线上环境配置文件💼.env.production
@@ -52,7 +52,13 @@ yarn build
 -  mock数据
 -  使用eslint统一编码风格 配置文件💼 .eslintrc.js
 
-
+###### 与后台接口交互处理
+-  基础方法request.js
+   - 目前近支持post 和 get
+   get请求
+   ```js
+    export const apiGetLeftMenu = () => request.get('acp_api/auth_access/left_menu')
+   ```
 
 
 

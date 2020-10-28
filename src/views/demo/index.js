@@ -120,7 +120,7 @@ const tableContent = {
   ]
 }
 export default pageContentTemplate({
-  // headerContent,
-  // searchContent,
+  headerContent,
+  searchContent,
   tableContent
 })

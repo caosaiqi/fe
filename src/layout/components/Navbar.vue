@@ -1,17 +1,13 @@
 <template>
   <div class="navbar">
-    <search-menu />
+    <!-- <search-menu /> -->
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import SearchMenu from './SearchMenu'
 
 export default {
-  components: {
-    SearchMenu
-  },
   computed: {
     ...mapGetters([
       'sidebar'

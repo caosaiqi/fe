@@ -18,7 +18,7 @@ function fsExistsSync(path) {
 const name = defaultSettings.title || 'acp' // page title
 
 const devServerCoustomConfig = fsExistsSync(resolve('./dev.server.config.js')) ? require('./dev.server.config.js') : {}
-
+console.log(devServerCoustomConfig)
 module.exports = {
   publicPath: '/',
   outputDir: 'dist',

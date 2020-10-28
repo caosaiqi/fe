@@ -1,14 +1,17 @@
-### 代码目录
-```js
 ├─.env.development
 ├─.env.production
+├─.env.staging
 ├─.eslintignore
 ├─.eslintrc.js
+├─.gitignore
+├─.travis.yml
+├─README.md
 ├─babel.config.js
 ├─dev.server.config.js
 ├─jest.config.js
 ├─jsconfig.json
 ├─package.json
+├─plopfile.js
 ├─postcss.config.js
 ├─vue.config.js
 ├─src
@@ -59,4 +62,3 @@
 |  ├─order.js
 ├─build
 |   └index.js
-```

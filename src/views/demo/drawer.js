@@ -1,6 +1,6 @@
-import Drawer from '@@/Drawer/index.js'
+import createDrawer from '@@/Drawer/createDrawer.js'
 
-export const drawerCreate = (pageTable) => new Drawer({
+export const drawerCreate = (pageTable) => createDrawer({
   title: '新建',
   data() {
     return {

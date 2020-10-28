@@ -74,7 +74,7 @@ const tableContent = {
   actions: [
     {
       label: '删除',
-      async action(row) {
+      async action({ row, pageTable }) {
         console.log(this, row)
         const ret = await removeDialog(row, this)
         console.log(ret)
@@ -120,7 +120,7 @@ const tableContent = {
   ]
 }
 export default pageContentTemplate({
-  headerContent,
-  searchContent,
+  // headerContent,
+  // searchContent,
   tableContent
 })

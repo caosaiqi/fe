@@ -151,7 +151,7 @@ yarn build
  
 ###视图组件
 
-**PageContent** :tw-1f381:
+####PageContent列表页主题组件
 一个列表视图页面的主题组件，组件引用了 `PageHeader` `PageSearsh` `PageTable` 
 
 ![](https://i.postimg.cc/K1CC7kWK/We-Chatab5fdb45b85b1f52831f260b1190ae7d.png)
@@ -160,8 +160,8 @@ yarn build
 
 
 
-**PageHeader** :tw-1f381:
-头部内容
+####PageHeader头部内容
+
 
 ```js
  <template>
@@ -175,7 +175,7 @@ yarn build
    }
  </script>
 ```
-###### PageHeader  Attribute
+#####PageHeader  Attribute
 |  参数 |说明   |  类型 | 可选值  | 默认值   |
 | ------------ | ------------ | ------------ | ------------ | ------------ |
 | title  | 内容标题  |  String, vnode |   - | -   |
@@ -183,7 +183,7 @@ yarn build
 ------------
 
 
-**PageTable** 列表表格:tw-1f381:
+####PageTable表格
 
 基于 [el-table](https://element.eleme.cn/#/zh-CN/component/table) 作为基础ui组件，结合`manager.js` 做的系列的处理
 
@@ -224,7 +224,7 @@ yarn build
 	 }
    </script>
    ````
-*PageTable Attribute* 继续支持[el-table](https://element.eleme.cn/#/zh-CN/component/table#table-attributes)Attribute 
+#####PageTable Attribute, 同时支持[el-table](https://element.eleme.cn/#/zh-CN/component/table#table-attributes)Attribute 
 
 |  参数 |说明   |  类型 | 可选值  | 默认值   |
 | ------------ | ------------ | ------------ | ------------ | ------------ |
@@ -234,14 +234,14 @@ yarn build
 | actions  |  列操作  |  Array | -  | -  |
 | batchActions  |  批量操作  |  Array | -  | -  |
 
-**PageTable-columns Attribute **
+#####PageTable-columns Attribute
 
 |  参数 |说明   |  类型 | 可选值  | 默认值   |
 | ------------ | ------------ | ------------ | ------------ | ------------ |
 | label  | 列名称  |  String |  - | -   |
 |  render | 自定显示内容   | Function({row, pageTable})    | -   | -   |
 
-**PageTable-actions Attribute **
+#####PageTable-actions Attribute
 
 |  参数 |说明   |  类型 | 可选值  | 默认值   |
 | ------------ | ------------ | ------------ | ------------ | ------------ |
@@ -249,7 +249,7 @@ yarn build
 |  action | 按钮点击(click)时，触发的方法   | Function({row, pageTable})    | -   | -   |
 |  subActions | 弹框形式展示更多操作   | Array   | -   | -   |
 
-**PageTable-actions-subActions Attribute **
+#####PageTable-actions-subActions Attribute
 
 |  参数 |说明   |  类型 | 可选值  | 默认值   |
 | ------------ | ------------ | ------------ | ------------ | ------------ |

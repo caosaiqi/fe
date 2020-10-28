@@ -162,7 +162,6 @@ yarn build
 
 #### PageHeader头部内容
 
-
 ```js
  <template>
    	 <page-header :title="title" />
@@ -182,6 +181,60 @@ yarn build
 
 ------------
 
+#### PageSearch头部内容
+
+```js
+ <template>
+   <page-Searsh :formItems="formItems" />
+ <template/>
+ <script>
+   exprot default {
+     data()  {
+	   formItems:[
+	      {
+		    id: 'name',
+		    label: '名称',
+			componentName: 'input'
+		  },
+		  {
+		    label: () => ( <span>asdasd</span>	),
+			items: [
+				{
+			 		id: 'city',
+					label: '城市',
+					componentName: "Select'',
+					options: [
+						{value: 'shanghai',  label: '上海'}
+					],
+					id: 'region',
+					label: '区域',
+					componentName: "Select'',
+					options: async (values) => {
+						const  {city}  = values
+					  const { data } = await fetchGetRegion({ city })
+					  return data
+					}
+			  },
+			]
+		  }
+	   ]
+	 }
+   }
+ </script>
+```
+##### PageSearch  Attribute
+|  参数 |说明   |  类型 | 可选值  | 默认值   |
+| ------------ | ------------ | ------------ | ------------ | ------------ |
+| formItems  | 搜索项  | Array |   - | 必填   |
+
+##### formItems-item Attribute
+|  参数 |说明   |  类型 | 可选值  | 默认值   |
+| ------------ | ------------ | ------------ | ------------ | ------------ |
+| id  | 搜索需要的key  | String |   - | 必填   |
+| label  | 大家都懂  | String, Function |   - | - |
+| componentName  | 内部二次封装的组件名称，主要首字母大写  | String |  Input,Select | Input |
+| options  | 如果componentName是Select，将需要这个参数， | Array，Function |  [{label: '北京', value: '北京'}]， 或者是一个方法的返回 | - |
+------------
 
 #### PageTable表格
 
@@ -228,9 +281,9 @@ yarn build
 
 |  参数 |说明   |  类型 | 可选值  | 默认值   |
 | ------------ | ------------ | ------------ | ------------ | ------------ |
-| resources  | 资源地址,也就是列表请求接口地址  |  String |   必传 | -   |
+| resources  | 资源地址,也就是列表请求接口地址  |  String |  -  | 必传   |
 |  queryParams |  列表调用接口查询时，带的默认参数 | Object, Function    | -   | -   |
-|  columns | 列  | Array  | 必传  |  - |
+|  columns | 列  | Array  | -  |  必传 |
 | actions  |  列操作  |  Array | -  | -  |
 | batchActions  |  批量操作  |  Array | -  | -  |
 
@@ -249,9 +302,53 @@ yarn build
 |  action | 按钮点击(click)时，触发的方法   | Function({row, pageTable})    | -   | -   |
 |  subActions | 弹框形式展示更多操作   | Array   | -   | -   |
 
-#####  PageTable-actions-subActions Attribute
+##### PageTable-actions-subActions Attribute
 
 |  参数 |说明   |  类型 | 可选值  | 默认值   |
 | ------------ | ------------ | ------------ | ------------ | ------------ |
 | label  | 操作按钮名称  |  String |  - | 操作   |
 |  action | 按钮点击(click)时，触发的方法   | Function({row, pageTable})    | -   | -   |
+------------
+
+#### Drawer 页面抽屉组件
+````js
+import createDrawer from '@@/Drawer/createDrawer.js'
+export const drawerCreate = (pageTable) => createDrawer({
+  title: '新建',
+  data() {
+    return {
+      data: {
+        name: '',
+      },
+      rules: {
+        name: [
+          { required: true, message: '姓名不能为空' }
+        ],
+      }
+    }
+  },
+  methods: {
+    async ok() {
+      try {
+        await this.$refs.form.validate()
+        await pageTable.fetchCreate(this.data)
+      } catch (e) {
+        return false
+      }
+    },
+    close() {
+      console.log('点击了取消')
+    }
+  },
+  render() {
+    return (
+      <el-form {...{ props: { model: this.data }}} ref='form' rules={this.rules}>
+        <el-form-item label='名称' prop='name'>
+          <el-input v-model={this.data.name} />
+        </el-form-item>
+      </el-form>
+    )
+  }
+})
+
+````

@@ -172,6 +172,35 @@ yarn build
 一个列表视图页面的主题组件，组件引用了 `PageHeader` `PageSearsh` `PageTable` 
 
 ![](https://i.postimg.cc/K1CC7kWK/We-Chatab5fdb45b85b1f52831f260b1190ae7d.png)
+```js
+ // template
+ <template>
+   	 <page-content
+        :header-content="headerContent"
+        :search-content="searchContent"
+        :table-content="tableContent"
+    />
+ <template/>
+ <script>
+    exprot default {
+     data()  {
+       headerContent: {...} //参考PageHeader  Attribute,
+       searchContent: {...} //参考SearchContent  Attribute,
+       tableContent: {...} //参考TableContent  Attribute
+	 }
+   }
+ </script>
+```
+
+```js
+  // 如果您更喜欢jsx的话， 需要引入PageContent组件下的/createPageContent.js
+  import CreatePageContent from '@@/PageContent/createPageContent.js'
+  export default createPageContent({
+    headerContent: {...} //参考PageHeader  Attribute,
+    searchContent: {...} //参考SearchContent  Attribute,
+    tableContent: {...} //参考TableContent  Attribute
+  })
+```
 
 ------------
 
@@ -223,15 +252,17 @@ yarn build
 					options: [
 						{value: 'shanghai',  label: '上海'}
 					],
-					id: 'region',
+                },
+                {
+                    id: 'region',
 					label: '区域',
 					componentName: "Select'',
 					options: async (values) => {
-						const  {city}  = values
+					  const  {city}  = values
 					  const { data } = await fetchGetRegion({ city })
 					  return data
 					}
-			  },
+                }
 			]
 		  }
 	   ]

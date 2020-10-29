@@ -1,4 +1,4 @@
-import pageContentTemplate from '@@/PageContent/template.js'
+import createPageContent from '@@/PageContent/createPageContent.js'
 import { edit } from './dialogs'
 import { drawerCreate } from './drawer'
 import { removeDialog } from '@sections/Dialog'
@@ -119,7 +119,7 @@ const tableContent = {
     }
   ]
 }
-export default pageContentTemplate({
+export default createPageContent({
   headerContent,
   searchContent,
   tableContent

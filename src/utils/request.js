@@ -13,7 +13,7 @@ const service = axios.create({
 service.interceptors.request.use(
   config => {
     if (store.getters.token) {
-     //  config.headers['X-Token'] = getToken()
+      //  config.headers['X-Token'] = getToken()
     }
     console.log(jsCookies.get('MDACPUSERINFO'))
     // config.headers['Content-Type'] = 'application/x-www-form-urlencoded'

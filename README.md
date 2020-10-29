@@ -6,7 +6,6 @@ git clone git@gitlab.modianinc.com:caosaiqi/csq.fe.acp.modian.com.git
 ```
 
 ##### 2.yarn 安装依赖(国内建议增加淘宝镜像源，不然很慢，你懂的 😁)
-
 > 有些老铁遇到运行时报错，首先确定下是不是最新稳定版的 nodejs 和 yarn，切记不要用 cnpm
 
 ```js
@@ -345,6 +344,22 @@ yarn build
 		}
  	}
 </script>
+
+```
+
+```js
+// 如果你更喜欢jsx的话，可以引入 Drawer组件目录下的createDrawer
+const drawer = createDrawer({
+    title: '这个一个抽屉',
+    data() {
+      return {
+        msg: 'hello world'
+      }
+    }
+    render() {
+      return <div> <el-input v-model={this.model>} /> </div>
+    }
+})
 
 ```
 

@@ -106,7 +106,7 @@ yarn build
 
 ### 基础服务
 
-###### 项目配置 :tw-1f334:
+##### 项目配置
 -   环境分离
     > 生产环境配置文件💼.env.development
     > 线上环境配置文件💼.env.production
@@ -115,7 +115,7 @@ yarn build
 -  mock数据
 -  使用eslint统一编码风格 配置文件💼 .eslintrc.js
 
-###### 与后台接口交互处理:tw-1f334:
+##### 与后台接口交互处理
 -  request.js，封装axios统一接口配置，配置文件💼 /src/utils/request.js（目前近支持post 和 get）
    ```js
    // post 方式
@@ -148,10 +148,28 @@ yarn build
   })
 
   ```
+
+  
+##### 全局状态vuex store
+-全局store包含菜单数据存储，登陆用户信息等 💼 src/store/modules/app.js
+
+
+##### 基础方法
+- 公共方法 💼 /src/utils/index.js
+- 复制粘贴功能 💼 /src/utils/clipboard.js
+- 公共表单校验 💼 /src/utils/validate.js
+
+
+
  
 ### 视图组件
 
-#### PageContent列表页主题组件
+##### Layout全局布局组件
+- router主题内容 💼  /src/layout/components/AppMain
+- 全局左侧菜单 💼  /src/layout/components/Sidebar
+- 全局头部导航 💼  /src/layout/components/Navbar
+
+##### PageContent列表页主题组件
 一个列表视图页面的主题组件，组件引用了 `PageHeader` `PageSearsh` `PageTable` 
 
 ![](https://i.postimg.cc/K1CC7kWK/We-Chatab5fdb45b85b1f52831f260b1190ae7d.png)
@@ -160,7 +178,7 @@ yarn build
 
 
 
-#### PageHeader头部内容
+##### PageHeader头部内容
 
 ```js
  <template>
@@ -181,7 +199,7 @@ yarn build
 
 ------------
 
-#### PageSearch头部内容
+##### PageSearch头部内容
 
 ```js
  <template>
@@ -236,7 +254,7 @@ yarn build
 | options  | 如果componentName是Select，将需要这个参数， | Array，Function |  [{label: '北京', value: '北京'}]， 或者是一个方法的返回 | - |
 ------------
 
-#### PageTable表格
+##### PageTable表格
 
 基于 [el-table](https://element.eleme.cn/#/zh-CN/component/table) 作为基础ui组件，结合`manager.js` 做的系列的处理
 
@@ -311,44 +329,46 @@ yarn build
 ------------
 
 #### Drawer 页面抽屉组件
-````js
-import createDrawer from '@@/Drawer/createDrawer.js'
-export const drawerCreate = (pageTable) => createDrawer({
-  title: '新建',
-  data() {
-    return {
-      data: {
-        name: '',
-      },
-      rules: {
-        name: [
-          { required: true, message: '姓名不能为空' }
-        ],
-      }
-    }
-  },
-  methods: {
-    async ok() {
-      try {
-        await this.$refs.form.validate()
-        await pageTable.fetchCreate(this.data)
-      } catch (e) {
-        return false
-      }
-    },
-    close() {
-      console.log('点击了取消')
-    }
-  },
-  render() {
-    return (
-      <el-form {...{ props: { model: this.data }}} ref='form' rules={this.rules}>
-        <el-form-item label='名称' prop='name'>
-          <el-input v-model={this.data.name} />
-        </el-form-item>
-      </el-form>
-    )
-  }
-})
 
-````
+```js
+<template>
+	<Drawer> 
+	<div slot="content">
+		<h1>{{msg}}</h1>
+	</div>
+	</Drawer>
+</template>
+<script>
+	export default {
+		data() {
+			return { msg: 'hello world' }
+		}
+ 	}
+</script>
+
+```
+
+#####Drawer抽屉 Attribute 
+|  参数 |说明   |  类型 | 可选值  | 默认值   |
+| ------------ | ------------ | ------------ | ------------ | ------------ |
+|  visible | 是否打开Drawer | Boolean | true, false  |  false |
+| customClass  |  Drawer className |  String |  - | -   |
+|  size |  Drawer| String | small ,default, large  | default   |
+|  title | Drawer标题| String | -  | -   |
+
+
+#####Drawer Slots
+| name  | 说明  |
+| ------------ | ------------ |
+| content  |  抽屉中心所需要展示的内容  |
+| footer  |  如果需要自定义页脚的话  |
+
+#####Drawer Event
+| name  | 说明  |
+| ------------ | ------------ |
+| ok  | footer确认按钮触发的方法、如果ok事件并且没有自定义footer的情况下，Drawer自己添加页脚提交按钮和取消按钮    |
+| close  |  footer取消按钮触发的方法 |
+
+
+
+

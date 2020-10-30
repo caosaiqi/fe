@@ -3,7 +3,7 @@
 @import './element-variables.scss';
 @import '~animate.css/animate.min.css';
 
-@import '//at.alicdn.com/t/font_2141665_6inbxf8ca2o.css';
+@import '//at.alicdn.com/t/font_2141665_e0w1279gra9.css';
 
 body {
   height: 100%;
@@ -41,6 +41,9 @@ html {
   padding: 4px 0;
 }
 
+// a {
+//   color: $--color-primary;
+// }
 a:focus,
 a:active {
   outline: none;
@@ -50,7 +53,6 @@ a,
 a:focus,
 a:hover {
   cursor: pointer;
-  color: inherit;
   text-decoration: none;
 }
 

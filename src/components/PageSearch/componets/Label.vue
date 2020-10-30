@@ -12,7 +12,7 @@ export default {
   render(h) {
     let content = this.label
     if (_.isFunction(this.label)) {
-      content = this.label(h)
+      content = this.label()
     }
     return (
       <div>

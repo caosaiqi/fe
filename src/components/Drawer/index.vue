@@ -45,26 +45,35 @@ export default {
     }
   },
   methods: {
-    async handleOk() {
+    getOkFn() {
+      // 如果是通过createDrawer创建的Drawer，则使用methods下ok方法作为触发事件
       const refContent = this.$refs.content
-      if (refContent && !_.isEmpty(refContent)) {
-        const { ok } = refContent
-        if (ok && _.isFunction(ok)) {
-          this.loading = true
-          try {
-            const f = await ok()
-            if (_.isBoolean(f) && !f) {
-              return
-            }
-            this.handleClose()
-          } catch (err) {
-            throw err
-          } finally {
-            this.loading = false
-          }
+      if (refContent && refContent.ok && _.isFunction(refContent.ok)) {
+        return refContent.ok
+      }
+
+      // 通过模版方式创建的
+      const { ok } = (this._events || {})
+      if (ok && ok.length > 0 && _.isFunction(ok[0])) {
+        return ok[0]
+      }
+      return undefined
+    },
+    async handleOk() {
+      const okFn = this.getOkFn()
+      if (!okFn) return this.handleClose()
+
+      this.loading = true
+      try {
+        const f = await okFn()
+        if (_.isBoolean(f) && !f) {
+          return
         }
-      } else {
         this.handleClose()
+      } catch (err) {
+        throw err
+      } finally {
+        this.loading = false
       }
     },
     handleClose() {
@@ -82,6 +91,7 @@ export default {
     }
   },
   render(h) {
+    console.log(this)
     const RenderHeader = () => (
       <header class='el-drawer__header d-flex '>
         <span class='flex-grow-1'>
@@ -106,7 +116,8 @@ export default {
 
     const FooterRender = () => {
       const footer = this.getSlot('footer')
-      if (footer === undefined) {
+      const okfn = this.getOkFn()
+      if (footer === undefined && okfn) {
         return (
           <FooterConfirm
             custom-class='body-drawer-footer'

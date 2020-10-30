@@ -1,5 +1,3 @@
-
-<script>
 import mixin from '../mixins/common'
 import _ from 'lodash'
 
@@ -15,11 +13,6 @@ export default {
       required: true,
       type: String
     },
-    // row: {
-    //   required: true,
-    //   type: Object,
-    //   default: () => ({})
-    // },
     render: {
       type: Function,
       default: undefined
@@ -28,9 +21,7 @@ export default {
   render(h) {
     const {
       prop,
-      label,
-      // row,
-      render
+      label
     } = this
 
     // 绑定render内部的方法，方便以后调用listApi
@@ -39,9 +30,7 @@ export default {
     const defaultRender = (value) => {
       return (
         <div class='table-colunm'>
-          {
-            value
-          }
+          { value }
         </div>
       )
     }
@@ -51,12 +40,9 @@ export default {
         default: scope => {
           const { row = {}} = scope
           const value = row[prop]
-          if (render && typeof _.isFunction(render)) {
-            return render({
-              value,
-              row,
-              pageTable
-            })
+          if (this.render && typeof _.isFunction(this.render)) {
+            const vnode = this.render(h)
+            return vnode
           }
           return defaultRender(value, row, pageTable)
         }
@@ -64,8 +50,7 @@ export default {
     }
 
     return (
-      <el-table-column prop = {prop} label ={ label } {...slots} />
+      <el-table-column prop={prop} label={ label } {...slots} />
     )
   }
 }
-</script>

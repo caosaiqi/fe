@@ -138,7 +138,8 @@ export default {
         payload: {
           actionMenu: { ...this.tmpMenu },
           subMenus: children,
-          tmpMenu: {}
+          tmpMenu: {},
+          isSubMenuCollapse: Cookies.get('isSubMenuCollapse') === 'true'
         }
       })
     }

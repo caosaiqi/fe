@@ -3,6 +3,7 @@ import { edit } from './dialogs'
 import { drawerCreate } from './drawer'
 import { removeDialog } from '@sections/Dialog'
 import { fetchGetCity, fetchGetRegion } from '@api'
+import Vue from 'vue'
 
 // 头部内容
 const headerContent = {
@@ -62,6 +63,33 @@ const tableContent = {
    * },
    */
   columns: [
+    {
+      prop: 'title',
+      label: '名称'
+    },
+    {
+      prop: 'title',
+      label: '名称',
+      render() {
+        return <img width='100px' src='https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png' />
+      }
+    },
+    {
+      prop: 'title',
+      label: '名称'
+    },
+    {
+      prop: 'title',
+      label: '名称'
+    },
+    {
+      prop: 'title',
+      label: '名称'
+    },
+    {
+      prop: 'title',
+      label: '名称'
+    },
     {
       prop: 'title',
       label: '名称'

@@ -3,8 +3,8 @@ import { apiGetLeftMenu } from '@api/app'
 
 const state = {
   sidebar: {
-    isMenuCollapse: Cookies.get('isMenuCollapse') === 'true',
-    isSubMenuCollapse: Cookies.get('isSubMenuCollapse') === 'true',
+    isMenuCollapse: Cookies.get('isMenuCollapse') === 'true', // true 表示菜单被收起
+    isSubMenuCollapse: Cookies.get('isSubMenuCollapse') === 'true', // true 表示菜单被收起
     menus: [],
     actionMenu: {},
     subMenus: [],

@@ -128,21 +128,22 @@ yarn build
    > 什么是一个资源比如`order`通过order，往下延生出`order/create`、`order/delete`、`order/[更多个性化操作]`
 
   ```js
-  // manager 导出的 是一个类方法（class）， 用之前需要先new一下,  需要一个资源地址作为参数比如 order
+  // manager满足基本满足日常所有增删该查所用的的接口格式；
+  // manager 导出的是一个类方法（class），用之前需要先new一下，需要一个资源地址作为参数比如order；
   const manager = new Manager('order')
 
   // 获取列表, 传入列表所需参数
   manager.list(params)
 
-  // 获取详情
+  // 创建条新数据
   manager.create({
-  	path: 'create' //如果传 则默认 create
+  	path: 'create', //如果不传则默认 create
     params: {test: 123} //创建参数
   })
 
-  // remove
+  // 删除一条id为test的数据
   manager.create({
-  	path: 'delete' //如果传 则默认 delete
+  	path: 'delete', //如果不传则默认 delete
 	params: { id: 'test' }
   })
 

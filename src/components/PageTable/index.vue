@@ -29,7 +29,7 @@
 </template>
 <script>
 import tableController from './mixins/tableController'
-import TableColumn from './components/Column'
+import TableColumn from './components/Column.js'
 import TableAction from './components/Action'
 import Pagination from '@@/Pagination'
 

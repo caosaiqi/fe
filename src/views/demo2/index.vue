@@ -5,7 +5,7 @@
       :search-content="searchContent"
       :table-content="tableContent"
     />
-    <drawer :visible.sync="visible">
+    <drawer :visible.sync="visible" @ok="handleOk">
       <h1 slot="content">asdasdad</h1>
     </drawer>
   </div>
@@ -41,6 +41,15 @@ export default {
             label: '名称'
           },
           {
+            prop: 'title',
+            label: '名称',
+            render: () => {
+              // h gets auto injected here (note that data is now a member function)
+              // return <img src='https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png' />
+              return '123'
+            }
+          },
+          {
             prop: 'status',
             label: '状态'
           }
@@ -63,6 +72,11 @@ export default {
           }
         ]
       }
+    }
+  },
+  methods: {
+    handleOk() {
+      console.log('asdadasdas')
     }
   }
 }

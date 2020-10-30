@@ -76,6 +76,7 @@ export default {
     }
 
     const SwitchBtnRender = () => {
+      if (this.tmpMenu && this.tmpMenu.children) return null
       return (
         <a
           onClick={this.handleSwitchClick}
@@ -154,6 +155,7 @@ export default {
   height: calc(100vh - 60px);
   background-color:#ebeef2;
   z-index: 3;
+   transition: width .15s;
   .el-menu-item {
     height: 40px;
     line-height: 40px;
@@ -211,7 +213,7 @@ export default {
     width: 27px;
   }
   .switch-btn-hide{
-    right: -24px;
+    right: -23px;
     border-radius: 0px 5px 5px 0;
   }
   .switch-btn-hide:hover {

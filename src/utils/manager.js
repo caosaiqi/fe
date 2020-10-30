@@ -8,7 +8,7 @@ export default class Manager {
   /**
    * @params {object} body
    * @returns {object} promise
-  */
+   */
   list(params) {
     return request.get(`${this.resource}`, params)
   }
@@ -17,7 +17,7 @@ export default class Manager {
    * @path {string} url
    * @params {object} body
    * @returns {object} promise
-  */
+   */
   get({ path, params } = {}) {
     return request.get(`${this.resource}/${path}`, { params })
   }
@@ -26,7 +26,7 @@ export default class Manager {
    * @path {string} url
    * @params {object} body
    * @returns {object} promise
-  */
+   */
   post({ path, params } = {}) {
     return request.post(`${this.resource}/${path}`, params)
   }
@@ -35,7 +35,7 @@ export default class Manager {
    * @path {string} url
    * @params {object} body
    * @returns {object} promise
-  */
+   */
   remove({ path = 'delete', params } = {}) {
     return request.post(`${this.resource}/${path}`, params)
   }
@@ -44,7 +44,7 @@ export default class Manager {
    * @path {string} url
    * @params {object} body
    * @returns {object} promise
-  */
+   */
   create({ path = 'create', params } = {}) {
     return request.post(`${this.resource}/${path}`, params)
   }

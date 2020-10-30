@@ -1,7 +1,7 @@
 <template>
   <section
     class="app-main"
-    :style="style"
+    :style="{'padding-left': left}"
   >
     <transition name="fade-transform" mode="out-in">
       <router-view :key="key" />
@@ -10,24 +10,35 @@
 </template>
 
 <script>
+import Cookies from 'js-cookie'
+import { mapGetters } from 'vuex'
 export default {
   name: 'AppMain',
+  data() {
+    return {
+      left: '0'
+    }
+  },
   computed: {
-    // cachedViews() {
-    //   return this.$store.state.tagsView.cachedViews
-    // },
+    ...mapGetters([
+      'sidebar'
+    ]),
     key() {
       return this.$route.path
-    },
-    style() {
-      const { isSubMenuCollapse } = this.$store.state.app.sidebar
-      let pl = '180px'
-      if (isSubMenuCollapse) {
-        pl = '0'
-      }
-      return {
-        paddingLeft: pl
-      }
+    }
+  },
+  watch: {
+    'sidebar.isSubMenuCollapse': {
+      handler(f) {
+        setTimeout(() => {
+          if (Cookies.get('isSubMenuCollapse') === 'true') {
+            this.left = '0'
+          } else {
+            this.left = '180px'
+          }
+        }, 1)
+      },
+      immediate: true
     }
   }
 }

@@ -22,10 +22,10 @@ import Label from './componets/Label'
 import Main from './componets/Mian'
 import emitter from '@/mixins/emitter'
 
-import {
-  FORM_DEFAULT_ATTRS
-  // INPUT_DEFAULT_VALUES
-} from '@@/PageContent/constants'
+export const FORM_DEFAULT_ATTRS = {
+  inline: true,
+  size: 'small'
+}
 
 export default {
   name: 'PageForm',

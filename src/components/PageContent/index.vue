@@ -8,8 +8,8 @@
 
 <script>
 import _ from 'lodash'
-import PageHeader from './components/Header'
-import PageSearch from './components/Search'
+import PageHeader from '@@/PageHeader'
+import PageSearch from '@@/PageSearch'
 import PageTable from '@@/PageTable'
 
 export default {

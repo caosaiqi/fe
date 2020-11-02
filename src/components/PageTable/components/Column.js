@@ -13,7 +13,7 @@ export default {
       required: true,
       type: String
     },
-    render: {
+    value: {
       type: Function,
       default: undefined
     }
@@ -40,8 +40,8 @@ export default {
         default: scope => {
           const { row = {}} = scope
           const value = row[prop]
-          if (this.render && typeof _.isFunction(this.render)) {
-            const vnode = this.render(h)
+          if (this.value && typeof _.isFunction(this.value)) {
+            const vnode = this.value()
             return vnode
           }
           return defaultRender(value, row, pageTable)

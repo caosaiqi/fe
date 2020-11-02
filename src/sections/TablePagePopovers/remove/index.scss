@@ -1,0 +1,20 @@
+@import '@/styles/element-variables.scss';
+
+.popover-remove-content{
+  width: 200px;
+  display: flex;
+  position: relative;
+  > i {
+    position: absolute;
+    top: 8.0005px;
+    color: $--color-warning;
+    font-size: 14px;
+  }
+  .description{
+    position: relative;
+    padding-left: 20px;
+    padding-top: 4px;
+    color: rgba(0,0,0,.85);
+    font-size: 14px;
+  }
+}

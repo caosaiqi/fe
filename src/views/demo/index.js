@@ -1,9 +1,8 @@
 import createPageContent from '@@/PageContent/createPageContent.js'
 import { edit } from './dialogs'
 import { drawerCreate } from './drawer'
-import { removeDialog } from '@sections/Dialog'
+import { removePopover } from '@sections/TablePagePopovers'
 import { fetchGetCity, fetchGetRegion } from '@api'
-import Vue from 'vue'
 
 // 头部内容
 const headerContent = {
@@ -25,8 +24,8 @@ const searchContent = {
       label: '名称'
     },
     {
-      label() {
-        return <span> 城市 <i class='el-icon-warning' /> </span>
+      label(asd) {
+        return <span> {asd} <i class='el-icon-warning' /> </span>
       },
       items: [
         {
@@ -70,7 +69,8 @@ const tableContent = {
     {
       prop: 'title',
       label: '名称',
-      render() {
+      value(data) {
+        console.log(data)
         return <img width='100px' src='https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png' />
       }
     },
@@ -101,12 +101,7 @@ const tableContent = {
   ],
   actions: [
     {
-      label: '删除',
-      async action({ row, pageTable }) {
-        console.log(this, row)
-        const ret = await removeDialog(row, this)
-        console.log(ret)
-      }
+      ...removePopover
     },
     {
       label: '更新',
@@ -120,15 +115,6 @@ const tableContent = {
        * 使用弹框（el-popover）形式展示更多按钮
        */
       subActions: [
-        {
-          label: '下单',
-          /**
-           * action方法内部this指定当前table，您可以调用table下面所用方法，比如fetchList
-           */
-          action(row) {
-            console.log(row)
-          }
-        },
         {
           label: '预定'
         },

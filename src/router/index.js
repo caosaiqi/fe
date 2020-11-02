@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Demo from '@/views/demo/index.js'
 import Demo2 from '@/views/demo2/index'
-
 Vue.use(Router)
 
 /* Layout */

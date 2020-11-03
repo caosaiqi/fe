@@ -52,11 +52,11 @@ export default {
       if (!item || _.isEmpty(item)) return null
       const { label, type } = item
       return (
-        <span class='action-status'>
+        <div class='action-status'>
           <i class={`${type} status-icon`} />
-          { label }
+          <span>{ label }</span>
           <i class='el-icon-arrow-down el-icon--right' />
-        </span>
+        </div>
       )
     }
     return (
@@ -80,7 +80,6 @@ export default {
     padding-left: 8px;
   }
   .status-dropdown {
-      display: inline-block;
       .action-status{
         cursor: pointer;
         box-sizing: border-box;
@@ -88,6 +87,9 @@ export default {
         display: flex;
         -ms-flex-align: center;
         align-items: center;
+        .el-icon--right {
+          margin-left: 8px;
+        }
       }
   }
 </style>

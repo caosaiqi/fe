@@ -107,8 +107,8 @@ yarn build
 
 ##### 项目配置
 -   环境分离
-    > 生产环境配置文件💼.env.development
-    > 线上环境配置文件💼.env.production
+    > - 生产环境配置文件💼.env.development
+    > - 线上环境配置文件💼.env.production
 -   webpack devServe
     > 考虑到每个人的配置习惯不同，如有自定义 devServer 配置的需求请在根目录下创建 dev.server.config.js 文件 dev.server.config.js 不进行 git 提交操作
 -  mock数据

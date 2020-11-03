@@ -1,5 +1,6 @@
 import mixin from '../mixins/common'
 import _ from 'lodash'
+import Copy from '@@/Copy'
 
 export default {
   name: 'PageTableColumn',
@@ -21,21 +22,29 @@ export default {
       type: String,
       default: () => ''
     },
+    copy: {
+      type: [Boolean, Function],
+      default: () => false
+    }
   },
   render(h) {
     const {
       prop,
-      label
+      label,
+      className
     } = this
 
     // 绑定render内部的方法，方便以后调用listApi
     const pageTable = this.getComponent('PageTable')
 
-    const defaultRender = (value) => {
-      return value
-    }
+    const config = {
+      props: {
+        prop,
+        label,
+        className,
+        ...this.$attrs
+      },
 
-    const slots = {
       scopedSlots: {
         default: scope => {
           const { row = {}} = scope
@@ -49,13 +58,30 @@ export default {
             })
             return vnode
           }
-          return defaultRender(value, row, pageTable)
+
+          const isEllipsis = className && className.indexOf('ellipsis') > -1
+          if (isEllipsis) {
+            return (
+              <el-tooltip effect='light' placement='top' content={value}>
+                <span>
+                  {value}
+                </span>
+              </el-tooltip>
+            )
+          }
+
+          return (
+            <span>
+              {value}
+            </span>
+          )
         }
       }
     }
-
     return (
-      <el-table-column class-name='' prop={prop} label={ label } {...slots} />
+      <el-table-column {
+        ...config
+      } />
     )
   }
 }

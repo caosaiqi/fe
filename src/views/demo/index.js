@@ -65,18 +65,21 @@ const tableContent = {
   columns: [
     {
       prop: 'title',
-      label: '名称'
+      label: '名称',
+      copy: true,
+      className: 'ellipsis'
     },
     {
       prop: 'title',
-      label: '名称',
-      className: 'ellipsis',
+      label: '图片',
       value({ title, row, pageTable }) {
         return <img width='30px' src={row.image_uri} />
       }
     },
     {
+      width: 100,
       prop: 'status',
+      align: 'center',
       label: '状态',
       value({ row, pageTable }) {
         const handleChange = (newStatus) => {
@@ -124,9 +127,16 @@ const tableContent = {
       action: ({ rows, pageTable }) => {
         drawerCreate(pageTable)
       }
+    },
+    {
+      label: '删除',
+      action: ({ rows, pageTable }) => {
+        console.log(rows)
+      }
     }
   ]
 }
+
 export default createPageContent({
   headerContent,
   searchContent,

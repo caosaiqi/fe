@@ -46,7 +46,7 @@ export default {
 
       scopedSlots: {
         default: scope => {
-          const { row = {}} = scope
+          const { row = {}, column } = scope
           const value = row[prop]
           if (this.value && typeof _.isFunction(this.value)) {
             const vnode = this.value({
@@ -60,11 +60,20 @@ export default {
 
           const isEllipsis = className && className.indexOf('ellipsis') > -1
           if (isEllipsis) {
+            let isOverflow = false
+            {
+              const { realWidth } = column
+              const dom = document.createElement('span')
+              dom.innerHTML = value
+              document.body.appendChild(dom)
+              const width = dom.offsetWidth
+              isOverflow = width > realWidth + 50
+              dom.remove()
+            }
+
             return (
-              <el-tooltip effect='light' placement='top' content={value}>
-                <span>
-                  {value}
-                </span>
+              <el-tooltip effect='light' placement='top' content={value} disabled={!isOverflow}>
+                <span> {value}</span>
               </el-tooltip>
             )
           }
@@ -77,8 +86,9 @@ export default {
         }
       }
     }
+
     return (
-      <el-table-column {
+      <el-table-column ref='table-column' {
         ...config
       } />
     )

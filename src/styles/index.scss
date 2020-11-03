@@ -180,6 +180,12 @@ a.link-btn {
 
 
 .page-table{
+  .el-table thead {
+    color: #666;
+    th {
+      background: #fafafa;
+    }
+  }
   .ellipsis{
     width: 100%;
     min-width: 200px;

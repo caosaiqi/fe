@@ -91,7 +91,6 @@ export default {
     }
   },
   render(h) {
-    console.log(this)
     const RenderHeader = () => (
       <header class='el-drawer__header d-flex '>
         <span class='flex-grow-1'>

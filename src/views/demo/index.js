@@ -3,6 +3,7 @@ import { edit } from './dialogs'
 import { drawerCreate } from './drawer'
 import { removePopover } from '@sections/TablePagePopovers'
 import { fetchGetCity, fetchGetRegion } from '@api'
+import Status from '@@/Status'
 
 // 头部内容
 const headerContent = {
@@ -69,34 +70,27 @@ const tableContent = {
     {
       prop: 'title',
       label: '名称',
-      value(data) {
-        console.log(data)
-        return <img width='100px' src='https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png' />
+      className: 'ellipsis',
+      value({ title, row, pageTable }) {
+        return <img width='30px' src={row.image_uri} />
       }
     },
     {
-      prop: 'title',
-      label: '名称'
-    },
-    {
-      prop: 'title',
-      label: '名称'
-    },
-    {
-      prop: 'title',
-      label: '名称'
-    },
-    {
-      prop: 'title',
-      label: '名称'
-    },
-    {
-      prop: 'title',
-      label: '名称'
-    },
-    {
       prop: 'status',
-      label: '状态'
+      label: '状态',
+      value({ row, pageTable }) {
+        const handleChange = (newStatus) => {
+          pageTable.fetchUpdate({
+            status: newStatus,
+            id: row.id
+          })
+        }
+        return <Status status={row.status} onChange={handleChange}/>
+      }
+    },
+    {
+      prop: 'author',
+      label: 'author'
     }
   ],
   actions: [

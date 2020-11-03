@@ -177,3 +177,36 @@ a.link-btn {
 .txt-err-hover:hover {
   color: $--color-danger;
 }
+
+
+.page-table{
+  .ellipsis{
+    width: 100%;
+    min-width: 200px;
+    word-break: keep-all;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    .cell{
+      display: inline;
+      white-space: inherit;
+    }
+  }
+}
+
+
+.status-icon{
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+.status-icon.success{
+  background-color: $--color-success;
+}
+
+.status-icon.info{
+  background-color: $--color-info;
+}

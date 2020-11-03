@@ -22,7 +22,7 @@ export default {
     scope: {
       required: true,
       type: Object
-    },
+    }
   },
   computed: {
     btnAttrs() {

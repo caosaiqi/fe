@@ -16,7 +16,11 @@ export default {
     value: {
       type: Function,
       default: undefined
-    }
+    },
+    className: {
+      type: String,
+      default: () => ''
+    },
   },
   render(h) {
     const {
@@ -28,11 +32,7 @@ export default {
     const pageTable = this.getComponent('PageTable')
 
     const defaultRender = (value) => {
-      return (
-        <div class='table-colunm'>
-          { value }
-        </div>
-      )
+      return value
     }
 
     const slots = {
@@ -41,7 +41,12 @@ export default {
           const { row = {}} = scope
           const value = row[prop]
           if (this.value && typeof _.isFunction(this.value)) {
-            const vnode = this.value()
+            const vnode = this.value({
+              [prop]: value,
+              row,
+              pageTable,
+              scope: scope
+            })
             return vnode
           }
           return defaultRender(value, row, pageTable)
@@ -50,7 +55,7 @@ export default {
     }
 
     return (
-      <el-table-column prop={prop} label={ label } {...slots} />
+      <el-table-column class-name='' prop={prop} label={ label } {...slots} />
     )
   }
 }

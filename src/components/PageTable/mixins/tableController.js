@@ -75,9 +75,16 @@ export default {
     async fetchCreate(params) {
       try {
         await this.manager.create({ params })
+        await this.fetchList()
+        return true
+      } catch (err) {
+        throw err
+      }
+    },
 
-        const params = Object.assign({}, this.pagination, this.queryParams)
-        await this.fetchList(params)
+    async fetchUpdate(params) {
+      try {
+        await this.fetchList()
         return true
       } catch (err) {
         throw err
@@ -89,7 +96,6 @@ export default {
         await this.manager.remove({
           params: row
         })
-
         await this.fetchList()
         return true
       } catch (err) {

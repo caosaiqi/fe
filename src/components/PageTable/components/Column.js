@@ -1,6 +1,5 @@
 import mixin from '../mixins/common'
 import _ from 'lodash'
-import Copy from '@@/Copy'
 
 export default {
   name: 'PageTableColumn',

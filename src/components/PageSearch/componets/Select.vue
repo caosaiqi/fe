@@ -34,7 +34,7 @@ export default {
       default: undefined
     },
     listener: {
-      type: [Boolean, String, Array],
+      type: [String, Array],
       default: undefined
     }
   },

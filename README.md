@@ -107,12 +107,12 @@ yarn build
 
 ##### 项目配置
 -   环境分离
-    > - 生产环境配置文件💼.env.development
-    > - 线上环境配置文件💼.env.production
+    > - 生产环境配置文件 💼 /.env.development
+    > - 线上环境配置文件 💼./env.production
 -   webpack devServe
     > 考虑到每个人的配置习惯不同，如有自定义 devServer 配置的需求请在根目录下创建 dev.server.config.js 文件 dev.server.config.js 不进行 git 提交操作
 -  mock数据
--  使用eslint统一编码风格 配置文件💼 .eslintrc.js
+-  使用eslint统一编码风格 配置文件💼 /.eslintrc.js
 
 ##### 与后台接口交互处理
 -  request.js，封装axios统一接口配置，配置文件💼 /src/utils/request.js（目前近支持post 和 get）
@@ -175,32 +175,32 @@ yarn build
 ![](https://i.postimg.cc/K1CC7kWK/We-Chatab5fdb45b85b1f52831f260b1190ae7d.png)
 ```js
  // template
- <template>
-   	 <page-content
-        :header-content="headerContent"
-        :search-content="searchContent"
-        :table-content="tableContent"
-    />
- <template/>
- <script>
-    exprot default {
-     data()  {
-       headerContent: {...} //参考PageHeader  Attribute,
-       searchContent: {...} //参考SearchContent  Attribute,
-       tableContent: {...} //参考TableContent  Attribute
-	 }
-   }
- </script>
+<template>
+	<page-content
+	:header-content="headerContent"
+	:search-content="searchContent"
+	:table-content="tableContent"
+/>
+<template/>
+<script>
+exprot default {
+  data()  {
+    headerContent: {...} //参考PageHeader  Attribute,
+	searchContent: {...} //参考SearchContent  Attribute,
+	tableContent: {...} //参考TableContent  Attribute
+  }
+}
+</script>
 ```
 
 ```js
-  // 如果您更喜欢jsx的话， 需要引入PageContent组件下的/createPageContent.js
-  import CreatePageContent from '@@/PageContent/createPageContent.js'
-  export default createPageContent({
-    headerContent: {...} //参考PageHeader  Attribute,
-    searchContent: {...} //参考SearchContent  Attribute,
-    tableContent: {...} //参考TableContent  Attribute
-  })
+// 如果您更喜欢jsx的话， 需要引入PageContent组件下的/createPageContent.js
+import CreatePageContent from '@@/PageContent/createPageContent.js'
+export default createPageContent({
+  headerContent: {...} //参考PageHeader  Attribute,
+  searchContent: {...} //参考SearchContent  Attribute,
+  tableContent: {...} //参考TableContent  Attribute
+})
 ```
 
 ------------
@@ -208,7 +208,6 @@ yarn build
 
 
 ##### PageHeader头部内容
-
 ```js
  <template>
    	 <page-header :title="title" />
@@ -231,45 +230,46 @@ yarn build
 ##### PageSearch头部内容
 
 ```js
- <template>
-   <page-Searsh :formItems="formItems" />
- <template/>
- <script>
-   exprot default {
-     data()  {
-	   formItems:[
-	      {
-		    id: 'name',
-		    label: '名称',
-			componentName: 'input'
-		  },
-		  {
-		    label: () => ( <span>asdasd</span>	),
-			items: [
-				{
-			 		id: 'city',
-					label: '城市',
-					componentName: "Select'',
-					options: [
-						{value: 'shanghai',  label: '上海'}
-					],
-                },
-                {
-                    id: 'region',
-					label: '区域',
-					componentName: "Select'',
-					options: async (values) => {
-					  const  {city}  = values
-					  const { data } = await fetchGetRegion({ city })
-					  return data
-					}
-                }
-			]
+<template>
+  <page-Searsh :formItems="formItems" />
+<template/>
+<script>
+exprot default {
+  data()  {
+  formItems:[
+	{
+	  id: 'name',
+	  label: '名称',
+	  componentName: 'input'
+	},
+	{
+	  label: () => ( <span>asdasd</span>	),
+	  items: [
+		{
+		  id: 'city',
+		  label: '城市',
+		  componentName: "Select'',
+		  options: [
+			{value: 'shanghai',  label: '上海'}
+		  ],
+		},
+		{
+		  id: 'region',
+		  label: '区域',
+		  listener: 
+		  componentName: "Select'',
+		  options: async (values) => {
+			const  {city}  = values
+			const { data } = await fetchGetRegion({ city })
+			return data
 		  }
-	   ]
-	 }
-   }
- </script>
+		}
+	  ]
+	}
+  ]
+ }
+}
+</script>
 ```
 ##### PageSearch  Attribute
 |  参数 |说明   |  类型 | 可选值  | 默认值   |
@@ -282,7 +282,8 @@ yarn build
 | id  | 搜索需要的key  | String |   - | 必填   |
 | label  | 大家都懂  | String, Function |   - | - |
 | componentName  | 内部二次封装的组件名称，主要首字母大写  | String |  Input,Select | Input |
-| options  | 如果componentName是Select，将需要这个参数， | Array，Function |  [{label: '北京', value: '北京'}]， 或者是一个方法的返回 | - |
+| listener  | 需要监听formItems的那些id，触发options方法，不传则监听所有 | String, Array | - | Input |
+| options  | 如果componentName是Select，将需要这个参数， | Array，Function |  [{label: '北京', value: '北京'}]， 或者是一个异步的方法的返回 | - |
 ------------
 
 ##### PageTable表格
@@ -291,39 +292,38 @@ yarn build
 
    ```js
    <template>
-   	 <page-table :resources="resources" :columns="columns" :actions="actions", :batchActions="batchActions"/>
+   	 <page-table :resources="resources" :columns="columns" :actions="actions" :batchActions="batchActions" />
    <template/>
    <script>
-     export default {
-	   data() {
-	     return {
-		 	resources: 'orders',
-			columns: [
-					{
-						prop: 'title',
-						 label: '名称'
-					},
-					{
-						prop: 'status',
-						 label: '状态',
-						 render: ({ row })=> <status type={row.status} />
-					},
-				],
-				actions: [
-					{
-						label: '删除',
-						action: ({ row, pageTable }) => {}
-					},
-				],
-				batchActions: [
-					{
-						label: '批量删除',
-						action: ({ rows, pageTable }) => {}
-					},
-				],
-			}
+    export default {
+	  data() {
+		return {
+		resources: 'orders',
+		columns: [
+		  {
+			prop: 'title',
+			label: '名称'
+		  },
+		  {
+			prop: 'status',
+			label: '状态',
+			render: ({ row })=> <status type={row.status} />
+		  },
+		],
+		actions: [
+		  {
+			label: '删除',
+			action: ({ row, pageTable }) => {}
+		  },
+		],
+		batchActions: [
+		  {
+			label: '批量删除',
+			action: ({ rows, pageTable }) => {}
+		  },
+		],
 		}
-	 }
+	}
    </script>
    ````
 ##### PageTable Attribute, 同时支持[el-table](https://element.eleme.cn/#/zh-CN/component/table#table-attributes)Attribute 
@@ -363,18 +363,18 @@ yarn build
 
 ```js
 <template>
-	<Drawer> 
-	<div slot="content">
-		<h1>{{msg}}</h1>
+  <Drawer> 
+    <div slot="content">
+	  <h1>{{msg}}</h1>
 	</div>
-	</Drawer>
+  </Drawer>
 </template>
 <script>
-	export default {
-		data() {
-			return { msg: 'hello world' }
-		}
- 	}
+  export default {
+	data() {
+	  return { msg: 'hello world' }
+	}
+  }
 </script>
 
 ```
@@ -382,15 +382,15 @@ yarn build
 ```js
 // 如果你更喜欢jsx的话，可以引入 Drawer组件目录下的createDrawer
 const drawer = createDrawer({
-    title: '这个一个抽屉',
-    data() {
-      return {
-        msg: 'hello world'
-      }
-    }
-    render() {
-      return <div> <el-input v-model={this.model>} /> </div>
-    }
+  title: '这个一个抽屉',
+  data() {
+    return {
+	  msg: 'hello world'
+	}
+  }
+  render() {
+    return <div> <el-input v-model={this.model>} /> </div>
+  }
 })
 
 ```

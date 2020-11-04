@@ -1,6 +1,6 @@
 ### 安装运行
 
-##### 1.下载或克隆项目源码
+##### 1.下载或克隆项目源码+1
 ```js
 git clone git@gitlab.modianinc.com:caosaiqi/csq.fe.acp.modian.com.git
 ```

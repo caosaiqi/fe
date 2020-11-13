@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Demo from '@/views/demo/index.js'
+import Demo from '@/views/demo/index'
 import Demo2 from '@/views/demo2/index'
+import Demo3 from '@/views/demo3'
 Vue.use(Router)
 
 /* Layout */
@@ -22,6 +23,11 @@ export const constantRoutes = [
       {
         path: 'demo2',
         component: Demo2
+      },
+      {
+        path: 'demo3',
+        component: Demo3,
+        meta: { title: 'demo3', icon: 'dashboard', affix: true }
       }
     ]
   }

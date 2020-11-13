@@ -1,7 +1,5 @@
 import Vue from 'vue'
 
-import Cookies from 'js-cookie'
-
 import 'normalize.css/normalize.css' // 初始化全集样式 https://github.com/necolas/normalize.css/blob/8.0.1/normalize.css
 
 import Element from 'element-ui'
@@ -24,14 +22,12 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 Vue.use(Element, {
-  size: Cookies.get('size') || 'medium'
+  size: 'medium'
 })
 
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])
 })
-
-Vue.config.productionTip = false
 
 new Vue({
   el: '#app',

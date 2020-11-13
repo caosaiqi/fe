@@ -1,31 +1,24 @@
+<template>
+  <el-popover v-bind="config">
+    <div>
+      <slot name="content" />
+      <FooterConfirm v-if="$listeners.ok" @ok="$listeners.ok" />
+    </div>
+    <slot slot="reference" />
+  </el-popover>
+</template>
+
 <script>
+import FooterConfirm from '@@/FooterConfirm'
 export default {
   name: 'MdPopover',
-
-  // 组件固定唯一ID
-  componentName: 'MdPopover',
-
-  props: {
+  components: {
+    FooterConfirm
   },
-  render() {
-    const { $slots } = this
-    const config = {
-      props: {
-        trigger: 'click'
-      },
-      scopedSlots: {
-        reference: props => {
-          if ($slots.reference || $slots.default) {
-            return <a v-popper:popper >asd</a>
-          }
-        },
-        default: props => <h1>asdadasd</h1>
-      }
+  computed: {
+    config() {
+      return Object.assign({ width: 320 }, this.$attrs)
     }
-    return (
-      <el-popover ref='popper' {...config}>
-      </el-popover>
-    )
   }
 }
 </script>

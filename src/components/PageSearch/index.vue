@@ -7,7 +7,7 @@
   >
     <el-form-item v-for="(item, index) in formItems" :key="`${item.name}_${index}`">
       <Label slot="label" :label="item.label" />
-      <Main v-bind="item" :model.sync="model" />
+      <Item v-bind="item" :model="model" @setModel="setModel" />
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="handleSeach">搜索</el-button>
@@ -19,7 +19,7 @@
 <script>
 import _ from 'lodash'
 import Label from './componets/Label'
-import Main from './componets/Mian'
+import Item from './componets/Item'
 import emitter from '@/mixins/emitter'
 
 export const FORM_DEFAULT_ATTRS = {
@@ -28,13 +28,19 @@ export const FORM_DEFAULT_ATTRS = {
 }
 
 export default {
-  name: 'PageForm',
+  name: 'PageSearch',
 
-  componentName: 'PageForm',
+  componentName: 'PageSearch',
+
+  provide() {
+    return {
+      pageSearch: this
+    }
+  },
 
   components: {
     Label,
-    Main
+    Item
   },
   mixins: [emitter],
   props: {
@@ -54,23 +60,15 @@ export default {
     }
   },
   created() {
-    this.init(this.formItems)
+    this.init()
   },
   methods: {
-    setModel(formItem) {
-      const { id, value } = formItem
+    setModel({ id, value }) {
       this.$set(this.model, id, value)
     },
     watchModel(formItem) {
-      const { onValuesChange } = formItem
-      // model任何key发生变化的时候出发
-      if (onValuesChange && _.isFunction(onValuesChange)) {
-        this.$watch(`model`, onValuesChange, {
-          deep: true
-        })
-      }
     },
-    init(formItems) {
+    init(formItems = this.formItems) {
       for (let i = 0; i < formItems.length; i++) {
         const formItem = formItems[i]
         const { items } = formItem

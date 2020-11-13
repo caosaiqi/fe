@@ -4,52 +4,37 @@ import { drawerCreate } from './drawer'
 import { removePopover } from '@sections/TablePagePopovers'
 import { fetchGetCity, fetchGetRegion } from '@api'
 import Status from '@@/Status'
-
-// 头部内容
-const headerContent = {
-  title: '电商管理-POP店管理-店铺管理'
-}
+import Popover from '@@/Popover'
 
 // 筛选
 const searchContent = {
-  onSearch(values) {
-    /*
-     * return false表示不再刷新列表
-     * return new Object(), 使用新对象刷新列表
-     * return undefined，使用默认参数刷新列表
-     */
-  },
   formItems: [
     {
       id: 'name',
-      label: '名称'
+      label: 'saasdd'
     },
     {
-      label(asd) {
-        return <span> {asd} <i class='el-icon-warning' /> </span>
-      },
+      label: 'wqwe',
       items: [
         {
-          id: 'city',
-          componentName: 'Select',
-          placeholder: '请选择城市',
-          options: async() => {
-            const { data } = await fetchGetCity()
-            return data
+          id: 'user1',
+          customRender({ form }) {
+            return <h1>asasdasd123123</h1>
           }
         },
         {
-          id: 'region',
-          componentName: 'Select',
-          placeholder: '请选中区域',
-          listener: 'city',
-          options: async(values = {}) => {
-            const { city } = values
-            const { data } = await fetchGetRegion({ city })
-            return data
+          id: 'user2',
+          customRender({ form }) {
+            return <h1>asasdasd123123</h1>
           }
         }
       ]
+    },
+    {
+      lable: '自定义输入框',
+      customRender({ form }) {
+        return <h1>asdasdas</h1>
+      }
     }
   ]
 }
@@ -72,8 +57,17 @@ const tableContent = {
     {
       prop: 'title',
       label: '图片',
-      value({ title, row, pageTable }) {
-        return <img width='30px' src={row.image_uri} />
+      customRender({ title, row, pageTable }) {
+        const handleOk = async() => {
+          await new Promise((r) => {
+            setTimeout(() => {
+              r()
+            }, 1000)
+          })
+        }
+        return <Popover onOk={handleOk}>
+          <img width='30px' src={row.image_uri} />
+        </Popover>
       }
     },
     {
@@ -81,7 +75,7 @@ const tableContent = {
       prop: 'status',
       align: 'center',
       label: '状态',
-      value({ row, pageTable }) {
+      customRender({ row, pageTable }) {
         const handleChange = (newStatus) => {
           pageTable.fetchUpdate({
             status: newStatus,
@@ -97,9 +91,6 @@ const tableContent = {
     }
   ],
   actions: [
-    {
-      ...removePopover
-    },
     {
       label: '更新',
       async action(row) {
@@ -138,7 +129,6 @@ const tableContent = {
 }
 
 export default createPageContent({
-  headerContent,
   searchContent,
   tableContent
 })

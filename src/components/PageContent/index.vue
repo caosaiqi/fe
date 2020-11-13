@@ -1,6 +1,6 @@
 <template>
   <el-container class="page-content" direction="vertical">
-    <page-header v-if="headerConfig" v-bind="headerConfig" />
+    <page-header v-bind="headerConfig" />
     <page-search v-if="searchConfig" v-bind="searchConfig" />
     <page-table v-if="tableConfig" ref="PageTable" v-bind="tableConfig" />
   </el-container>

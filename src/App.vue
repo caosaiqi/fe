@@ -5,7 +5,6 @@
 </template>
 
 <script>
-// import Drawer from '@@/Drawer'
 export default {
   name: 'App',
   components: {

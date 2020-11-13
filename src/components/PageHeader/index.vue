@@ -1,7 +1,6 @@
 <template>
   <el-header class="page-header d-flex align-items-center">
-    <h2 class="title flex-grow-1">{{ title }}</h2>
-
+    <h2 class="title flex-grow-1">{{ title || defaultTitle}}</h2>
     <!-- 列表按钮批量操作 -->
     <batch-actions :batch-actions="batchActions" />
   </el-header>
@@ -23,6 +22,23 @@ export default {
     batchActions: {
       type: Array,
       default: undefined
+    }
+  },
+  data() {
+    return {
+      defaultTitle: ''
+    }
+  },
+  watch: {
+    '$route': {
+      handler(newRoute) {
+        const { meta } = newRoute
+        if (meta && meta.title) {
+          this.defaultTitle = meta.title
+        }
+      },
+      immediate: true,
+      deep: true
     }
   }
 }

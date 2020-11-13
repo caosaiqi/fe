@@ -1,13 +1,13 @@
 <template>
   <div class="footer-confirm" :class="[align, customClass]">
-    <el-button :size="size" @click="$emit('close')">
+    <el-button :size="size" @click="handleClose">
       取 消
     </el-button>
     <el-button
       type="primary"
       :size="size"
       :loading="loading"
-      @click="$emit('ok')"
+      @click="handleOk"
     >
       确 定
     </el-button>
@@ -15,6 +15,8 @@
 </template>
 
 <script>
+import _ from 'lodash'
+
 export default {
   name: 'FooterConfirm',
   props: {
@@ -30,17 +32,59 @@ export default {
       type: String,
       default: '取 消'
     },
-    ok: {
+    okText: {
       type: String,
       default: '确 定'
     },
     size: {
       type: String,
       default: 'small'
+    }
+  },
+  data() {
+    return {
+      loading: false
+    }
+  },
+  methods: {
+    getPopver() {
+      var parent = this.$parent
+      while (parent) {
+        if (parent.tooltipId) {
+          return parent
+        }
+        parent = parent.$parent
+      }
+      return undefined
     },
-    loading: {
-      type: Boolean,
-      default: false
+    getOkFn() {
+      const { ok } = this.$listeners
+      if (ok && _.isFunction(ok)) {
+        return ok
+      }
+      return undefined
+    },
+    async handleClose() {
+      const popver = this.getPopver()
+      if (popver && popver.doShow) {
+        popver.doClose()
+      }
+      this.$emit('close')
+    },
+    async handleOk() {
+      const okFn = this.getOkFn()
+      this.loading = true
+      try {
+        const f = await okFn()
+        if (_.isBoolean(f) && !f) {
+          return
+        }
+        this.handleClose()
+      } catch (err) {
+        throw err
+      } finally {
+        this.loading = false
+      }
     }
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <el-input
-    v-model="data"
+    :value="value"
     v-bind="$attrs"
     :placeholder="placeholder"
     :width="width"
@@ -32,24 +32,8 @@ export default {
       default: () => 210
     }
   },
-  data() {
-    return {
-      data: undefined
-    }
-  },
-  watch: {
-    value: {
-      handler(v) {
-        this.data = v
-      },
-      immediate: true
-    }
-  },
   methods: {
     handleInput(newValue) {
-      // this.dispatch('PageForm', 'onSetModel', {
-      //   [this.id]: newValue
-      // })
       this.$emit('update:value', newValue)
     }
   }

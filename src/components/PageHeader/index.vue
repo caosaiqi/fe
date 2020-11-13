@@ -1,6 +1,6 @@
 <template>
   <el-header class="page-header d-flex align-items-center">
-    <h2 class="title flex-grow-1">{{ title || defaultTitle}}</h2>
+    <h2 class="title flex-grow-1">{{ title || defaultTitle }}</h2>
     <!-- 列表按钮批量操作 -->
     <batch-actions :batch-actions="batchActions" />
   </el-header>

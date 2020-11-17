@@ -51,6 +51,14 @@ export default {
   },
   mixins: [tableController],
   props: {
+    baseUrl: {
+      type: [String, Function],
+      default: undefined
+    },
+    path: {
+      type: [String, Function],
+      default: undefined
+    },
     // 列表资源
     resources: {
       required: true,
@@ -69,6 +77,14 @@ export default {
     // 单行操作配置
     actions: {
       type: Array,
+      default: undefined
+    },
+    onFetchSuccess: {
+      type: Function,
+      default: undefined
+    },
+    formatParams: {
+      type: Function,
       default: undefined
     }
   },

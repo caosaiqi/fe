@@ -15,7 +15,7 @@ export default {
       type: String,
       default: ACTION_BUTTON_DEFAULT_LABEL
     },
-    action: {
+    onAction: {
       type: Function,
       default: () => {}
     },
@@ -40,8 +40,8 @@ export default {
       }
     },
     handleClick(e) {
-      if (_.isFunction(this.action)) {
-        this.action(this.getParams())
+      if (_.isFunction(this.onAction)) {
+        this.onAction(this.getParams())
       }
     }
   },

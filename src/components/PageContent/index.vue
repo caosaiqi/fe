@@ -83,24 +83,8 @@ export default {
   methods: {
     handleFetchList(formModel) {
       // 避免出现坑
-      let _formModel = _.cloneDeep(formModel)
-
-      if (this.seachFormConfig && this.seachFormConfig.onSearch) {
-        const { onSearch } = this.seachFormConfig
-        if (_.isFunction(onSearch)) {
-          const values = onSearch(_formModel)
-
-          // 返回false 不刷新列表
-          if (values === false) {
-            return
-          }
-
-          if (typeof values === 'object' && values !== null) {
-            _formModel = values
-          }
-        }
-      }
-      this.$set(this.tableConfig, 'queryParams', _formModel)
+      console.log(formModel)
+      this.$set(this.tableConfig, 'queryParams', formModel)
     }
   }
 }

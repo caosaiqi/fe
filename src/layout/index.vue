@@ -52,6 +52,7 @@ export default {
     height: 100%;
     width: 100%;
     display: flex;
+    overflow: hidden;
     &.mobile.openSidebar {
       position: fixed;
       top: 0;

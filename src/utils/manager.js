@@ -1,16 +1,28 @@
 import request from './request'
+import _ from 'lodash'
 
 export default class Manager {
   constructor(resource) {
     this.resource = resource
   }
 
+  formatPath({
+    baseUrl = '/',
+    path = ''
+  }) {
+    return `${baseUrl}${this.resource}${path}`
+  }
+
   /**
    * @params {object} body
    * @returns {object} promise
    */
-  list(params) {
-    return request.get(`${this.resource}`, params)
+  list({ params, baseUrl, path } = {}) {
+    const url = this.formatPath({
+      baseUrl,
+      path
+    })
+    return request.get(url, params)
   }
 
   /**
@@ -27,8 +39,12 @@ export default class Manager {
    * @params {object} body
    * @returns {object} promise
    */
-  post({ path, params } = {}) {
-    return request.post(`${this.resource}/${path}`, params)
+  post({ baseUrl, path, params, setConfig } = {}) {
+    const url = this.formatPath({
+      baseUrl,
+      path
+    })
+    return request.post(url, params, setConfig)
   }
 
   /**

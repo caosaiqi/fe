@@ -1,23 +1,24 @@
 import axios from 'axios'
 import { Message } from 'element-ui'
-import store from '@/store'
 import jsCookies from 'js-cookie'
-// import _ from 'lodash'
+import _ from 'lodash'
 
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
-  timeout: 5000 // request timeout
+  timeout: 6000 // request timeout
 })
 
 // request interceptor
 service.interceptors.request.use(
   config => {
-    if (store.getters.token) {
-      //  config.headers['X-Token'] = getToken()
-    }
-    console.log(jsCookies.get('MDACPUSERINFO'))
-    // config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
     config.headers['user_id'] = jsCookies.get('MDACPUSERINFO') ? jsCookies.get('MDACPUSERINFO').split(':')[1] : ''
+    config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    config.headers['Request-From'] = 'Newacp'
+    console.log(config.headers, config)
+    // const { setConfig } = config
+    // if (_.isFunction(setConfig)) {
+    //   setConfig(config)
+    // }
     return config
   },
   error => {
@@ -45,20 +46,22 @@ service.interceptors.response.use(
 )
 
 export default {
-  get: (url, params) => {
+  get: (url, params, setConfig) => {
     const method = 'get'
     return service({
       url,
       method,
-      params
+      params,
+      setConfig
     })
   },
-  post: (url, params) => {
-    const method = 'post'
+  post: (url, params, setConfig) => {
+    const method = 'POST'
     return service({
       url,
       method,
-      params
+      data: params,
+      setConfig
     })
   }
 }

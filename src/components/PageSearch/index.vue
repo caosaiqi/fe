@@ -47,6 +47,10 @@ export default {
     formItems: {
       type: Array,
       default: undefined
+    },
+    onSearch: {
+      type: Function,
+      default: undefined
     }
   },
   data() {
@@ -80,7 +84,17 @@ export default {
       }
     },
     handleSeach() {
-      this.dispatch('PageContent', 'onFetchList', this.model)
+      let model = this.model
+
+      if (this.onSearch && _.isFunction(this.onSearch)) {
+        const newModel = this.onSearch(model)
+        if (newModel === false) return false
+        if (newModel && _.isObject(newModel)) {
+          model = newModel
+        }
+      }
+
+      this.dispatch('PageContent', 'onFetchList', model)
     },
     handleClear() {
       for (const key in this.model) {

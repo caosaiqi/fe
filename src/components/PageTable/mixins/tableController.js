@@ -21,7 +21,18 @@ export default {
     this.fetchList()
   },
   methods: {
-    listSuccess({ list = [], total = 0 }) {
+    listSuccess(data = {}) {
+      let { total = 0, list = [] } = data
+
+      if (this.onFetchSuccess && _.isFunction(this.onFetchSuccess)) {
+        const newData = this.onFetchSuccess(data)
+        if (newData === false) return false
+        if (newData && _.isObject(newData)) {
+          list = newData.list
+          total = newData.total
+        }
+      }
+
       // 为空处理
       if (total <= 0) {
         this.initPagination({
@@ -44,21 +55,33 @@ export default {
       }
     },
 
+    getParasm(params) {
+      const { page, pageSize } = this.pagination
+      const newParams = Object.assign(
+        {},
+        {
+          page,
+          pageSize
+        },
+        this.queryParams,
+        params
+      )
+
+      if (_.isFunction(this.formatParams)) {
+        return this.formatParams(newParams)
+      }
+      return newParams
+    },
+
     async fetchList(params = {}) {
       try {
         this.loading = true
+        const { data } = await this.manager.list({
+          params: this.getParasm(params),
+          baseUrl: this.baseUrl,
+          path: this.path
+        })
 
-        const { page, pageSize } = this.pagination
-        const fetchParams = Object.assign(
-          {},
-          {
-            page,
-            pageSize
-          },
-          this.queryParams,
-          params
-        )
-        const { data } = await this.manager.list(fetchParams)
         this.listSuccess(data)
       } catch (err) {
         this.initPagination({
@@ -66,9 +89,7 @@ export default {
         })
         throw err
       } finally {
-        setTimeout(() => {
-          this.loading = false
-        }, 200)
+        this.loading = false
       }
     },
 

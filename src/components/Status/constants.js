@@ -7,5 +7,13 @@ export default {
     info: {
       false: '禁用'
     }
+  },
+  nad: {
+    success: {
+      1: '开启'
+    },
+    info: {
+      0: '关闭'
+    }
   }
 }

@@ -91,19 +91,22 @@ export default {
     }
   },
   render(h) {
-    const RenderHeader = () => (
-      <header class='el-drawer__header d-flex '>
-        <span class='flex-grow-1'>
-          { this.title }
-        </span>
-        <a
-          class='el-drawer__close-btn'
-          onClick={this.handleClose}
-        >
-          <i class='el-dialog__close el-icon el-icon-close' />
-        </a>
-      </header>
-    )
+    const RenderHeader = () => {
+      if (!this.title) return false
+      return (
+        <header class='el-drawer__header d-flex '>
+          <span class='flex-grow-1'>
+            { this.title }
+          </span>
+          <a
+            class='el-drawer__close-btn'
+            onClick={this.handleClose}
+          >
+            <i class='el-dialog__close el-icon el-icon-close' />
+          </a>
+        </header>
+      )
+    }
 
     const RenderContent = () => {
       return (

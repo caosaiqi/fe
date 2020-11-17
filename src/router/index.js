@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Demo from '@/views/demo/index'
-import Demo2 from '@/views/demo2/index'
-import Demo3 from '@/views/demo3'
+import demo from '@/views/demo3'
+
+import nadRouters from './nad.js'
+
 Vue.use(Router)
 
 /* Layout */
@@ -12,27 +13,18 @@ export const constantRoutes = [
   {
     path: '/',
     component: Layout,
-    redirect: '/demo',
     children: [
+      nadRouters,
       {
         path: 'demo',
-        component: Demo,
-        name: '电商管理-POP店管理-店铺管理',
-        meta: { title: '电商管理-POP店管理-店铺管理', icon: 'dashboard', affix: true }
-      },
-      {
-        path: 'demo2',
-        component: Demo2
-      },
-      {
-        path: 'demo3',
-        component: Demo3,
+        component: demo,
         meta: { title: 'demo3', icon: 'dashboard', affix: true }
       }
     ]
   }
 ]
 
+console.log(constantRoutes)
 const createRouter = () => new Router({
   // mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),

@@ -21,9 +21,25 @@ export default {
       type: String,
       default: () => ''
     },
-    copy: {
+    hide: {
       type: [Boolean, Function],
-      default: () => false
+      default: false
+    }
+  },
+  methods: {
+    getIsOverflow(value, column) {
+      const isEllipsis = this.className && this.className.indexOf('ellipsis') > -1
+      let isOverflow = false
+      if (isEllipsis) {
+        const { realWidth } = column
+        const dom = document.createElement('span')
+        dom.innerHTML = value
+        document.body.appendChild(dom)
+        const width = dom.offsetWidth
+        isOverflow = width > realWidth + 50
+        dom.remove()
+      }
+      return isOverflow
     }
   },
   render(h) {
@@ -48,40 +64,37 @@ export default {
         default: scope => {
           const { row = {}, column } = scope
           const value = row[prop]
-
-          if (this.customRender && typeof _.isFunction(this.customRender)) {
-            const vnode = this.customRender({
-              [prop]: value,
-              row,
-              pageTable,
-              scope: scope
-            })
-            return vnode
+          const renderParams = {
+            row,
+            pageTable,
+            [prop]: value,
+            scope: scope
           }
 
-          const isEllipsis = className && className.indexOf('ellipsis') > -1
-          let isOverflow = false
-          if (isEllipsis) {
-            const { realWidth } = column
-            const dom = document.createElement('span')
-            dom.innerHTML = value
-            document.body.appendChild(dom)
-            const width = dom.offsetWidth
-            isOverflow = width > realWidth + 50
-            dom.remove()
+          const formatContent = (vm) => {
+            const isOverflow = this.getIsOverflow(value, column)
+            if (isOverflow) {
+              return (
+                <el-tooltip effect='light' placement='top' content={`${value}`}>
+                  <div>{vm}</div>
+                </el-tooltip>
+              )
+            }
+            return <div>{vm}</div>
+          }
+          let refContent = value
+          if (this.customRender && typeof _.isFunction(this.customRender)) {
+            refContent = this.customRender(renderParams)
           }
 
           return (
-            <el-tooltip effect='light' placement='top' content={value} disabled={!isOverflow}>
-              <span>
-                {value}
-              </span>
-            </el-tooltip>
+            <div>
+              { formatContent(refContent) }
+            </div>
           )
         }
       }
     }
-
     return (
       <el-table-column ref='table-column' {
         ...config

@@ -8,10 +8,10 @@ export default {
   props: {
     // 当前行显示状态
     status: {
-      type: [String, Boolean],
+      type: [String, Boolean, Number],
       required: true
     },
-    statusModule: {
+    name: {
       type: [String, Boolean],
       default: 'enabled'
     }
@@ -19,7 +19,7 @@ export default {
   computed: {
     statusItems() {
       const obj = {}
-      const data = constants[this.statusModule]
+      const data = constants[this.name]
       for (const type in data) {
         const items = data[type]
         Object.keys(items).forEach(key => {

@@ -2,7 +2,6 @@
 import createPageContent from '@@/PageContent/createPageContent.js'
 import { datePicker } from '@/sections/SearchItems/index.js'
 
-console.log(datePicker)
 const searchContent = {
   formItems: [
     {
@@ -17,12 +16,6 @@ const searchContent = {
           id: 'custom',
           customRender(model) {
             return <el-rate v-model={model.custom}></el-rate>
-          }
-        },
-        {
-          id: 'asd',
-          customRender() {
-            return <p>asdsa</p>
           }
         }
       ]

@@ -1,6 +1,8 @@
 <script>
 import createPageContent from '@@/PageContent/createPageContent.js'
-import Status from '@@/Status'
+import Popover from '@@/Popover'
+import Descriptions from '@@/Descriptions'
+import { getTimeTableColumn } from '@/utils/tableColumn.js'
 
 const textKeys = [2, 3, 5, 7, 8, 10, 11]
 
@@ -16,36 +18,33 @@ const searchContent = {
 const tableContent = {
   resources: 'ad',
   path: '/creative_list',
-  onFetchSuccess: ({ types, count }) => ({
-    list: types,
-    total: count
-  }),
+  onFetchSuccess(ret) {
+    if (ret) {
+      return {
+        list: ret.creatives,
+        total: ret.count
+      }
+    }
+  },
   formatParams(params) {
     params['rows'] = params.pageSize
+    params['id'] = 'cart_feed_list'
     return params
   },
   columns: [
     {
       prop: 'id',
       label: '素材编号',
-      width: 200
+      width: 100
     },
     {
       prop: 'operator',
-      label: '操作人'
+      label: '操作人',
+      width: 100
     },
-    {
-      label: '投放时间段',
-      width: 50,
-      customRender({ start_time, end_time }) {
-        return (
-          <div>
-            <span> { start_time } </span>
-            <span> { end_time } </span>
-          </div>
-        )
-      }
-    },
+    getTimeTableColumn({
+      label: '投放时间段'
+    }),
     {
       label: '广告主题',
       prop: 'text'
@@ -53,11 +52,12 @@ const tableContent = {
     {
       label: '广告图片',
       prop: 'show_url',
+      width: 100,
       customRender({ show_url }) {
         if (!show_url) return null
         return (
           <Popover placement='right' trigger='hover'>
-            <img height={40} width={'100%'} src={show_url} />
+            <img height={80} width={'100%'} src={show_url} />
             <div slot='content' style={{ height: 500 }}>
               <img width={'100%'} src={show_url} />
             </div>
@@ -75,23 +75,38 @@ const tableContent = {
       width: 60
     },
     {
-      prop: 'status',
-      label: '投放状态',
-      width: 100,
-      customRender({ status, pageTable, row }) {
-        const handleChange = (newStatus) => {
-          pageTable.manager.post({
-            path: '/status'
-          })
-        }
-        return (
-          <Status
-            name='nad'
-            status={status}
-            onChange={handleChange}
-          />
-        )
+      label: '统计信息',
+      width: 150,
+      customRender({ row }) {
+        return <Descriptions
+          data={row}
+          lableWidth={'80px'}
+          items={[
+            {
+              prop: 'curr_num',
+              label: '展示次数'
+            },
+            {
+              prop: 'click_num',
+              label: '点击次数'
+            },
+            {
+              prop: 'click_rate',
+              label: '转化率CTR',
+              customRender() {
+                if (!row.click_num || !row.curr_num) return 0
+                const count = (row.click_num * 100) / row.curr_num
+                return `${count}%`
+              }
+            }
+          ]}
+        />
       }
+    }
+  ],
+  actions: [
+    {
+      lable: '编辑'
     }
   ]
 }

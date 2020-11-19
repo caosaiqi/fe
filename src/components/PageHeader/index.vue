@@ -31,8 +31,8 @@ export default {
   },
   watch: {
     '$route': {
-      handler(newRoute) {
-        const { meta } = newRoute
+      handler(newRoute = {}) {
+        const { meta = {}} = newRoute
         if (meta && meta.title) {
           this.defaultTitle = meta.title
         }

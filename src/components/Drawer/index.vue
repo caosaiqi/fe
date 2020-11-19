@@ -30,6 +30,10 @@ export default {
     visible: {
       type: Boolean,
       default: false
+    },
+    isFull: {
+      type: Boolean,
+      default: false
     }
   },
   data() {

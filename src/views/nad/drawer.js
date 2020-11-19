@@ -2,8 +2,11 @@ import createDrawer from '@@/Drawer/createDrawer.js'
 import creativeList from './creative/index.vue'
 
 export const drawerCreative = (pageTable) => createDrawer({
-  width: '100%',
+  title: 'asd',
+  props: {
+    isFull: true
+  },
   render() {
-    return 'hell'
+    return <creativeList />
   }
 })

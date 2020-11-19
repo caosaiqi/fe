@@ -3,7 +3,7 @@
 @import './element-variables.scss';
 @import '~animate.css/animate.min.css';
 
-@import '//at.alicdn.com/t/font_2141665_e0w1279gra9.css';
+@import '//at.alicdn.com/t/font_2141665_nvo9081z9k.css';
 
 body {
   height: 100%;
@@ -178,6 +178,12 @@ a.link-btn {
   color: $--color-danger;
 }
 
+.txt-success{
+  color:$--color-success ;
+}
+.txt-warning{
+  color:$--color-warning;
+}
 
 .page-table{
   .el-table thead {
@@ -215,3 +221,4 @@ a.link-btn {
 .status-icon.info{
   background-color: $--color-info;
 }
+

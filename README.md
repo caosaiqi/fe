@@ -2,7 +2,7 @@
 
 ##### 1.下载或克隆项目源码
 ```js
-git clone git@gitlab.modianinc.com:caosaiqi/csq.fe.acp.modian.com.git
+
 ```
 
 ##### 2.yarn 安装依赖(国内建议增加淘宝镜像源，不然很慢，你懂的 😁)
